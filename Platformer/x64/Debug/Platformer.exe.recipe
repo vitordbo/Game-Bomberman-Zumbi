@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Users\vitor\OneDrive\Área de Trabalho\Semestres Faculdade\2022.1\PROGRAMAÇÃO DE JOGOS\Lab13\Platformer\x64\Debug\Platformer.exe</FullPath>
+      <FullPath>C:\Users\pedro\Downloads\Lab13\Platformer\x64\Debug\Platformer.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>D:\Users\vitor\OneDrive\Área de Trabalho\Semestres Faculdade\2022.1\PROGRAMAÇÃO DE JOGOS\Lab13\Platformer\Platformer\Shaders\Pixel.cso</FullPath>
+      <FullPath>C:\Users\pedro\Downloads\Lab13\Platformer\Platformer\Shaders\Pixel.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>D:\Users\vitor\OneDrive\Área de Trabalho\Semestres Faculdade\2022.1\PROGRAMAÇÃO DE JOGOS\Lab13\Platformer\Platformer\Shaders\Vertex.cso</FullPath>
+      <FullPath>C:\Users\pedro\Downloads\Lab13\Platformer\Platformer\Shaders\Vertex.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

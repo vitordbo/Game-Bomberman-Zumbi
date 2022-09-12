@@ -9,8 +9,8 @@
 //
 **********************************************************************************/
 
-#ifndef _PLATFORMER_BACKGROUND_H_
-#define _PLATFORMER_BACKGROUND_H_
+#ifndef _BOMBZOMBIE_BACKGROUND_H_
+#define _BOMBZOMBIE_BACKGROUND_H_
 
 // ---------------------------------------------------------------------------------
 
@@ -22,17 +22,8 @@
 
 class Background : public Object
 {
-private:
-    float xF, xB;                       // posição horizontal dos sprites
-    Image * imgF;                       // imagem de fundo frontal
-    Image * imgB;                       // imagem de fundo traseira    
-
-    Sprite * sky;                       // fundo estático
-    Sprite * backgF1;                   // pano de fundo dinâmico (frontal 1)
-    Sprite * backgF2;                   // pano de fundo dinâmico (frontal 2)
-    Sprite * backgB1;                   // pano de fundo dinâmico (traseiro 1)
-    Sprite * backgB2;                   // pano de fundo dinâmico (traseiro 2)
-
+private: 
+    Sprite * sprite;                       // fundo estático   
 public:
     Background();                       // construtor
     ~Background();                      // destrutor
@@ -41,6 +32,14 @@ public:
     void Draw();                        // desenho do objeto
 }; 
 
-// ---------------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------------
+// Função Membro Inline
+
+inline void Background::Draw()
+{
+    sprite->Draw(x, y, z);
+}
+
+// ---------------------------------------------------------------------------------
 #endif

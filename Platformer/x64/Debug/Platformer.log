@@ -1,31 +1,30 @@
-﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(514,5): warning MSB8028: O diretório intermediário (x64\Debug\) contém arquivos compartilhados de outro projeto (Platformer.vcxproj). Isso pode levar a um comportamento incorreto de limpeza e recompilação.
-  compilation object save succeeded; see D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Shaders\Pixel.cso
-  compilation object save succeeded; see D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Shaders\Vertex.cso
+﻿X:\CComp\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Platformer.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  compilation object save succeeded; see C:\Users\Aluno\Downloads\BombZombie\BombZombie\Platformer\Platformer\Shaders\Pixel.cso
+  compilation object save succeeded; see C:\Users\Aluno\Downloads\BombZombie\BombZombie\Platformer\Platformer\Shaders\Vertex.cso
   Animation.cpp
   Background.cpp
+  Bullet.cpp
   Engine.cpp
   Game.cpp
+  GameOver.cpp
   Geometry.cpp
   Graphics.cpp
-  Platformer.cpp
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Platformer.cpp(30,42): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+  BombZombie.cpp
+  Heart.cpp
+  Home.cpp
   Image.cpp
   Object.cpp
-  Platform.cpp
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Platform.cpp(31,14): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Platform.cpp(32,14): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Platform.cpp(33,14): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Platform.cpp(34,14): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  Pivot.cpp
   Player.cpp
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Player.cpp(61,28): warning C4244: 'argumento': conversão de 'double' para 'float', possível perda de dados
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Player.cpp(63,28): warning C4244: 'argumento': conversão de 'double' para 'float', possível perda de dados
-D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Player.cpp(73,33): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
   Renderer.cpp
   Scene.cpp
   Sprite.cpp
   Texture.cpp
   TileSet.cpp
+  Gerando Código...
+  Compilando...
   Timer.cpp
   Window.cpp
+  Zombie.cpp
   Gerando Código...
-  Platformer.vcxproj -> D:\Users\vitor\git\Game-Bomberman-Zumbi\x64\Debug\BombermanZumbi.exe
+  Platformer.vcxproj -> C:\Users\Aluno\Downloads\BombZombie\BombZombie\Platformer\x64\Debug\BombZombie.exe

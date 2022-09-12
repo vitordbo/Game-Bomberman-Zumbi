@@ -10,40 +10,56 @@
 **********************************************************************************/
 
 #include "Player.h"
-#include "Platform.h"
-
+#include "Bullet.h"
 
 // ---------------------------------------------------------------------------------
 
 Player::Player()
 {
-    tileset = new TileSet("Resources/GravityGuy.png", 32, 48, 5, 10);
-    anim = new Animation(tileset, 0.120f, true);
+    tileset = new TileSet("Resources/player.png", 27, 32, 3, 12);
+    anim = new Animation(tileset, 0.15f, true);
 
-    uint SeqMove[4] = { 1, 2, 3, 4 };
-    uint SeqMoveInv[4] = { 6, 7, 8, 9 };
-    uint SeqIdle[1] = { 0 };
-    uint SeqIdleInv[1] = { 5 };
+    uint DownMove[2] = { 0, 2 };
+    uint DownIdle[1] = { 1 };
 
-    anim->Add(MOVE, SeqMove, 4);
-    anim->Add(MOVE_INV, SeqMoveInv, 4);
-    anim->Add(IDLE, SeqIdle, 1);
-    anim->Add(IDLE_INV, SeqIdleInv, 1);
+    uint LeftMove[2] = { 3, 5 };
+    uint LeftIdle[1] = { 4 };
+    
+    uint RightMove[2] = { 6, 8 };
+    uint RightIdle[1] = { 7 };
+    
+    uint TopMove[2] = { 9, 11 };
+    uint TopIdle[1] = { 10 };
 
-    float x1 = -14.0f;
-    float y1 = -24.0f;
+    anim->Add(DOWN_MOVE, DownMove, 2);
+    anim->Add(DOWN_IDLE, DownIdle, 1);
+
+    anim->Add(LEFT_MOVE, LeftMove, 2);
+    anim->Add(LEFT_IDLE, LeftIdle, 1);
+    
+    anim->Add(RIGHT_MOVE, RightMove, 2);
+    anim->Add(RIGHT_IDLE, RightIdle, 1);
+    
+    anim->Add(TOP_MOVE, TopMove, 2);
+    anim->Add(TOP_IDLE, TopIdle, 1);
+
+    float x1 = -15.0f;
+    float y1 = -16.0f;
     float x2 = 15.0f;
-    float y2 = 24.0f;
+    float y2 = 16.0f;
 
     BBox(new Rect(x1, y1, x2, y2));
 
-    state = IDLE;
-    falling = true;
-    keyCtrl = true;
+    state = DOWN_IDLE;
+    spcCtrl = true;
+	shootCtrl = true;
+    type = PLAYER;
 
-    MoveTo(window->CenterX(), 48.0f, 0.0f);
+    hp = 5;
+    ammo = 6;
+
+    MoveTo(30.0f, 130.0f, 0.0f);
 }
-
 
 // ---------------------------------------------------------------------------------
 
@@ -55,66 +71,134 @@ Player::~Player()
 
 // ---------------------------------------------------------------------------------
 
-void Player::OnCollision(Object * obj)
+void Player::OnCollision(Object* obj)
 {
-    if (gravity == NORMAL)
-        MoveTo(x, obj->Y() - 40.0);
-    else
-        MoveTo(x, obj->Y() + 40.0);
-    falling = false;
+    float plyRgt = x + 15;
+    float plyLft = x - 15;
+    float plyTop = y - 16;
+    float plyBot = y + 16;
 
+    float pivRgt;
+    float pivLft;
+    float pivTop;
+    float pivBot;
+
+    if (obj->Type() == PIVOT) {
+        Pivot* pivot = (Pivot*)obj;
+
+        pivTop = pivot->Y() - 20;
+        pivBot = pivot->Y() + 20;
+        pivLft = pivot->X() - 20;
+        pivRgt = pivot->X() + 20;
+
+        float leftDif = pivLft - plyLft;
+        float rightDif = plyRgt - pivRgt;
+        float topDif = plyBot - pivTop;
+        float botDif = pivBot - plyTop;
+
+        //left-top
+        if (leftDif > 0 && topDif < 5)
+            MoveTo(x, pivTop - 16);
+        //right-top
+        else if (rightDif > 0 && topDif < 5)
+            MoveTo(x, pivTop - 16);
+        //left-bot
+        else if (leftDif > 0 && botDif < 5)
+            MoveTo(x, pivBot + 16);
+        //right-bot
+        else if (rightDif > 0 && botDif < 5)
+            MoveTo(x, pivBot + 16);
+        //left
+        else if(leftDif > 0 && topDif >= 5)
+            MoveTo(pivLft - 16, y);
+        //right
+        else if (rightDif > 0 && topDif >= 5)
+            MoveTo(pivRgt + 16, y);
+        //top
+        else if(leftDif < 0 && topDif < 5)
+            MoveTo(x, pivTop - 16);
+        //bot
+        else if (leftDif < 0 && botDif < 5)
+            MoveTo(x, pivBot + 16);
+
+    }
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Update()
 {
-    if ((y + 100) < 0) {
-        MoveTo(x, window->Height());
-        gravity = INVERTED;
+    if (x < 25)
+        MoveTo(25.0f, y);
+    if(y < 126)
+        MoveTo(x, 126.0f);
+    if(x + 15 > 370)
+        MoveTo(355.0f, y);
+    if(y + 16 > 470)
+        MoveTo(x, 454.0f);
+
+    if (window->KeyDown(VK_UP) || window->KeyDown('W')) {
+        Translate(0, -100.0f * gameTime);
+        state = TOP_MOVE;
+    }else if (window->KeyDown(VK_RIGHT) || window->KeyDown('D')) {
+        Translate(100.0f * gameTime, 0);
+        state = RIGHT_MOVE;
+    }else if (window->KeyDown(VK_LEFT) || window->KeyDown('A')) {
+        Translate(-100.0f * gameTime, 0);
+        state = LEFT_MOVE;
+    }else if (window->KeyDown(VK_DOWN) || window->KeyDown('S')) {
+        Translate(0, 100.0f * gameTime);
+        state = DOWN_MOVE;
     }
 
-    if ((y - 100) > window->Height()) {
-        MoveTo(x, 0.0f);
-        gravity = NORMAL;
+    if (spcCtrl && window->KeyDown(VK_SPACE)) {
+        hp--;
+        spcCtrl = false;
     }
+    else if (window->KeyUp(VK_SPACE))
+        spcCtrl = true;
 
-    if (falling) {
-        if (gravity == NORMAL) {
+	//disparo
+	if (ammo > 0 && shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
+		
+		switch (state)
+		{
+		case DOWN_IDLE:
+		case DOWN_MOVE:
+			Bullet* bullet = new Bullet(DOWN, x, y);
+			break;
+		}
 
-            state = IDLE;
-            Translate(0, 200.0f * gameTime);
+		ammo--;
+		shootCtrl = false;
+	}
+	else if (window->KeyUp('Z') && window->KeyUp('K'))
+		shootCtrl = true;
+
+   
+    if ((window->KeyUp(VK_DOWN) && window->KeyUp('S')) &&
+        (window->KeyUp(VK_UP) && window->KeyUp('W')) &&
+        (window->KeyUp(VK_LEFT) && window->KeyUp('A')) &&
+        (window->KeyUp(VK_RIGHT) && window->KeyUp('D')) ) {
+        switch (state)
+        {
+        case DOWN_MOVE:
+            state = DOWN_IDLE;
+            break;
+        case TOP_MOVE:
+            state = TOP_IDLE;
+            break;
+        case LEFT_MOVE:
+            state = LEFT_IDLE;
+            break;
+        case RIGHT_MOVE:
+            state = RIGHT_IDLE;
+            break;
         }
-        else if (gravity == INVERTED) {
-
-            state = IDLE_INV;
-            Translate(0, -200.0f * gameTime);
-        }
     }
-    else {
-        if (keyCtrl && window->KeyDown(VK_SPACE)) {
-            if (gravity == NORMAL) {
-                MoveTo(x, y - 10.0f);
-                gravity = INVERTED;
-            }
-            else if (gravity == INVERTED) {
-                MoveTo(x, y + 10.0f);
-                gravity = NORMAL;
-            }
-            keyCtrl = false;
-        }
-        else if (window->KeyUp(VK_SPACE))
-            keyCtrl = true;
-
-        if (gravity == INVERTED)
-            state = MOVE_INV;
-        else
-            state = MOVE;
-    }
-
+        
     anim->Select(state);
     anim->NextFrame();
-    falling = true;
 }
 
 // ---------------------------------------------------------------------------------

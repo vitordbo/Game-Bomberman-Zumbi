@@ -9,8 +9,8 @@
 //
 **********************************************************************************/
 
-#ifndef _PLATFORMER_PLAYER_H_
-#define _PLATFORMER_PLAYER_H_
+#ifndef _BOMBZOMBIE_PLAYER_H_
+#define _BOMBZOMBIE_PLAYER_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -18,25 +18,28 @@
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
+#include "Pivot.h"
 
 // ------------------------------------------------------------------------------
 
-enum Gravity {NORMAL,INVERTED};         // tipo da gravidade
-enum MoveType { IDLE, IDLE_INV, MOVE, MOVE_INV }; // tipo de movimento
+enum Type { DOWN_MOVE, DOWN_IDLE, 
+            LEFT_MOVE, LEFT_IDLE, 
+            TOP_MOVE, TOP_IDLE, 
+            RIGHT_MOVE, RIGHT_IDLE}; // tipo de movimento
 
 // ---------------------------------------------------------------------------------
 
 class Player : public Object
 {
 private:
-    TileSet * tileset = nullptr;        // folha de sprites do personagem
-    Animation * anim = nullptr;         // animação do personagem
-    uint gravity = NORMAL;              // gravidade atuando sobre o jogador
-    bool keyCtrl = false;               // controle do pressionamento da barra de espaço
-    bool falling;
-
-
+    TileSet * tileset = nullptr;            // folha de sprites do personagem
+    Animation * anim = nullptr;             // animação do personagem
+    bool spcCtrl;                           // controle do pressionamento da barra de espaço
+	bool shootCtrl;							//controle dos botões de disparo
+   
 public:
+    int hp;                                 //pontos de vida
+    int ammo;                               //munição
     uint state;
     Player();                           // construtor
     ~Player();                          // destrutor
