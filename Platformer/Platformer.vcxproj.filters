@@ -87,7 +87,7 @@
     <ClCompile Include="Heart.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
+    <ClCompile Include="Bomb.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Home.cpp">
@@ -97,6 +97,9 @@
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Zombie.cpp">
+      <Filter>Game\Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,7 +167,7 @@
     <ClInclude Include="Heart.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="Bomb.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Home.h">
@@ -174,6 +177,9 @@
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Zombie.h">
+      <Filter>Game\Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

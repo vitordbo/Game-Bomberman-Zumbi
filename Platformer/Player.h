@@ -38,8 +38,8 @@ private:
 	bool shootCtrl;							//controle dos botões de disparo
    
 public:
-    int hp;                                 //pontos de vida
-    int ammo;                               //munição
+    uint hp;                                 //pontos de vida
+    uint bombSize;
     uint state;
     Player();                           // construtor
     ~Player();                          // destrutor

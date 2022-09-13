@@ -10,7 +10,8 @@
 **********************************************************************************/
 
 #include "Player.h"
-#include "Bullet.h"
+#include "Bomb.h"
+#include "BombZombie.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -55,8 +56,8 @@ Player::Player()
 	shootCtrl = true;
     type = PLAYER;
 
-    hp = 5;
-    ammo = 6;
+    hp = 3;
+    bombSize = 5;
 
     MoveTo(30.0f, 130.0f, 0.0f);
 }
@@ -128,7 +129,7 @@ void Player::OnCollision(Object* obj)
 
 void Player::Update()
 {
-    if (x < 25)
+    if (x < 25.0f)
         MoveTo(25.0f, y);
     if(y < 126)
         MoveTo(x, 126.0f);
@@ -138,16 +139,16 @@ void Player::Update()
         MoveTo(x, 454.0f);
 
     if (window->KeyDown(VK_UP) || window->KeyDown('W')) {
-        Translate(0, -100.0f * gameTime);
+        Translate(0, -160.0f * gameTime);
         state = TOP_MOVE;
     }else if (window->KeyDown(VK_RIGHT) || window->KeyDown('D')) {
-        Translate(100.0f * gameTime, 0);
+        Translate(160.0f * gameTime, 0);
         state = RIGHT_MOVE;
     }else if (window->KeyDown(VK_LEFT) || window->KeyDown('A')) {
-        Translate(-100.0f * gameTime, 0);
+        Translate(-160.0f * gameTime, 0);
         state = LEFT_MOVE;
     }else if (window->KeyDown(VK_DOWN) || window->KeyDown('S')) {
-        Translate(0, 100.0f * gameTime);
+        Translate(0, 160.0f * gameTime);
         state = DOWN_MOVE;
     }
 
@@ -158,18 +159,11 @@ void Player::Update()
     else if (window->KeyUp(VK_SPACE))
         spcCtrl = true;
 
-	//disparo
-	if (ammo > 0 && shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
+	//soltar bomba
+	if (shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
 		
-		switch (state)
-		{
-		case DOWN_IDLE:
-		case DOWN_MOVE:
-			Bullet* bullet = new Bullet(DOWN, x, y);
-			break;
-		}
-
-		ammo--;
+        Bomb* b = new Bomb(bombSize, x, y);
+        BombZombie::scene->Add(b, STATIC);
 		shootCtrl = false;
 	}
 	else if (window->KeyUp('Z') && window->KeyUp('K'))

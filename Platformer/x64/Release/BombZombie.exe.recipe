@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Users\vitor\git\Game-Bomberman-Zumbi\x64\Release\BombZombie.exe</FullPath>
+      <FullPath>C:\Users\suporte\Downloads\Game-Bomberman-Zumbi-main\x64\Release\BombZombie.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Shaders\Pixel.cso</FullPath>
+      <FullPath>C:\Users\suporte\Downloads\Game-Bomberman-Zumbi-main\Platformer\Shaders\Pixel.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Shaders\Vertex.cso</FullPath>
+      <FullPath>C:\Users\suporte\Downloads\Game-Bomberman-Zumbi-main\Platformer\Shaders\Vertex.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

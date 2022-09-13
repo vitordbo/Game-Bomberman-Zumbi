@@ -1,31 +1,7 @@
-﻿  compilation object save succeeded; see D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Shaders\Pixel.cso
-  compilation object save succeeded; see D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Shaders\Vertex.cso
-  Animation.cpp
-  Background.cpp
-  Bullet.cpp
-  Engine.cpp
-  Game.cpp
-  GameOver.cpp
-  Geometry.cpp
-  Graphics.cpp
-  BombZombie.cpp
-  Heart.cpp
-  Home.cpp
-  Image.cpp
-  Object.cpp
-  Pivot.cpp
-  Player.cpp
-  Renderer.cpp
-  Scene.cpp
-  Sprite.cpp
-  Texture.cpp
-  TileSet.cpp
-  Compilando...
-  Timer.cpp
-  Window.cpp
-  Zombie.cpp
+﻿  Player.cpp
   Gerando código
-  Previous IPDB not found, fall back to full compilation.
-  All 951 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 979 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Finalizada a geração de código
-  Platformer.vcxproj -> D:\Users\vitor\git\Game-Bomberman-Zumbi\x64\Release\BombZombie.exe
+  Platformer.vcxproj -> C:\Users\suporte\Downloads\Game-Bomberman-Zumbi-main\x64\Release\BombZombie.exe
