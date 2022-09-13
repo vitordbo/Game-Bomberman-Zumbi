@@ -19,14 +19,15 @@
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
 #include "Pivot.h"
+#include "Player.h"
 
 // ------------------------------------------------------------------------------
 
 enum Movimento {
-    DWN_MOVE, DWN_IDLE,
-    LFT_MOVE, LFT_IDLE,
-    TP_MOVE, TP_IDLE,
-    RGT_MOVE, RGT_IDLE
+	DWN_MOVE, DWN_IDLE,
+	LFT_MOVE, LFT_IDLE,
+	TP_MOVE, TP_IDLE,
+	RGT_MOVE, RGT_IDLE
 }; // tipo de movimento
 
 // ---------------------------------------------------------------------------------
@@ -34,18 +35,22 @@ enum Movimento {
 class Zombie : public Object
 {
 private:
-    TileSet* tileset = nullptr;            // folha de sprites do personagem
-    Animation* anim = nullptr;             // animação do personagem
+	TileSet* tileset = nullptr;            // folha de sprites do personagem
+	Animation* anim = nullptr;             // animação do personagem
+	Player* player;
 
 public:
-    int hp;                                 //pontos de vida
-    uint state;
-    Zombie();                           // construtor
-    ~Zombie();                          // destrutor
+	int hp;                                 //pontos de vida
+	uint state;
+	Zombie(Player* player);                           // construtor
+	~Zombie();                          // destrutor
 
-    void OnCollision(Object* obj);     // resolução da colisão
-    void Update();                      // atualização do objeto
-    void Draw();                        // desenho do objeto
+	void OnCollision(Object* obj);     // resolução da colisão
+	void Update();                      // atualização do objeto
+	void Draw();                        // desenho do objeto
+
+	float distanceX();
+	float distanceY();
 };
 
 // ---------------------------------------------------------------------------------
@@ -53,7 +58,17 @@ public:
 
 inline void Zombie::Draw()
 {
-    anim->Draw(x, y, z);
+	anim->Draw(x, y, z);
+}
+
+inline float Zombie::distanceX()
+{
+	return x - player->X();
+}
+
+inline float Zombie::distanceY()
+{
+	return y - player->Y();
 }
 
 // ---------------------------------------------------------------------------------

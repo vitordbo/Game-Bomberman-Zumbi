@@ -37,6 +37,10 @@ private:
     bool spcCtrl;                           // controle do pressionamento da barra de espaço
 	bool shootCtrl;							//controle dos botões de disparo
    
+
+    
+    
+
 public:
     uint hp;                                 //pontos de vida
     uint bombSize;

@@ -27,7 +27,7 @@ private:
     Sprite* sprite;                         // fundo estático   
     Player* player;
 public:
-    Heart(Player* player);                                // construtor
+    Heart(Player* player, float posX);                                // construtor
     ~Heart();                               // destrutor
 
     void Update();                          // atualização do objeto

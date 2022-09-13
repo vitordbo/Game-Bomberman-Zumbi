@@ -13,21 +13,12 @@
 
 // ---------------------------------------------------------------------------------
 
-Heart::Heart(Player* player)
+Heart::Heart(Player* player, float posX)
 {
-    // carrega imagens
-    if (player->hp == 5) {
-        sprite = new Sprite("Resources/heart5.png");
-        MoveTo(180.0f, 60.0f);
-    }
-    else {
-        sprite = new Sprite("Resources/heart3.png");
-        MoveTo(120.0f, 60.0f);
-    }
+    sprite = new Sprite("Resources/heart.png");
+    MoveTo(posX, 60.0f);
     this->player = player;
 }
-
-// ---------------------------------------------------------------------------------
 
 Heart::~Heart()
 {
@@ -38,31 +29,7 @@ Heart::~Heart()
 
 void Heart::Update()
 {
-    // alocar no init (provavel vazamento)
-    if(player->hp == 5){
-        sprite = new Sprite("Resources/heart5.png");
-        MoveTo(180.0f, 60.0f);
-    }
-    else if (player->hp == 4) {
-        sprite = new Sprite("Resources/heart4.png");
-        MoveTo(150.0f, 60.0f);
-    }
-    else if(player->hp == 3) {
-        sprite = new Sprite("Resources/heart3.png");
-        MoveTo(120.0f, 60.0f);
-    }
-    else if (player->hp == 2) {
-        sprite = new Sprite("Resources/heart2.png");
-        MoveTo(90.0f, 60.0f);
-    }
-    else if (player->hp == 1) {
-        sprite = new Sprite("Resources/heart.png");
-        MoveTo(60.0f, 60.0f);
-    }
-    else {
-        sprite = new Sprite("Resources/heartZERO.png");
-        MoveTo(60.0f, 60.0f);
-    }
+    
 }
 
 // -------------------------------------------------------------------------------

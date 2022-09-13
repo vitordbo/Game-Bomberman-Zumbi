@@ -37,6 +37,10 @@ private:
 public:
     static Scene * scene;           // gerenciador de cena
 
+    Heart* h1;
+    Heart* h2;
+    Heart* h3;
+
     void Init();                    // inicialização
     void Update();                  // atualização
     void Draw();                    // desenho

@@ -26,14 +26,20 @@ void BombZombie::Init()
     // cria cena do jogo
     scene = new Scene();
 
-    zombie = new Zombie();
-    scene->Add(zombie, MOVING);
-
     player = new Player();
     scene->Add(player, MOVING);
 
-    heart = new Heart(player);
-    scene->Add(heart, STATIC);
+    zombie = new Zombie(player);
+    scene->Add(zombie, MOVING);
+
+    h1 = new Heart(player, 50.0f);
+    scene->Add(h1, STATIC);
+
+    h2 = new Heart(player, 80.0f);
+    scene->Add(h2, STATIC);
+
+    h3 = new Heart(player, 110.0f);
+    scene->Add(h3, STATIC);
 
     //primeira linha
     pivot = new Pivot(70.0f, 170.0f);
