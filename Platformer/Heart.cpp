@@ -38,6 +38,7 @@ Heart::~Heart()
 
 void Heart::Update()
 {
+    // alocar no init (provavel vazamento)
     if(player->hp == 5){
         sprite = new Sprite("Resources/heart5.png");
         MoveTo(180.0f, 60.0f);

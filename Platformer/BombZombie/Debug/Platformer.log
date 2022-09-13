@@ -3,11 +3,7 @@ D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Bomb.cpp(54,27): warning C401
 D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Bomb.cpp(60,27): warning C4018: '<': incompatibilidade de signed/unsigned
 D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Bomb.cpp(66,27): warning C4018: '<': incompatibilidade de signed/unsigned
 D:\Users\vitor\git\Game-Bomberman-Zumbi\Platformer\Bomb.cpp(72,27): warning C4018: '<': incompatibilidade de signed/unsigned
-  BombZombie.cpp
   Explosion.cpp
-  GameOver.cpp
-  Heart.cpp
-  Home.cpp
   Player.cpp
   Gerando Código...
   Platformer.vcxproj -> D:\Users\vitor\git\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe
