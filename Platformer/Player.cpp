@@ -19,7 +19,8 @@ Player::Player()
 {
 	tileset = new TileSet("Resources/player.png", 27, 32, 3, 12);
 	anim = new Animation(tileset, 0.15f, true);
-
+	gridI = 0;
+	gridJ = 0;
 
 	uint DownMove[2] = { 0, 2 };
 	uint DownIdle[1] = { 1 };
@@ -60,7 +61,7 @@ Player::Player()
 	hp = 3;
 	bombSize = 5;
 
-	MoveTo(30.0f, 130.0f, 0.0f);
+	MoveTo(30.0f, 130.0f, Layer::UPPER);
 }
 
 // ---------------------------------------------------------------------------------
@@ -85,8 +86,23 @@ void Player::OnCollision(Object* obj)
 	float pivTop;
 	float pivBot;
 
+	if (obj->Type() == GRID) {
+		
+		/* Calcula a diferença de distancia do centro do
+		player e do grid (é utilizado o módulo do valor!!!)*/
+		
+		float xDiff = x - obj->X() > 0 ? x - obj->X() : -(x - obj->X());
+		float yDiff = y - obj->Y() > 0 ? y - obj->Y() : -(y - obj->Y());
+
+		if (xDiff <= 10.0f && yDiff <= 10.0f) {
+			GridSet* grid = (GridSet*)obj;
+			gridI = grid->i;
+			gridJ = grid->j;
+		}
+	}
+
 	if (obj->Type() == PIVOT) {
-		Pivot* pivot = (Pivot*)obj;
+		GridSet* pivot = (GridSet*)obj;
 
 		pivTop = pivot->Y() - 20;
 		pivBot = pivot->Y() + 20;
@@ -132,12 +148,12 @@ void Player::Update()
 {
 	if (x < 25.0f)
 		MoveTo(25.0f, y);
-	if (y < 126)
-		MoveTo(x, 126.0f);
-	if (x + 15 > 370)
-		MoveTo(355.0f, y);
-	if (y + 16 > 470)
-		MoveTo(x, 454.0f);
+	if (y < 130)
+		MoveTo(x, 130.0f);
+	if (x + 15 > 530)
+		MoveTo(515.0f, y);
+	if (y + 16 > 630)
+		MoveTo(x, 614.0f);
 
 	if (window->KeyDown(VK_UP) || window->KeyDown('W')) {
 		Translate(0, -160.0f * gameTime);
@@ -166,8 +182,8 @@ void Player::Update()
 	//soltar bomba
 	if (shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
 
-		Bomb* b = new Bomb(bombSize, x, y);
-		BombZombie::scene->Add(b, STATIC);
+		Bomb* b = new Bomb(bombSize, 30.0f + (40.0f * gridI), 130.0f + (40.0f * gridJ));
+		BombZombie::scene->Add(b, MOVING);
 		shootCtrl = false;
 	}
 	else if (window->KeyUp('Z') && window->KeyUp('K'))

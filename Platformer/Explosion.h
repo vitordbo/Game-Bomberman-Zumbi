@@ -34,7 +34,6 @@ public:
     ~Explosion();                                                  // destrutor
 
     void Update();                                          // atualização do objeto
-    void OnCollision(Object* obj);                           // resolução da colisão
     void Draw();                                            // desenho do objeto
 };
 

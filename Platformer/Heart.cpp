@@ -13,11 +13,12 @@
 
 // ---------------------------------------------------------------------------------
 
-Heart::Heart(Player* player, float posX)
+Heart::Heart(Player* player, uint hpRelative, float posX)
 {
     sprite = new Sprite("Resources/heart.png");
     MoveTo(posX, 60.0f);
     this->player = player;
+    this->hpRelative = hpRelative;
 }
 
 Heart::~Heart()
@@ -27,9 +28,3 @@ Heart::~Heart()
 
 // -------------------------------------------------------------------------------
 
-void Heart::Update()
-{
-    
-}
-
-// -------------------------------------------------------------------------------

@@ -27,7 +27,6 @@ class Bomb : public Object
 private:
     Sprite* sprite;                                          // fundo estático  
     Timer timer;
-    uint countdown;
     uint size;
     float posX;
     float posY;
@@ -36,6 +35,7 @@ public:
  
     ~Bomb();                                                  // destrutor
 
+    void OnCollision(Object* obj);                          // resolução da colisão
     void Update();                                          // atualização do objeto
     void Draw();                                            // desenho do objeto
 };
@@ -47,6 +47,8 @@ inline void Bomb::Draw()
 {
     sprite->Draw(x, y, z);
 }
+
+inline void Bomb::Update() {}
 
 // ---------------------------------------------------------------------------------
 #endif

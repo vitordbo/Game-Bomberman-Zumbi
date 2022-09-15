@@ -26,8 +26,9 @@ class Heart : public Object
 private:
     Sprite* sprite;                         // fundo estático   
     Player* player;
+    uint hpRelative;
 public:
-    Heart(Player* player, float posX);                                // construtor
+    Heart(Player* player, uint hpRelative, float posX);                                // construtor
     ~Heart();                               // destrutor
 
     void Update();                          // atualização do objeto
@@ -40,8 +41,11 @@ public:
 
 inline void Heart::Draw()
 {
-    sprite->Draw(x, y, z);
+    if(player->hp >= hpRelative)
+        sprite->Draw(x, y, z);
 }
+
+inline void Heart::Update(){}
 
 // ---------------------------------------------------------------------------------
 #endif

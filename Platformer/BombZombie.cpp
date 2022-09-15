@@ -32,70 +32,42 @@ void BombZombie::Init()
     zombie = new Zombie(player);
     scene->Add(zombie, MOVING);
 
-    h1 = new Heart(player, 50.0f);
+    h1 = new Heart(player, 1, 50.0f);
     scene->Add(h1, STATIC);
 
-    h2 = new Heart(player, 80.0f);
+    h2 = new Heart(player, 2, 110.0f);
     scene->Add(h2, STATIC);
 
-    h3 = new Heart(player, 110.0f);
+    h3 = new Heart(player, 3, 170.0f);
     scene->Add(h3, STATIC);
 
-    //primeira linha
-    pivot = new Pivot(70.0f, 170.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(150.0f, 170.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(230.0f, 170.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(310.0f, 170.0f);
-    scene->Add(pivot, MOVING);
-
-    //segunda linha
-    pivot = new Pivot(70.0f, 250.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(150.0f, 250.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(230.0f, 250.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(310.0f, 250.0f);
-    scene->Add(pivot, MOVING);
-
-    //terceira linha
-    pivot = new Pivot(70.0f, 330.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(150.0f, 330.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(230.0f, 330.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(310.0f, 330.0f);
-    scene->Add(pivot, MOVING);
-
-    //quarta linha
-    pivot = new Pivot(70.0f, 410.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(150.0f, 410.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(230.0f, 410.0f);
-    scene->Add(pivot, MOVING);
-
-    pivot = new Pivot(310.0f, 410.0f);
-    scene->Add(pivot, MOVING);
+    //matriz de grades 13x13 (cada grade com 40 x 40px)
+    for (int j = 0; j < 13; j++) {
+        for (int i = 0; i < 13; i++) {
+            
+            //os pivots estão somente em linhas e colunas ímpares
+            if (j % 2 != 0) {
+                if (i % 2 != 0) {
+                    gridSet = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, PIVOT);
+                }
+                else {
+                    gridSet = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, GRID);
+                }
+            }
+            else {
+                gridSet = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, GRID);
+            }
+            scene->Add(gridSet, MOVING);
+        }
+    }
 
     // pano de fundo do jogo
     backg = new Background();
     scene->Add(backg, STATIC);
+
+    //adiciona png de cerca na layer frontal
+    fence = new Fence();
+    scene->Add(fence, STATIC);
 }
 
 // ------------------------------------------------------------------------------
@@ -145,9 +117,9 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
     // configura o motor do jogo
     engine->window->Mode(WINDOWED);
-    engine->window->Size(380, 480);
+    engine->window->Size(540, 640);
     engine->window->Color(150, 200, 230);
-    engine->window->Title("Platformer");
+    engine->window->Title("BombZombie");
     engine->window->Icon(IDI_ICON);
     //engine->window->Cursor(IDC_CURSOR);
     //engine->graphics->VSync(true);

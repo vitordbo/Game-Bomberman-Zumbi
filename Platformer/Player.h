@@ -18,7 +18,7 @@
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
-#include "Pivot.h"
+#include "GridSet.h"
 
 // ------------------------------------------------------------------------------
 
@@ -36,12 +36,11 @@ private:
     Animation * anim = nullptr;             // animação do personagem
     bool spcCtrl;                           // controle do pressionamento da barra de espaço
 	bool shootCtrl;							//controle dos botões de disparo
-   
-
-    
-    
-
+  
 public:
+    uint gridI; //valor do label i do grid em que player está
+    uint gridJ; //valor do label j do grid em que player está
+
     uint hp;                                 //pontos de vida
     uint bombSize;
     uint state;

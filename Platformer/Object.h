@@ -25,7 +25,7 @@
 
 // -----------------------------------------------------------------------------
 
-enum Tipo {PIVOT, ZOMBIE, PLAYER, BOMB, EXPLOSION, OBSTACLE};
+enum Tipo {PIVOT, ZOMBIE, PLAYER, BOMB, EXPLOSION, GRID, OBSTACLE};
 
 // -----------------------------------------------------------------------------
 class Object

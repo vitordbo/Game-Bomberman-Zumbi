@@ -17,11 +17,12 @@
 
 #include "Game.h"
 #include "Scene.h"
-#include "Pivot.h"
+#include "GridSet.h"
 #include "Background.h"
 #include "Player.h"
 #include "Heart.h"
 #include "Zombie.h"
+#include "Fence.h"
 
 // ------------------------------------------------------------------------------
 
@@ -29,9 +30,10 @@ class BombZombie : public Game
 {
 private:
     Player * player = nullptr;      // jogador
-    Pivot* pivot = nullptr;
+    GridSet* gridSet = nullptr;     //malha de frames do mapa
     Background * backg = nullptr;   // pano de fundo
     Heart* heart = nullptr;
+    Fence* fence = nullptr;
     Zombie* zombie = nullptr;
 
 public:

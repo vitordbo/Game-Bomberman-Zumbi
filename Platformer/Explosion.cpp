@@ -41,15 +41,6 @@ Explosion::~Explosion()
 
 // -------------------------------------------------------------------------------
 
-void Explosion::OnCollision(Object* obj)
-{
-    if (obj->Type() == PIVOT || obj->Type() == OBSTACLE) {
-        MoveTo(posXInit, posYInit);
-    }
-}
-
-// -------------------------------------------------------------------------------
-
 void Explosion::Update()
 {
     anim->Select(0);

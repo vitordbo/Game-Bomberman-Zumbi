@@ -11,6 +11,7 @@
 
 #include "Zombie.h"
 #include "Player.h"
+#include "GridSet.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -82,7 +83,7 @@ void Zombie::OnCollision(Object* obj)
 	float pivBot;
 
 	if (obj->Type() == PIVOT) {
-		Pivot* pivot = (Pivot*)obj;
+		GridSet* pivot = (GridSet*)obj;
 
 		pivTop = pivot->Y() - 20;
 		pivBot = pivot->Y() + 20;

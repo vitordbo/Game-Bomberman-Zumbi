@@ -18,7 +18,6 @@
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
-#include "Pivot.h"
 #include "Player.h"
 
 // ------------------------------------------------------------------------------

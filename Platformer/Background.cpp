@@ -16,7 +16,7 @@
 Background::Background()
 {
     // carrega imagens
-    sprite = new Sprite("Resources/mapa-01.png");
+    sprite = new Sprite("Resources/mapa-02.png");
     MoveTo(window->CenterX(), window->CenterY(), Layer::BACK);
 }
 

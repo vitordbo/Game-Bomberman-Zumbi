@@ -19,9 +19,9 @@ Bomb::Bomb(uint size, float posX, float posY)//construtor da dinamite
 {
     
     sprite = new Sprite("Resources/bomb1.png");
+    BBox(new Rect(-20, -20, 20, 20));
     MoveTo(posX, posY);
     type = BOMB;
-    countdown = 3;
     this->size = size;
     this->posX = posX;
     this->posY = posY;
@@ -38,14 +38,12 @@ Bomb::~Bomb()
 
 // -------------------------------------------------------------------------------
 
-void Bomb::Update()
-{
-    if (timer.Elapsed(1.f))
+void Bomb::OnCollision(Object* obj) {
+    if (timer.Elapsed(1.0f))
         sprite = new Sprite("Resources/bomb2.png");
 
-    if (timer.Elapsed(2.f))
+    if (timer.Elapsed(2.0f))
         sprite = new Sprite("Resources/bomb3.png");
-
 
     if (timer.Elapsed(3.0f)) {
         //OBS.:ajusta a posição X, pois a explosão tem 36px de largura, enquanto que a bomba tem 40px
@@ -73,7 +71,7 @@ void Bomb::Update()
             Explosion* e = new Explosion(posX + 2.0f + (36.0f * i), posY, posX + 2.0f, posY);
             BombZombie::scene->Add(e, MOVING);
         }
-        BombZombie::scene->Delete(this, STATIC);
+        BombZombie::scene->Delete(this, MOVING);
     }
 }
 
