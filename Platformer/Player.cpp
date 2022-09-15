@@ -131,7 +131,7 @@ void Player::Update()
 	}
 
 	if (spcCtrl && window->KeyDown(VK_SPACE)) {
-		hp--;
+		score++;
 		spcCtrl = false;
 	}
 	else if (window->KeyUp(VK_SPACE))

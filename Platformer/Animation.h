@@ -2,7 +2,7 @@
 // Animation (Arquivo de Cabeçalho)
 // 
 // Criação:     28 Set 2011
-// Atualização: 02 Set 2021
+// Atualização: 08 Set 2021
 // Compilador:  Visual C++ 2019
 //
 // Descrição:   Classe para animar sequências em folha de sprites
@@ -55,11 +55,14 @@ public:
     // seleciona seqüência atual
     void Select(uint id);
 
-    // desenha o quadro atual da animação
-    void Draw(float x, float y, float z = Layer::MIDDLE);
+    void Draw(                                      // desenha o quadro atual da animação
+        float x, float y, float z = Layer::MIDDLE,  // coordenadas da tela
+        Color color = { 1, 1, 1, 1 });              // efeito de cor
 
-    // desenha um quadro da folha de sprites
-    void Draw(uint aFrame, float x, float y, float z = Layer::MIDDLE);
+    void Draw(                                      // desenha um quadro da folha de sprites    
+        uint aFrame,                                // quadro da folha a desenhar
+        float x, float y, float z = Layer::MIDDLE,  // coordenadas da tela
+        Color color = { 1, 1, 1, 1 });              // efeito de cor
 
     void Frame(uint aFrame);    // define o frame atual da animação
     uint Frame();               // retorna o frame de animação ativo
@@ -72,8 +75,8 @@ public:
 // funções membro inline
 
 // desenha quadro atual da animação
-inline void Animation::Draw(float x, float y, float z)
-{ sequence ? Draw(sequence[frame], x, y, z) : Draw(frame, x, y, z); }
+inline void Animation::Draw(float x, float y, float z, Color color)
+{ sequence ? Draw(sequence[frame], x, y, z, color) : Draw(frame, x, y, z, color); }
 
 // define o frame atual da animação
 inline void Animation::Frame(uint aFrame)

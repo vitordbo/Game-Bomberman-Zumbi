@@ -73,6 +73,9 @@ void BombZombie::Init()
     h3 = new Heart(player, 3, 170.0f);
     scene->Add(h3, STATIC);
 
+    score = new Score(player);
+    scene->Add(score, STATIC);
+
     // pano de fundo do jogo
     backg = new Background();
     scene->Add(backg, STATIC);

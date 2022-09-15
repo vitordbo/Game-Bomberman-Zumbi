@@ -23,6 +23,7 @@
 #include "Heart.h"
 #include "Zombie.h"
 #include "Fence.h"
+#include "Score.h"
 // ------------------------------------------------------------------------------
 
 class BombZombie : public Game
@@ -42,6 +43,7 @@ public:
     Heart* h1;
     Heart* h2;
     Heart* h3;
+    Score* score;
 
     void Init();                    // inicialização
     void Update();                  // atualização

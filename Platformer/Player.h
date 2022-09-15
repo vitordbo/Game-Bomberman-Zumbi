@@ -45,6 +45,7 @@ public:
     uint gridIndex;
 
     uint hp;                                 //pontos de vida
+    uint score;
     uint bombSize;
     uint state;
 

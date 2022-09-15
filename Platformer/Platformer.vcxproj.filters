@@ -105,6 +105,12 @@
     <ClCompile Include="Fence.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Lab14\FontDemo\FontDemo\Font.cpp">
+      <Filter>Engine\Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Lab14\FontDemo\FontDemo\Score.cpp">
+      <Filter>Game\Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -186,6 +192,12 @@
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Fence.h">
+      <Filter>Game\Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Lab14\FontDemo\FontDemo\Font.h">
+      <Filter>Engine\Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Lab14\FontDemo\FontDemo\Score.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

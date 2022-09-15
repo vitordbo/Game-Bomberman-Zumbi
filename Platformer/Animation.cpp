@@ -2,7 +2,7 @@
 // Animation (Código Fonte)
 // 
 // Criação:     28 Set 2011
-// Atualização: 02 Set 2021
+// Atualização: 08 Set 2021
 // Compilador:  Visual C++ 2019
 //
 // Descrição:   Classe para animar sequências em folha de sprites
@@ -135,19 +135,20 @@ void Animation::NextFrame()
 
 // ---------------------------------------------------------------------------------
 
-void Animation::Draw(uint aFrame, float x, float y, float z)
+void Animation::Draw(uint aFrame, float x, float y, float z, Color color)
 {
     // configura dados básicos
     sprite.x = x;
     sprite.y = y;
     sprite.depth = z;
+    sprite.color = color;
 
     // configura coordenadas da textura do sprite
     sprite.texCoord.x = (aFrame % tileSet->Columns()) * sprite.texSize.x;
     sprite.texCoord.y = (aFrame / tileSet->Columns()) * sprite.texSize.y;
 
     // adiciona o sprite na lista de desenho
-    Engine::renderer->Draw(&sprite);
+    Engine::renderer->Draw(sprite);
 }
 
 // --------------------------------------------------------------------------------

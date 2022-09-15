@@ -166,6 +166,8 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Lab14\FontDemo\FontDemo\Font.cpp" />
+    <ClCompile Include="..\..\..\Lab14\FontDemo\FontDemo\Score.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Bomb.cpp" />
@@ -193,6 +195,8 @@
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Lab14\FontDemo\FontDemo\Font.h" />
+    <ClInclude Include="..\..\..\Lab14\FontDemo\FontDemo\Score.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Bomb.h" />

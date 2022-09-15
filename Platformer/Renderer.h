@@ -2,7 +2,7 @@
 // Renderer (Arquivo de Cabeçalho)
 //
 // Criação:     11 Mai 2014
-// Atualização: 20 Ago 2021
+// Atualização: 08 Set 2021
 // Compilador:  Visual C++ 2019
 //
 // Descrição:   Define um renderizador de grupos de sprites
@@ -14,12 +14,12 @@
 
 // ---------------------------------------------------------------------------------
 
-#include "Window.h"                                                // cria e configura uma janela do Windows
-#include "Graphics.h"                                            // inicializa dispositivo gráfico da engine
-#include "Sprite.h"                                                // representação de um sprite
-#include "Types.h"                                                // tipos específicos da engine        
-#include "Geometry.h"                                            // formas geométricas para desenho
-#include <vector>                                                // vetor da Standard Template Library
+#include "Window.h"                                             // cria e configura uma janela do Windows
+#include "Graphics.h"                                           // inicializa dispositivo gráfico da engine
+#include "Sprite.h"                                             // representação de um sprite
+#include "Types.h"                                              // tipos específicos da engine        
+#include "Geometry.h"                                           // formas geométricas para desenho
+#include <vector>                                               // vetor da Standard Template Library
 #include <DirectXMath.h>                                        // tipos da biblioteca matemática do DirectX
 using namespace DirectX;
 using std::vector;
@@ -70,6 +70,8 @@ private:
     int  ClipLine(int& x1, int& y1, int& x2, int& y2);          // recorta linha para desenhar na viewport
     // ----------------------------------------
 
+    SpriteData * storage;                                       // armazém de sprites (vetor dinâmico)
+    uint storageIndex;                                          // índice para posições do armazém
     vector<SpriteData*> spriteVector;                           // vetor de ponteiros para sprites
     
     // renderiza um grupo de sprites de mesma textura
@@ -94,7 +96,7 @@ public:
     // ----------------------------------------
 
     bool Initialize(Window * window, Graphics * graphics);      // inicializa o renderizador
-    void Draw(SpriteData * sprite);                             // adiciona sprite na lista
+    void Draw(SpriteData & sprite);                             // adiciona sprite para desenho
     void Render();                                              // envia sprites para desenho    
 };
 
