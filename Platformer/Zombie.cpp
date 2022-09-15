@@ -177,48 +177,6 @@ void Zombie::Update()
 		state = DWN_MOVE;
 	}
 
-	/*
-
-	 if (window->KeyDown(VK_UP) || window->KeyDown('W')) {
-		 Translate(0, -100.0f * gameTime);
-		 state = TP_MOVE;
-	 }
-	 else if (window->KeyDown(VK_RIGHT) || window->KeyDown('D')) {
-		 Translate(100.0f * gameTime, 0);
-		 state = RGT_MOVE;
-	 }
-	 else if (window->KeyDown(VK_LEFT) || window->KeyDown('A')) {
-		 Translate(-100.0f * gameTime, 0);
-		 state = LFT_MOVE;
-	 }
-	 else if (window->KeyDown(VK_DOWN) || window->KeyDown('S')) {
-		 Translate(0, 100.0f * gameTime);
-		 state = DWN_MOVE;
-	 }
-
-	 if ((window->KeyUp(VK_DOWN) && window->KeyUp('S')) &&
-		 (window->KeyUp(VK_UP) && window->KeyUp('W')) &&
-		 (window->KeyUp(VK_LEFT) && window->KeyUp('A')) &&
-		 (window->KeyUp(VK_RIGHT) && window->KeyUp('D'))) {
-		 switch (state)
-		 {
-		 case DWN_MOVE:
-			 state = DWN_IDLE;
-			 break;
-		 case TP_MOVE:
-			 state = TP_IDLE;
-			 break;
-		 case LFT_MOVE:
-			 state = LFT_IDLE;
-			 break;
-		 case RGT_MOVE:
-			 state = RGT_IDLE;
-			 break;
-		 }
-	 }
-	*/
-
-
 	anim->Select(state);
 	anim->NextFrame();
 }
