@@ -57,11 +57,12 @@ Player::Player()
 	spcCtrl = true;
 	shootCtrl = true;
 	type = PLAYER;
+	bombPlanted = false;
 
 	hp = 3;
-	bombSize = 5;
+	bombSize = 3;
 
-	MoveTo(30.0f, 130.0f, Layer::UPPER);
+	MoveTo(30.0f, 130.0f, Layer::MIDDLE);
 }
 
 // ---------------------------------------------------------------------------------
@@ -85,6 +86,11 @@ void Player::OnCollision(Object* obj)
 	float pivLft;
 	float pivTop;
 	float pivBot;
+
+	if (obj->Type() == BOMB)
+		bombPlanted = true;
+	else
+		bombPlanted = false;
 
 	if (obj->Type() == GRID) {
 		
@@ -180,7 +186,7 @@ void Player::Update()
 		spcCtrl = true;
 
 	//soltar bomba
-	if (shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
+	if (!bombPlanted && shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
 
 		Bomb* b = new Bomb(bombSize, 30.0f + (40.0f * gridI), 130.0f + (40.0f * gridJ));
 		BombZombie::scene->Add(b, MOVING);

@@ -17,7 +17,7 @@ Fence::Fence()
 {
     // carrega imagens
     sprite = new Sprite("Resources/fence-mapa-02.png");
-    MoveTo(window->CenterX(), window->CenterY(), Layer::FRONT);
+    MoveTo(window->CenterX(), window->CenterY(), Layer::UPPER);
 }
 
 // ---------------------------------------------------------------------------------

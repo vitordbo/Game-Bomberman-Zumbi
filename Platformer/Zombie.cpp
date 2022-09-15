@@ -57,7 +57,7 @@ Zombie::Zombie(Player* player)
 
 	hp = 2;
 
-	MoveTo(window->CenterX(), window->CenterY() - 10, 0.0f);
+	MoveTo(window->CenterX(), window->CenterY() - 10, Layer::MIDDLE);
 }
 
 // ---------------------------------------------------------------------------------

@@ -21,19 +21,28 @@
 #include "Animation.h"
 #include "TileSet.h"
 
+enum ExpDirect {TOP, LEFT, RIGHT, DOWN};
+
 class Explosion : public Object
 {
 private: 
     Animation* anim;
     TileSet* tileSet;
-    float posXInit;
-    float posYInit;
+    float posX;
+    float posY;
    
 public:
-    Explosion(float posX, float posY, float posXInit, float posYInit);
-    ~Explosion();                                                  // destrutor
+	uint direction;
+	bool extend;											//booleando que indica se a bomba "encostou" em um pivot ou obstacle
+	bool isOrigin;
+	bool started;											//boolean de controle para instanciar as explosões filhas UMA vez apenas!!!
+	uint size;												//tamanho da explosão 
+    Explosion(float posX, float posY, uint direction, uint size);
+	Explosion(float posX, float posY, uint size);           //construtor da explosão origem
+    ~Explosion();                                           // destrutor
 
     void Update();                                          // atualização do objeto
+	void OnCollision(Object* obj);
     void Draw();                                            // desenho do objeto
 };
 

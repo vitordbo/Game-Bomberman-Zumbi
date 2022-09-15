@@ -36,6 +36,7 @@ private:
     Animation * anim = nullptr;             // animação do personagem
     bool spcCtrl;                           // controle do pressionamento da barra de espaço
 	bool shootCtrl;							//controle dos botões de disparo
+	bool bombPlanted;						//boolean que indica se já existe uma bomba neste grid
   
 public:
     uint gridI; //valor do label i do grid em que player está
