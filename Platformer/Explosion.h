@@ -37,6 +37,11 @@ public:
 	bool isOrigin;
 	bool started;											//boolean de controle para instanciar as explosões filhas UMA vez apenas!!!
 	uint size;												//tamanho da explosão 
+    Explosion* eT = nullptr;
+    Explosion* eD = nullptr;
+    Explosion* eL = nullptr;
+    Explosion* eR = nullptr;
+
     Explosion(float posX, float posY, uint direction, uint size);
 	Explosion(float posX, float posY, uint size);           //construtor da explosão origem
     ~Explosion();                                           // destrutor

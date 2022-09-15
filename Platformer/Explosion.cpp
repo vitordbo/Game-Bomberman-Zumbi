@@ -17,7 +17,7 @@
 Explosion::Explosion(float posX, float posY, uint direction, uint size)//construtor das explosões "filhas"
 {
     tileSet = new TileSet("Resources/explosion.png", 36, 40, 7, 7);
-    anim = new Animation(tileSet, 0.06f, false);
+    anim = new Animation(tileSet, 0.05f, false);
 
     uint boom[7] = { 0,1,2,3,4,5,6 };
 
@@ -30,7 +30,7 @@ Explosion::Explosion(float posX, float posY, uint direction, uint size)//constru
 	this->posX = posX;
 	this->posY = posY;
 	this->size = size;
-	extend = true;
+	extend = false;
 	isOrigin = false;
 	started = true;
     
@@ -40,7 +40,7 @@ Explosion::Explosion(float posX, float posY, uint direction, uint size)//constru
 Explosion::Explosion(float posX, float posY, uint size)//construtor da explosão "pai"
 {
 	tileSet = new TileSet("Resources/explosion.png", 36, 40, 7, 7);
-	anim = new Animation(tileSet, 0.06f, false);
+	anim = new Animation(tileSet, 0.05f, false);
 
 	uint boom[7] = { 0,1,2,3,4,5,6 };
 
@@ -53,7 +53,7 @@ Explosion::Explosion(float posX, float posY, uint size)//construtor da explosão 
 	this->posX = posX;
 	this->posY = posY;
 	this->size = size;
-	extend = true;
+	extend = false;
 	isOrigin = true;
 	started = true;
 
@@ -72,15 +72,18 @@ Explosion::~Explosion()
 
 void Explosion::OnCollision(Object* obj) {
 	if (obj->Type() == PIVOT || obj->Type() == OBSTACLE) {
-		/* Calcula a diferença de distancia do centro da 
-		explosão e do grid (é utilizado o módulo do valor!!!)*/
-
-		float xDiff = x - obj->X() > 0 ? x - obj->X() : -(x - obj->X());
-		float yDiff = y - obj->Y() > 0 ? y - obj->Y() : -(y - obj->Y());
-
-		if (xDiff <= 20.0f && yDiff <= 20.0f) {
-			extend = false;
+		
+		if (x == (obj->X() - 2.0f) || x == (obj->X() + 2.0f) && y == obj->Y()) {
+			
+			BombZombie::scene->Delete(this, MOVING);
 		}
+		else {
+			extend = true;
+		}
+
+	}
+	else {
+		extend = true;
 	}
 }
 
@@ -88,44 +91,53 @@ void Explosion::OnCollision(Object* obj) {
 
 void Explosion::Update()
 {
-	if (anim->Frame() >= 6)
+	if (x < 28.0f)
 		BombZombie::scene->Delete(this, MOVING);
+	if (y < 120)
+		BombZombie::scene->Delete(this, MOVING);
+	if (x + 18 > 530)
+		BombZombie::scene->Delete(this, MOVING);
+	if (y + 20 > 630)
+		BombZombie::scene->Delete(this, MOVING);
+
+	if (anim->Frame() == 6)
+		BombZombie::scene->Delete(this, MOVING);
+	anim->NextFrame();
 
 	if (extend && started && size > 0) {
 		if (isOrigin) {
-			Explosion* eT = new Explosion(posX, posY - 40.0f, TOP, size - 1);
+			eT = new Explosion(posX, posY - 40.0f, TOP, size - 1);
 			BombZombie::scene->Add(eT, MOVING);
 
-			Explosion* eL = new Explosion(posX - 40.0f, posY, LEFT, size - 1);
+			eL = new Explosion(posX - 40.0f, posY, LEFT, size - 1);
 			BombZombie::scene->Add(eL, MOVING);
 
-			Explosion* eR = new Explosion(posX + 40.0f, posY, RIGHT, size - 1);
+			eR = new Explosion(posX + 40.0f, posY, RIGHT, size - 1);
 			BombZombie::scene->Add(eR, MOVING);
 
-			Explosion* eD = new Explosion(posX, posY + 40.0f, DOWN, size - 1);
+			eD = new Explosion(posX, posY + 40.0f, DOWN, size - 1);
 			BombZombie::scene->Add(eD, MOVING);
 		}
 		else {
 			if (direction == TOP) {
-				Explosion* eT = new Explosion(posX, posY - 40.0f, direction, size - 1);
+				eT = new Explosion(posX, posY - 40.0f, direction, size - 1);
 				BombZombie::scene->Add(eT, MOVING);
 			}
 			else if (direction == LEFT) {
-				Explosion* eL = new Explosion(posX - 40.0f, posY, direction, size - 1);
+				eL = new Explosion(posX - 40.0f, posY, direction, size - 1);
 				BombZombie::scene->Add(eL, MOVING);
 			}
-			else if (direction == RIGHT){
-				Explosion* eR = new Explosion(posX + 40.0f, posY, direction, size - 1);
+			else if (direction == RIGHT) {
+				eR = new Explosion(posX + 40.0f, posY, direction, size - 1);
 				BombZombie::scene->Add(eR, MOVING);
 			}
-			else if (direction == DOWN){
-				Explosion* eD = new Explosion(posX, posY + 40.0f, direction, size - 1);
+			else if (direction == DOWN) {
+				eD = new Explosion(posX, posY + 40.0f, direction, size - 1);
 				BombZombie::scene->Add(eD, MOVING);
 			}
 		}
+		started = false;
 	}
-	started = false;
-	anim->NextFrame();
 }
 
 // -------------------------------------------------------------------------------

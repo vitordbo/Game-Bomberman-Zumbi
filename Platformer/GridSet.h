@@ -21,11 +21,12 @@
 class GridSet : public Object
 {
 private:
-
+    Sprite* sprite = nullptr;
 public:
     uint i;
     uint j;
-    GridSet(float posX, float posY, uint i, uint j, uint type);
+    uint index;
+    GridSet(float posX, float posY, uint i, uint j, uint index, uint type);
     ~GridSet();
 
     void Update();                      // atualização do objeto
@@ -35,7 +36,10 @@ public:
 // ---------------------------------------------------------------------------------
 // Função Membro Inline
 
-inline void GridSet::Draw(){}
+inline void GridSet::Draw(){
+    if (sprite != nullptr)
+        sprite->Draw(x, y, z);
+}
 inline void GridSet::Update(){}
 
 // ---------------------------------------------------------------------------------

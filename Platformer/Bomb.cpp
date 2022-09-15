@@ -10,7 +10,6 @@
 **********************************************************************************/
 
 #include "Bomb.h"
-#include "Explosion.h"
 #include "BombZombie.h"
 
 // ---------------------------------------------------------------------------------
@@ -53,7 +52,7 @@ void Bomb::Update() {
 
 	if (this->timer.Elapsed(3.0f)) {
 		//OBS.:ajusta a posição X, pois a explosão tem 36px de largura, enquanto que a bomba tem 40px
-		Explosion* e = new Explosion(posX + 2.0f, posY, size);
+		e = new Explosion(posX + 2.0f, posY, size);
 		BombZombie::scene->Add(e, MOVING);
 	}
 	if (timer.Elapsed() > 4.0f) {

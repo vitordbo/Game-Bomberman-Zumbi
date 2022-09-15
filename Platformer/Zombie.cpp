@@ -15,11 +15,14 @@
 
 // ---------------------------------------------------------------------------------
 
-Zombie::Zombie(Player* player)
+Zombie::Zombie(Player* player, GridSet** gridSet)
 {
-	tileset = new TileSet("Resources/player.png", 27, 32, 3, 12);
+	tileset = new TileSet("Resources/player.png", 40, 40, 3, 12);
 	anim = new Animation(tileset, 0.15f, true);
 	this->player = player;
+	gridI = 0;
+	gridJ = 0;
+	gridIndex = 0;
 
 	uint DownMove[2] = { 0, 2 };
 	uint DownIdle[1] = { 1 };
@@ -45,15 +48,16 @@ Zombie::Zombie(Player* player)
 	anim->Add(TP_MOVE, TopMove, 2);
 	anim->Add(TP_IDLE, TopIdle, 1);
 
-	float x1 = -15.0f;
-	float y1 = -16.0f;
-	float x2 = 15.0f;
-	float y2 = 16.0f;
+	float x1 = -20.0f;
+	float y1 = -20.0f;
+	float x2 = 20.0f;
+	float y2 = 20.0f;
 
 	BBox(new Rect(x1, y1, x2, y2));
 
 	state = DWN_IDLE;
 	type = ZOMBIE;
+	this->gridSet = gridSet;
 
 	hp = 2;
 
@@ -82,7 +86,23 @@ void Zombie::OnCollision(Object* obj)
 	float pivTop;
 	float pivBot;
 
-	if (obj->Type() == PIVOT) {
+	if (obj->Type() == GRID) {
+
+		/* Calcula a diferença de distancia do centro do
+		player e do grid (é utilizado o módulo do valor!!!)*/
+
+		float xDiff = x - obj->X() > 0 ? x - obj->X() : -(x - obj->X());
+		float yDiff = y - obj->Y() > 0 ? y - obj->Y() : -(y - obj->Y());
+
+		if (xDiff <= 10.0f && yDiff <= 10.0f) {
+			GridSet* grid = (GridSet*)obj;
+			gridI = grid->i;
+			gridJ = grid->j;
+			gridIndex = grid->index;
+		}
+	}
+
+	if (obj->Type() == PIVOT || obj->Type() == OBSTACLE) {
 		GridSet* pivot = (GridSet*)obj;
 
 		pivTop = pivot->Y() - 20;

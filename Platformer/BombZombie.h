@@ -23,15 +23,15 @@
 #include "Heart.h"
 #include "Zombie.h"
 #include "Fence.h"
-
 // ------------------------------------------------------------------------------
 
 class BombZombie : public Game
 {
 private:
-    Player * player = nullptr;      // jogador
-    GridSet* gridSet = nullptr;     //malha de frames do mapa
-    Background * backg = nullptr;   // pano de fundo
+    Player * player = nullptr;              // jogador
+    GridSet ** gridSet = nullptr;           //matriz de frames do mapa
+    Background * backg = nullptr;           // pano de fundo
+  
     Heart* heart = nullptr;
     Fence* fence = nullptr;
     Zombie* zombie = nullptr;

@@ -15,12 +15,13 @@
 
 // ---------------------------------------------------------------------------------
 
-Player::Player()
+Player::Player(GridSet** gridSet)
 {
-	tileset = new TileSet("Resources/player.png", 27, 32, 3, 12);
+	tileset = new TileSet("Resources/player.png", 40, 40, 3, 12);
 	anim = new Animation(tileset, 0.15f, true);
 	gridI = 0;
 	gridJ = 0;
+	gridIndex = 0;
 
 	uint DownMove[2] = { 0, 2 };
 	uint DownIdle[1] = { 1 };
@@ -46,10 +47,10 @@ Player::Player()
 	anim->Add(TOP_MOVE, TopMove, 2);
 	anim->Add(TOP_IDLE, TopIdle, 1);
 
-	float x1 = -15.0f;
-	float y1 = -16.0f;
-	float x2 = 15.0f;
-	float y2 = 16.0f;
+	float x1 = -20.0f;
+	float y1 = -20.0f;
+	float x2 = 20.0f;
+	float y2 = 20.0f;
 
 	BBox(new Rect(x1, y1, x2, y2));
 
@@ -58,9 +59,10 @@ Player::Player()
 	shootCtrl = true;
 	type = PLAYER;
 	bombPlanted = false;
+	this->gridSet = gridSet;
 
 	hp = 3;
-	bombSize = 3;
+	bombSize = 7;
 
 	MoveTo(30.0f, 130.0f, Layer::MIDDLE);
 }
@@ -77,74 +79,24 @@ Player::~Player()
 
 void Player::OnCollision(Object* obj)
 {
-	float plyRgt = x + 15;
-	float plyLft = x - 15;
-	float plyTop = y - 16;
-	float plyBot = y + 16;
-
-	float pivRgt;
-	float pivLft;
-	float pivTop;
-	float pivBot;
-
 	if (obj->Type() == BOMB)
 		bombPlanted = true;
 	else
 		bombPlanted = false;
 
 	if (obj->Type() == GRID) {
-		
-		/* Calcula a diferença de distancia do centro do
-		player e do grid (é utilizado o módulo do valor!!!)*/
-		
-		float xDiff = x - obj->X() > 0 ? x - obj->X() : -(x - obj->X());
-		float yDiff = y - obj->Y() > 0 ? y - obj->Y() : -(y - obj->Y());
+		float objLft = obj->X() - 20.0f;
+		float objRgt = obj->X() + 20.0f;
+		float objTop = obj->Y() - 20.0f;
+		float objBot = obj->Y() + 20.0f;
 
-		if (xDiff <= 10.0f && yDiff <= 10.0f) {
+		if (x >= objLft && x <= objRgt && y >= objTop && y <= objBot) {
+
 			GridSet* grid = (GridSet*)obj;
 			gridI = grid->i;
 			gridJ = grid->j;
+			gridIndex = grid->index;
 		}
-	}
-
-	if (obj->Type() == PIVOT) {
-		GridSet* pivot = (GridSet*)obj;
-
-		pivTop = pivot->Y() - 20;
-		pivBot = pivot->Y() + 20;
-		pivLft = pivot->X() - 20;
-		pivRgt = pivot->X() + 20;
-
-		float leftDif = pivLft - plyLft;
-		float rightDif = plyRgt - pivRgt;
-		float topDif = plyBot - pivTop;
-		float botDif = pivBot - plyTop;
-
-		//left-top
-		if (leftDif > 0 && topDif < 5)
-			MoveTo(x, pivTop - 16);
-		//right-top
-		else if (rightDif > 0 && topDif < 5)
-			MoveTo(x, pivTop - 16);
-		//left-bot
-		else if (leftDif > 0 && botDif < 5)
-			MoveTo(x, pivBot + 16);
-		//right-bot
-		else if (rightDif > 0 && botDif < 5)
-			MoveTo(x, pivBot + 16);
-		//left
-		else if (leftDif > 0 && topDif >= 5)
-			MoveTo(pivLft - 16, y);
-		//right
-		else if (rightDif > 0 && topDif >= 5)
-			MoveTo(pivRgt + 16, y);
-		//top
-		else if (leftDif < 0 && topDif < 5)
-			MoveTo(x, pivTop - 16);
-		//bot
-		else if (leftDif < 0 && botDif < 5)
-			MoveTo(x, pivBot + 16);
-
 	}
 }
 
@@ -152,28 +104,28 @@ void Player::OnCollision(Object* obj)
 
 void Player::Update()
 {
-	if (x < 25.0f)
-		MoveTo(25.0f, y);
+	if (x < 30.0f)
+		MoveTo(30.0f, y);
 	if (y < 130)
 		MoveTo(x, 130.0f);
-	if (x + 15 > 530)
-		MoveTo(515.0f, y);
-	if (y + 16 > 630)
-		MoveTo(x, 614.0f);
+	if (x + 20 > 530)
+		MoveTo(510.0f, y);
+	if (y + 20 > 630)
+		MoveTo(x, 610.0f);
 
-	if (window->KeyDown(VK_UP) || window->KeyDown('W')) {
+	if (window->KeyDown(VK_UP) || window->KeyDown('W') && gridSet[gridIndex - 13]->Type() == GRID) {
 		Translate(0, -160.0f * gameTime);
 		state = TOP_MOVE;
 	}
-	else if (window->KeyDown(VK_RIGHT) || window->KeyDown('D')) {
+	else if (window->KeyDown(VK_RIGHT) || window->KeyDown('D') && gridSet[gridIndex + 1]->Type() == GRID) {
 		Translate(160.0f * gameTime, 0);
 		state = RIGHT_MOVE;
 	}
-	else if (window->KeyDown(VK_LEFT) || window->KeyDown('A')) {
+	else if (window->KeyDown(VK_LEFT) || window->KeyDown('A') && gridSet[gridIndex - 1]->Type() == GRID) {
 		Translate(-160.0f * gameTime, 0);
 		state = LEFT_MOVE;
 	}
-	else if (window->KeyDown(VK_DOWN) || window->KeyDown('S')) {
+	else if (window->KeyDown(VK_DOWN) || window->KeyDown('S') && gridSet[gridIndex + 13]->Type() == GRID) {
 		Translate(0, 160.0f * gameTime);
 		state = DOWN_MOVE;
 	}

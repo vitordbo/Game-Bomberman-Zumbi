@@ -26,10 +26,42 @@ void BombZombie::Init()
     // cria cena do jogo
     scene = new Scene();
 
-    player = new Player();
+    gridSet = new GridSet * [13 * 13];
+
+    uint index = 0;
+    //matriz de grades 13x13 (cada grade com 40 x 40px)
+    for (int j = 0; j < 13; j++) {
+        for (int i = 0; i < 13; i++) {
+            
+            //obstáculos
+            if (i % 2 == 0 && i != 0) {
+                if (j % 2 == 0 && j != 0) {
+                    gridSet[index] = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, index, OBSTACLE);
+                }
+            }
+            else {
+                //os pivots estão somente em linhas e colunas ímpares
+                if (j % 2 != 0) {
+                    if (i % 2 != 0) {
+                        gridSet[index] = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, index, PIVOT);
+                    }
+                    else {
+                        gridSet[index] = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, index, GRID);
+                    }
+                }
+                else {
+                    gridSet[index] = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, index, GRID);
+                }
+            }
+            scene->Add(gridSet[index], MOVING);
+            index++;
+        }
+    }
+
+    player = new Player(gridSet);
     scene->Add(player, MOVING);
 
-    zombie = new Zombie(player);
+    zombie = new Zombie(player,gridSet);
     scene->Add(zombie, MOVING);
 
     h1 = new Heart(player, 1, 50.0f);
@@ -40,26 +72,6 @@ void BombZombie::Init()
 
     h3 = new Heart(player, 3, 170.0f);
     scene->Add(h3, STATIC);
-
-    //matriz de grades 13x13 (cada grade com 40 x 40px)
-    for (int j = 0; j < 13; j++) {
-        for (int i = 0; i < 13; i++) {
-            
-            //os pivots estão somente em linhas e colunas ímpares
-            if (j % 2 != 0) {
-                if (i % 2 != 0) {
-                    gridSet = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, PIVOT);
-                }
-                else {
-                    gridSet = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, GRID);
-                }
-            }
-            else {
-                gridSet = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, GRID);
-            }
-            scene->Add(gridSet, MOVING);
-        }
-    }
 
     // pano de fundo do jogo
     backg = new Background();

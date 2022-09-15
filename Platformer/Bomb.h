@@ -21,6 +21,7 @@
 #include "Timer.h"
 #include "Animation.h"
 #include "TileSet.h"
+#include "Explosion.h"
 
 class Bomb : public Object
 {
@@ -31,6 +32,7 @@ private:
 
     Timer timer;
     uint size;
+    Explosion* e = nullptr;
 	//uint countdown; //inteiro usado para evitar múltiplas instanciações de uma mesma bomba
     float posX;
     float posY;

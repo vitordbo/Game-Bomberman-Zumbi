@@ -36,12 +36,17 @@ class Zombie : public Object
 private:
 	TileSet* tileset = nullptr;            // folha de sprites do personagem
 	Animation* anim = nullptr;             // animação do personagem
+	GridSet** gridSet = nullptr;
 	Player* player;
 
 public:
+	uint gridI; //valor do label i do grid em que player está
+	uint gridJ; //valor do label j do grid em que player está
+	uint gridIndex;
+
 	int hp;                                 //pontos de vida
 	uint state;
-	Zombie(Player* player);                           // construtor
+	Zombie(Player* player, GridSet** gridSet);                           // construtor
 	~Zombie();                          // destrutor
 
 	void OnCollision(Object* obj);     // resolução da colisão

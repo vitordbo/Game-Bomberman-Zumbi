@@ -34,6 +34,7 @@ class Player : public Object
 private:
     TileSet * tileset = nullptr;            // folha de sprites do personagem
     Animation * anim = nullptr;             // animação do personagem
+    GridSet ** gridSet = nullptr;
     bool spcCtrl;                           // controle do pressionamento da barra de espaço
 	bool shootCtrl;							//controle dos botões de disparo
 	bool bombPlanted;						//boolean que indica se já existe uma bomba neste grid
@@ -41,11 +42,13 @@ private:
 public:
     uint gridI; //valor do label i do grid em que player está
     uint gridJ; //valor do label j do grid em que player está
+    uint gridIndex;
 
     uint hp;                                 //pontos de vida
     uint bombSize;
     uint state;
-    Player();                           // construtor
+
+    Player(GridSet ** gridSet);         // construtor
     ~Player();                          // destrutor
 
     void OnCollision(Object * obj);     // resolução da colisão
