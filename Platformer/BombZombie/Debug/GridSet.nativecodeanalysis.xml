@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>GridSet.cpp</FILENAME>
+      <LINE>16</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'GridSet::index' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>GridSet::{ctor}</FUNCTION>
+    <DECORATED>??0GridSet@@QEAA@MMIIII@Z</DECORATED>
+    <FUNCLINE>16</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>GridSet::index</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

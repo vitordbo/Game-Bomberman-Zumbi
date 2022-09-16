@@ -29,7 +29,7 @@
 class BombZombie : public Game
 {
 private:
-    Player * player = nullptr;              // jogador
+    
     GridSet ** gridSet = nullptr;           //matriz de frames do mapa
     Background * backg = nullptr;           // pano de fundo
   
@@ -39,7 +39,7 @@ private:
 
 public:
     static Scene * scene;           // gerenciador de cena
-
+	static Player* player;
     Heart* h1;
     Heart* h2;
     Heart* h3;
@@ -49,8 +49,16 @@ public:
     void Update();                  // atualização
     void Draw();                    // desenho
     void Finalize();                // finalização
+	void BombPlanted();				//método para reduzir a quantidade de bombas restantes
+	void BombExploded();			//método para liberar uma bomba que explodiu
 };
 
 // ---------------------------------------------------------------------------------
+inline void BombZombie::BombPlanted() {
+	player->bombsLeft -= 1;
+}
 
+inline void BombZombie::BombExploded() {
+	player->bombsLeft += 1;
+}
 #endif

@@ -30,6 +30,7 @@ public:
     ~GridSet();
 
     void Update();                      // atualização do objeto
+	void OnCollision(Object* obj);
     void Draw();                        // desenho do objeto
 }; 
 
@@ -37,7 +38,7 @@ public:
 // Função Membro Inline
 
 inline void GridSet::Draw(){
-    if (sprite != nullptr)
+    if (type == OBSTACLE)
         sprite->Draw(x, y, z);
 }
 inline void GridSet::Update(){}

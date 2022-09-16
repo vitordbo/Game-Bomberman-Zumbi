@@ -1,0 +1,157 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Estouro aritmético: usando o operador '*' em um valor de byte 4 e, em seguida, convertendo o resultado em um valor de byte 8. Converta o valor no tipo mais amplo antes de chamar o operador '*' para evitar estouro (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/ffili/OneDrive/Área de Trabalho/jogo/Game-Bomberman-Zumbi/Platformer/Renderer.cpp"
+                },
+                "region": {
+                  "startLine": 144,
+                  "startColumn": 37,
+                  "endLine": 144,
+                  "endColumn": 72
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Renderer::BeginPixels",
+                  "decoratedName": "?BeginPixels@Renderer@@QEAAXXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Estouro aritmético: usando o operador '*' em um valor de byte 4 e, em seguida, convertendo o resultado em um valor de byte 8. Converta o valor no tipo mais amplo antes de chamar o operador '*' para evitar estouro (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/ffili/OneDrive/Área de Trabalho/jogo/Game-Bomberman-Zumbi/Platformer/Renderer.cpp"
+                },
+                "region": {
+                  "startLine": 1047,
+                  "startColumn": 59,
+                  "endLine": 1047,
+                  "endColumn": 82
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Renderer::RenderBatch",
+                  "decoratedName": "?RenderBatch@Renderer@@AEAAXPEAUID3D11ShaderResourceView@@PEAPEAUSpriteData@@I@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.32.31332.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/ffili/OneDrive/Área de Trabalho/jogo/Game-Bomberman-Zumbi/Platformer/Renderer.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "908549ebe19a00707ccdb071bd2ebcec998c602b1f52172e646b1c0afd97c071"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/renderer.h"
+          },
+          "hashes": {
+            "sha-256": "00146eab7a4779588f36f5586c1045664fbc7d0712ee057678745645bf2a74d7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/window.h"
+          },
+          "hashes": {
+            "sha-256": "14267127469fa3fe05bb4a8b6ebc2556dc79ee7e15853a9b1193fa3f59035ab6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/types.h"
+          },
+          "hashes": {
+            "sha-256": "83a40da2d29d4679824a4939bc519f5d65220602c43a9764b8ca4665b15bc681"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/graphics.h"
+          },
+          "hashes": {
+            "sha-256": "143af6b8fc21f94461da55c12e3088c93719f1c2b819e271a6f9def9690336ff"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/sprite.h"
+          },
+          "hashes": {
+            "sha-256": "eb68c4819c35566f1aad46219b8bb88d2f0d836549ce82ed9c6fa15d4506baad"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/image.h"
+          },
+          "hashes": {
+            "sha-256": "e394ed93834e0e779a9ca4894022bd6d5193307aa594280607718e0e1cdefa40"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/texture.h"
+          },
+          "hashes": {
+            "sha-256": "8bf52bc09df20f779d6eda0d224a379ed7182961983176c39ac31ce10e44cdc6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/geometry.h"
+          },
+          "hashes": {
+            "sha-256": "71ebc02ab43ecc8c3294b75975cea189c699bdfe53ce16af60984dfeb0008035"
+          }
+        }
+      ]
+    }
+  ]
+}

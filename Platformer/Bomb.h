@@ -29,18 +29,17 @@ private:
     Sprite* sprite1;
     Sprite* sprite2;                                          // fundo estático  
     Sprite* sprite3;                                          // fundo estático  
-
     Timer timer;
     uint size;
-    Explosion* e = nullptr;
-	//uint countdown; //inteiro usado para evitar múltiplas instanciações de uma mesma bomba
+	
     float posX;
     float posY;
 public:
-    Bomb(uint size, float posX, float posY);                 // construtor
- 
-    ~Bomb();                                                  // destrutor
+	bool exploded;
 
+    Bomb(uint size, float posX, float posY);                 // construtor
+    ~Bomb();                                                  // destrutor
+	
     //void OnCollision(Object* obj);                          // resolução da colisão
     void Update();                                          // atualização do objeto
     void Draw();                                            // desenho do objeto

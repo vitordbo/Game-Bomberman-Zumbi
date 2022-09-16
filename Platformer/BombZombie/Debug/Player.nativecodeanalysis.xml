@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>Player.cpp</FILENAME>
+      <LINE>18</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'Player::score' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>Player::{ctor}</FUNCTION>
+    <DECORATED>??0Player@@QEAA@PEAPEAVGridSet@@@Z</DECORATED>
+    <FUNCLINE>18</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Player::score</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

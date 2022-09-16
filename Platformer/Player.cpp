@@ -10,7 +10,6 @@
 **********************************************************************************/
 
 #include "Player.h"
-#include "Bomb.h"
 #include "BombZombie.h"
 
 // ---------------------------------------------------------------------------------
@@ -60,9 +59,15 @@ Player::Player(GridSet** gridSet)
 	type = PLAYER;
 	bombPlanted = false;
 	this->gridSet = gridSet;
+	top = false;
+	down = true;
+	left = false;
+	right = true;
+	immune = false;
 
 	hp = 3;
 	bombSize = 7;
+	bombsLeft = 2;
 
 	MoveTo(30.0f, 130.0f, Layer::MIDDLE);
 }
@@ -98,34 +103,100 @@ void Player::OnCollision(Object* obj)
 			gridIndex = grid->index;
 		}
 	}
+	else if(obj->Type() == EXPLOSION && !immune){
+		hp--;
+		MoveTo(30.0f, 130.0f);
+		Immune();
+	}
+	else {
+
+		float yDiff = y - obj->Y();
+		float xDiff = x - obj->X();
+
+		//left
+		if (xDiff >= 40.0f && yDiff > -40.0f && yDiff < 40.0f) {
+			if((window->KeyDown(VK_LEFT) || window->KeyDown('A')))
+				state = LEFT_MOVE;
+			left = false;
+		}
+		else
+			left = true;
+		//right
+		if (xDiff <= 40.0f && yDiff > -40.0f && yDiff < 40.0f) {
+			if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
+				state = RIGHT_MOVE;
+			right = false;
+		}
+		else
+			right = true;
+		//top
+		if (y - 40.0f <= obj->Y() && xDiff <= 20.0f) {
+			if ((window->KeyDown(VK_UP) || window->KeyDown('W')))
+				state = TOP_MOVE;
+			top = false;
+		}
+		else
+			top = true;
+		//down
+		if (y + 40.0f >= obj->Y() && xDiff <= 20.0f) {
+			if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')))
+				state = DOWN_MOVE;
+			down = false;
+		}
+		else
+			down = true;
+	}
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Update()
 {
-	if (x < 30.0f)
-		MoveTo(30.0f, y);
-	if (y < 130)
-		MoveTo(x, 130.0f);
-	if (x + 20 > 530)
-		MoveTo(510.0f, y);
-	if (y + 20 > 630)
-		MoveTo(x, 610.0f);
+	if (x <= 30.0f) {
+		if ((window->KeyDown(VK_LEFT) || window->KeyDown('A')))
+			state = LEFT_MOVE;
+		left = false;
+	}
+	else
+		left = true;
 
-	if (window->KeyDown(VK_UP) || window->KeyDown('W') && gridSet[gridIndex - 13]->Type() == GRID) {
+	if (y <= 130) {
+		if ((window->KeyDown(VK_UP) || window->KeyDown('W')))
+			state = TOP_MOVE;
+		top = false;
+	}
+	else
+		top = true;
+
+	if (x + 20 >= 530) {
+		if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
+			state = RIGHT_MOVE;
+		right = false;
+	}
+	else
+		right = true;
+
+	if (y + 20 >= 630) {
+		if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')))
+			state = DOWN_MOVE;
+		down = false;
+	}
+	else
+		down = true;
+
+	if ((window->KeyDown(VK_UP) || window->KeyDown('W')) && top) {
 		Translate(0, -160.0f * gameTime);
 		state = TOP_MOVE;
 	}
-	else if (window->KeyDown(VK_RIGHT) || window->KeyDown('D') && gridSet[gridIndex + 1]->Type() == GRID) {
+	else if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')) && right) {
 		Translate(160.0f * gameTime, 0);
 		state = RIGHT_MOVE;
 	}
-	else if (window->KeyDown(VK_LEFT) || window->KeyDown('A') && gridSet[gridIndex - 1]->Type() == GRID) {
+	else if ((window->KeyDown(VK_LEFT) || window->KeyDown('A')) && left) {
 		Translate(-160.0f * gameTime, 0);
 		state = LEFT_MOVE;
 	}
-	else if (window->KeyDown(VK_DOWN) || window->KeyDown('S') && gridSet[gridIndex + 13]->Type() == GRID) {
+	else if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')) && down)  {
 		Translate(0, 160.0f * gameTime);
 		state = DOWN_MOVE;
 	}
@@ -138,10 +209,10 @@ void Player::Update()
 		spcCtrl = true;
 
 	//soltar bomba
-	if (!bombPlanted && shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
+	if (!bombPlanted && bombsLeft > 0 && shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
 
-		Bomb* b = new Bomb(bombSize, 30.0f + (40.0f * gridI), 130.0f + (40.0f * gridJ));
-		BombZombie::scene->Add(b, MOVING);
+		Bomb * bomb = new Bomb(bombSize, 30.0f + (40.0f * gridI), 130.0f + (40.0f * gridJ));
+		BombZombie::scene->Add(bomb, MOVING);
 		shootCtrl = false;
 	}
 	else if (window->KeyUp('Z') && window->KeyUp('K'))

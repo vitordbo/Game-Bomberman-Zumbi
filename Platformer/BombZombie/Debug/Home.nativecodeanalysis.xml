@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>BombZombie.h</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'BombZombie::h1' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>BombZombie::{ctor}</FUNCTION>
+    <DECORATED>??0BombZombie@@QEAA@XZ</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>BombZombie::h1</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>BombZombie.h</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'BombZombie::h2' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>BombZombie::{ctor}</FUNCTION>
+    <DECORATED>??0BombZombie@@QEAA@XZ</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>BombZombie::h2</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>BombZombie.h</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'BombZombie::h3' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>BombZombie::{ctor}</FUNCTION>
+    <DECORATED>??0BombZombie@@QEAA@XZ</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>BombZombie::h3</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>BombZombie.h</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'BombZombie::score' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>BombZombie::{ctor}</FUNCTION>
+    <DECORATED>??0BombZombie@@QEAA@XZ</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>BombZombie::score</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

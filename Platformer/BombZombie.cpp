@@ -18,6 +18,7 @@
 // -----------------------------------------------------------------------------
 
 Scene * BombZombie::scene = nullptr;
+Player* BombZombie::player = nullptr;
 
 // -----------------------------------------------------------------------------
 
@@ -38,6 +39,9 @@ void BombZombie::Init()
                 if (j % 2 == 0 && j != 0) {
                     gridSet[index] = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, index, OBSTACLE);
                 }
+				else {
+					gridSet[index] = new GridSet(30.0f + (40.0f * (float)i), 130.0f + (40.0f * (float)j), i, j, index, GRID);
+				}
             }
             else {
                 //os pivots estão somente em linhas e colunas ímpares

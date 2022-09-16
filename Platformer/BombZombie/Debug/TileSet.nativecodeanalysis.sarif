@@ -1,0 +1,67 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.32.31332.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/tileset.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "788fee92da7df6b54844fdf9dc0f8c0d6812f63938ff8ed543aa440adc399adf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/tileset.h"
+          },
+          "hashes": {
+            "sha-256": "476d9fa49f615168f2d921cd33bd0a26d3450c17ea1a349fa2771de1df5ac182"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/types.h"
+          },
+          "hashes": {
+            "sha-256": "83a40da2d29d4679824a4939bc519f5d65220602c43a9764b8ca4665b15bc681"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/image.h"
+          },
+          "hashes": {
+            "sha-256": "e394ed93834e0e779a9ca4894022bd6d5193307aa594280607718e0e1cdefa40"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/texture.h"
+          },
+          "hashes": {
+            "sha-256": "8bf52bc09df20f779d6eda0d224a379ed7182961983176c39ac31ce10e44cdc6"
+          }
+        }
+      ]
+    }
+  ]
+}

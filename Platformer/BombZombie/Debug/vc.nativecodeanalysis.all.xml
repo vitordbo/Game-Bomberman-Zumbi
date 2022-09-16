@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>BombZombie.h</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'BombZombie::h1' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>BombZombie::{ctor}</FUNCTION>
+    <DECORATED>??0BombZombie@@QEAA@XZ</DECORATED>
+    <FUNCLINE>52</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>BombZombie::h1</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>GridSet.cpp</FILENAME>
+      <LINE>16</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'GridSet::index' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>GridSet::{ctor}</FUNCTION>
+    <DECORATED>??0GridSet@@QEAA@MMIIII@Z</DECORATED>
+    <FUNCLINE>16</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>GridSet::index</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>Player.cpp</FILENAME>
+      <LINE>18</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>A variável 'Player::score' não foi inicializada. Sempre inicialize uma variável de membro (type.6).</DESCRIPTION>
+    <FUNCTION>Player::{ctor}</FUNCTION>
+    <DECORATED>??0Player@@QEAA@PEAPEAVGridSet@@@Z</DECORATED>
+    <FUNCLINE>18</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Player::score</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>144</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Estouro aritmético: usando o operador '*' em um valor de byte 4 e, em seguida, convertendo o resultado em um valor de byte 8. Converta o valor no tipo mais amplo antes de chamar o operador '*' para evitar estouro (io.2).</DESCRIPTION>
+    <FUNCTION>Renderer::BeginPixels</FUNCTION>
+    <DECORATED>?BeginPixels@Renderer@@QEAAXXZ</DECORATED>
+    <FUNCLINE>123</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>1047</LINE>
+      <COLUMN>79</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Estouro aritmético: usando o operador '*' em um valor de byte 4 e, em seguida, convertendo o resultado em um valor de byte 8. Converta o valor no tipo mais amplo antes de chamar o operador '*' para evitar estouro (io.2).</DESCRIPTION>
+    <FUNCTION>Renderer::RenderBatch</FUNCTION>
+    <DECORATED>?RenderBatch@Renderer@@AEAAXPEAUID3D11ShaderResourceView@@PEAPEAUSpriteData@@I@Z</DECORATED>
+    <FUNCLINE>1011</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

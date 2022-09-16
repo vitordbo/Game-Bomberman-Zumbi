@@ -19,6 +19,8 @@
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
 #include "GridSet.h"
+#include "Bomb.h"
+#include "Timer.h"
 
 // ------------------------------------------------------------------------------
 
@@ -34,16 +36,26 @@ class Player : public Object
 private:
     TileSet * tileset = nullptr;            // folha de sprites do personagem
     Animation * anim = nullptr;             // animação do personagem
-    GridSet ** gridSet = nullptr;
+	Timer t;								//temporizador interno
+	GridSet ** gridSet = nullptr;
+
     bool spcCtrl;                           // controle do pressionamento da barra de espaço
 	bool shootCtrl;							//controle dos botões de disparo
 	bool bombPlanted;						//boolean que indica se já existe uma bomba neste grid
+	bool immune;							//boolean para controlar o hp quando sofrer dano 
+	bool blinkEffect = false;				//boolena para controlar efeito visual durante imunidade
+
+	bool left;
+	bool right;
+	bool top;
+	bool down;
   
 public:
     uint gridI; //valor do label i do grid em que player está
     uint gridJ; //valor do label j do grid em que player está
     uint gridIndex;
 
+	uint bombsLeft;				     //bombas restantes para soltar
     uint hp;                                 //pontos de vida
     uint score;
     uint bombSize;
@@ -55,13 +67,36 @@ public:
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
+	void Immune();						//método que deixa o player imune
 };
 
 // ---------------------------------------------------------------------------------
 // Função Membro Inline
 
 inline void Player::Draw()
-{ anim->Draw(x, y, z); }
+{
+	if (immune) {
+		if (blinkEffect) {
+			anim->Draw(x, y, z);
+			blinkEffect = false;
+		}
+		else {
+			blinkEffect = true;
+		}
+	}
+	else {
+		anim->Draw(x, y, z);
+	}
+}
+//TODO
+inline void Player::Immune() {
+	immune = true;
+	
+	t.Start();
+	if (t.Elapsed() > 1.0f)
+		immune = false;
+	t.Stop();
+}
 
 // ---------------------------------------------------------------------------------
 

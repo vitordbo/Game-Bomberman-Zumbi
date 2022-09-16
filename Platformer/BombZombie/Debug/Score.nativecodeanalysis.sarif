@@ -1,0 +1,155 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.32.31332.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/score.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "63f9b51b2d6c53378c03388b90ae7a1dbf1ec4be6c160248b56feb1541fd35db"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/score.h"
+          },
+          "hashes": {
+            "sha-256": "6f84e14c07209b9731cb11aae70ef74f42fc901dd2fdeb6308f906c52504b872"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/types.h"
+          },
+          "hashes": {
+            "sha-256": "83a40da2d29d4679824a4939bc519f5d65220602c43a9764b8ca4665b15bc681"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/object.h"
+          },
+          "hashes": {
+            "sha-256": "7fdb04538634eb6f67b64a937a71269d5e2e2d7fc29a60761657c25de28dd2fe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/game.h"
+          },
+          "hashes": {
+            "sha-256": "c1eff9d72a11411b53c0ee7107cc83144c2873c2d25db744170a1f3c5545bd02"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/window.h"
+          },
+          "hashes": {
+            "sha-256": "14267127469fa3fe05bb4a8b6ebc2556dc79ee7e15853a9b1193fa3f59035ab6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/geometry.h"
+          },
+          "hashes": {
+            "sha-256": "71ebc02ab43ecc8c3294b75975cea189c699bdfe53ce16af60984dfeb0008035"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/sprite.h"
+          },
+          "hashes": {
+            "sha-256": "eb68c4819c35566f1aad46219b8bb88d2f0d836549ce82ed9c6fa15d4506baad"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/image.h"
+          },
+          "hashes": {
+            "sha-256": "e394ed93834e0e779a9ca4894022bd6d5193307aa594280607718e0e1cdefa40"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/texture.h"
+          },
+          "hashes": {
+            "sha-256": "8bf52bc09df20f779d6eda0d224a379ed7182961983176c39ac31ce10e44cdc6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/player.h"
+          },
+          "hashes": {
+            "sha-256": "ece4900f3292412f7c62d82283a0a4a6e39bf87a3258049852865e5378e4363f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/animation.h"
+          },
+          "hashes": {
+            "sha-256": "c69917c5278fbffd469b67553a84de2bd068e56dcf70f2ee57d2c264d32e9a98"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/tileset.h"
+          },
+          "hashes": {
+            "sha-256": "476d9fa49f615168f2d921cd33bd0a26d3450c17ea1a349fa2771de1df5ac182"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/timer.h"
+          },
+          "hashes": {
+            "sha-256": "65223c3396853ed11b20140911c5066eca06707d1e16164eb4466ab03d27d14e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/gridset.h"
+          },
+          "hashes": {
+            "sha-256": "d1edee9e3dcda13bcbc6b757ab746ae531c249ac1f9f2eb8f0e57ecc6f57b422"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/ffili/onedrive/área de trabalho/jogo/game-bomberman-zumbi/platformer/font.h"
+          },
+          "hashes": {
+            "sha-256": "00ceb83a7639ad9fc33ad7fca0343be8374115930e4d1e9b14585271d82ad167"
+          }
+        }
+      ]
+    }
+  ]
+}
