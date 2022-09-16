@@ -34,24 +34,30 @@ enum Movimento {
 class Zombie : public Object
 {
 private:
-	TileSet* tileset = nullptr;            // folha de sprites do personagem
-	Animation* anim = nullptr;             // animação do personagem
+	TileSet* tileset = nullptr;					// folha de sprites do personagem
+	Animation* anim = nullptr;					// animação do personagem
 	GridSet** gridSet = nullptr;
 	Player* player;
 
 public:
-	uint gridI; //valor do label i do grid em que player está
-	uint gridJ; //valor do label j do grid em que player está
+	uint gridI;									//valor do label i do grid em que player está
+	uint gridJ;									//valor do label j do grid em que player está
 	uint gridIndex;
 
-	int hp;                                 //pontos de vida
-	uint state;
-	Zombie(Player* player, GridSet** gridSet);                           // construtor
-	~Zombie();                          // destrutor
+	bool right;
+	bool left;
+	bool top;
+	bool down;
 
-	void OnCollision(Object* obj);     // resolução da colisão
-	void Update();                      // atualização do objeto
-	void Draw();                        // desenho do objeto
+
+	int hp;										//pontos de vida
+	uint state;
+	Zombie(Player* player, GridSet** gridSet);  // construtor
+	~Zombie();									// destrutor
+
+	void OnCollision(Object* obj);				// resolução da colisão
+	void Update();								// atualização do objeto
+	void Draw();								// desenho do objeto
 
 	float distanceX();
 	float distanceY();

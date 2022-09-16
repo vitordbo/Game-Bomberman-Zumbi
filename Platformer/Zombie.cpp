@@ -20,9 +20,16 @@ Zombie::Zombie(Player* player, GridSet** gridSet)
 	tileset = new TileSet("Resources/player.png", 40, 40, 3, 12);
 	anim = new Animation(tileset, 0.15f, true);
 	this->player = player;
+
 	gridI = 0;
 	gridJ = 0;
 	gridIndex = 0;
+
+	right = false;
+	left = false;
+	top = false;
+	down = false;
+
 
 	uint DownMove[2] = { 0, 2 };
 	uint DownIdle[1] = { 1 };
@@ -61,7 +68,7 @@ Zombie::Zombie(Player* player, GridSet** gridSet)
 
 	hp = 2;
 
-	MoveTo(window->CenterX(), window->CenterY() - 10, Layer::MIDDLE);
+	MoveTo(window->CenterX(), window->CenterY() - 28, Layer::MIDDLE);
 }
 
 // ---------------------------------------------------------------------------------
@@ -115,30 +122,31 @@ void Zombie::OnCollision(Object* obj)
 		float topDif = plyBot - pivTop;
 		float botDif = pivBot - plyTop;
 
-		//left-top
-		if (leftDif > 0 && topDif < 5)
-			MoveTo(x, pivTop - 16);
-		//right-top
-		else if (rightDif > 0 && topDif < 5)
-			MoveTo(x, pivTop - 16);
-		//left-bot
-		else if (leftDif > 0 && botDif < 5)
-			MoveTo(x, pivBot + 16);
-		//right-bot
-		else if (rightDif > 0 && botDif < 5)
-			MoveTo(x, pivBot + 16);
+		
 		//left
-		else if (leftDif > 0 && topDif >= 5)
+		if (leftDif > 0 && topDif >= 5) {
+			left = true;
 			MoveTo(pivLft - 16, y);
+		}
+			
 		//right
-		else if (rightDif > 0 && topDif >= 5)
+		else if (rightDif > 0 && topDif >= 5) {
+			right = true;
 			MoveTo(pivRgt + 16, y);
+
+		}
 		//top
-		else if (leftDif < 0 && topDif < 5)
+		else if (leftDif < 0 && topDif < 5) {
+			top = true;
 			MoveTo(x, pivTop - 16);
+
+		}
 		//bot
-		else if (leftDif < 0 && botDif < 5)
+		else if (leftDif < 0 && botDif < 5) {
+			down = true;
 			MoveTo(x, pivBot + 16);
+
+		}
 
 	}
 }
@@ -156,26 +164,144 @@ void Zombie::Update()
 	if (y + 16 > 470)
 		MoveTo(x, 454.0f);
 
-	if (distanceX() > 0 && distanceX() < 50.0f)
+
+	if (gridI > player->gridI)
 	{
-		Translate(-100.0f * gameTime, 0);
-		state = LFT_MOVE;
+		if (left == true)
+		{
+			if (top == false)
+			{
+				while (gridJ > (gridJ + 1))
+				{
+					Translate(0, -100.0f * gameTime);
+					state = TP_MOVE;
+				}
+
+				Translate(-100.0f * gameTime, 0);
+				state = LFT_MOVE;
+			}
+			else if (down == false) {
+
+				while (gridJ > (gridJ + 1))
+				{
+					Translate(0, 100.0f * gameTime);
+					state = DWN_MOVE;
+				}
+
+				Translate(-100.0f * gameTime, 0);
+				state = LFT_MOVE;
+
+			}
+		}
+		else {
+			Translate(-100.0f * gameTime, 0);
+			state = LFT_MOVE;
+		}
+
 	}
-	else if (distanceY() > 0 && distanceY() < 50.0f)
+	else if (gridJ > player->gridJ) {
+
+		if (top == true)
+		{
+			if (right == false) {
+				while (gridI > (gridI + 1))
+				{
+					Translate(100.0f * gameTime, 0);
+					state = RGT_MOVE;
+				}
+				Translate(0, -100.0f * gameTime);
+				state = TP_MOVE;
+
+			}
+			else if (left == false) {
+				while (gridI > (gridI + 1))
+				{
+					Translate(-100.0f * gameTime, 0);
+					state = LFT_MOVE;
+				}
+				Translate(0, -100.0f * gameTime);
+				state = TP_MOVE;
+			}
+		}
+		else
+		{
+			Translate(0, -100.0f * gameTime);
+			state = TP_MOVE;
+		}
+
+	}
+	else if (gridI < player->gridI)
 	{
-		Translate(0, -100.0f * gameTime);
-		state = TP_MOVE;
+		if (right == true)
+		{
+			if (top == false)
+			{
+				while (gridJ > (gridJ + 1))
+				{
+					Translate(0, -100.0f * gameTime);
+					state = TP_MOVE;
+				}
+
+				Translate(100.0f * gameTime, 0);
+				state = RGT_MOVE;
+			}
+			else if (down == false) {
+
+				while (gridJ > (gridJ + 1))
+				{
+					Translate(0, 100.0f * gameTime);
+					state = DWN_MOVE;
+				}
+
+				Translate(100.0f * gameTime, 0);
+				state = RGT_MOVE;
+
+			}
+		}
+		else {
+			Translate(100.0f * gameTime, 0);
+			state = RGT_MOVE;
+		}
+
 	}
-	else if (distanceX() < 0 && distanceX() < 50.0f)
-	{
-		Translate(100.0f * gameTime, 0);
-		state = RGT_MOVE;
+	else if (gridJ < player->gridJ) {
+
+		if (down == true)
+		{
+			if (right == false) {
+				while (gridI > (gridI + 1))
+				{
+					Translate(100.0f * gameTime, 0);
+					state = RGT_MOVE;
+				}
+				Translate(0, 100.0f * gameTime);
+				state = DWN_MOVE;
+
+			}
+			else if (left == false) {
+				while (gridI > (gridI + 1))
+				{
+					Translate(-100.0f * gameTime, 0);
+					state = LFT_MOVE;
+				}
+				Translate(0, 100.0f * gameTime);
+				state = DWN_MOVE;
+			}
+		}
+		else
+		{
+			Translate(0, 100.0f * gameTime);
+			state = DWN_MOVE;
+		}
 	}
-	else if (distanceY() < 0 && distanceY() < 50.0f)
-	{
-		Translate(0, 100.0f * gameTime);
-		state = DWN_MOVE;
-	}
+
+
+
+
+	top = false;
+	right = false;
+	left = false;
+	down = false;
 
 	anim->Select(state);
 	anim->NextFrame();

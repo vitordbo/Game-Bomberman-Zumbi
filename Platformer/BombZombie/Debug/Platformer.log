@@ -1,12 +1,9 @@
 ﻿  Bomb.cpp
   BombZombie.cpp
   Explosion.cpp
-  Fence.cpp
   GameOver.cpp
-  Heart.cpp
   Home.cpp
   Player.cpp
-  Score.cpp
   Zombie.cpp
   Gerando Código...
-  Platformer.vcxproj -> C:\Users\Aluno\Downloads\Game-Bomberman-Zumbi-main (1)\Game-Bomberman-Zumbi-main\BombZombie\Debug\BombZombie.exe
+  Platformer.vcxproj -> C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe
