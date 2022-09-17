@@ -27,8 +27,8 @@ class Bomb : public Object
 {
 private:
     Sprite* sprite1;
-    Sprite* sprite2;                                          // fundo estático  
-    Sprite* sprite3;                                          // fundo estático  
+    Sprite* sprite2;                                        // fundo estático  
+    Sprite* sprite3;                                        // fundo estático  
     Timer timer;
     uint size;
 	
@@ -37,10 +37,10 @@ private:
 public:
 	bool exploded;
 
-    Bomb(uint size, float posX, float posY);                 // construtor
-    ~Bomb();                                                  // destrutor
+    Bomb(uint size, float posX, float posY);                // construtor
+    ~Bomb();                                                // destrutor
 	
-    //void OnCollision(Object* obj);                          // resolução da colisão
+    void OnCollision(Object* obj);                          // resolução da colisão
     void Update();                                          // atualização do objeto
     void Draw();                                            // desenho do objeto
 };

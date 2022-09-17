@@ -46,9 +46,16 @@ Bomb::~Bomb()
 
 // -------------------------------------------------------------------------------
 
-//void Bomb::OnCollision(Object* obj) {
-//    
-//}
+void Bomb::OnCollision(Object* obj) {
+    
+    if (obj->Type() == EXPLOSION) {
+        Explosion* exp = new Explosion(posX + 2.0f, posY, size);
+        BombZombie::scene->Add(exp, MOVING);
+        BombZombie::player->bombsLeft++;
+        BombZombie::scene->Delete(this, MOVING);
+    }
+
+}
 
 void Bomb::Update() {
 

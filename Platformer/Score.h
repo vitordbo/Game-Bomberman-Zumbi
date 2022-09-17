@@ -28,11 +28,11 @@ using std::string;
 class Score : public Object
 {
 private:
-	Font* font;                             // fundo estático   
+	Font* font;                             
 	Player* player;
 	
 public:
-	Score(Player* player);      // construtor
+	Score(Player* player);					// construtor
 	~Score();                               // destrutor
 
 	void Update();                          // atualização do objeto
@@ -48,8 +48,8 @@ inline void Score::Draw()
 
 	Color black(0.0f, 0.0f, 0.0f, 1.0f);
 	string scoreText(std::to_string(player->score));
-	font->Draw(350, 60, "Score: " + scoreText, black, Layer::FRONT, 1.5f);
-	font->Spacing("Resources/consolas12.dat");
+	font->Draw(350, 60, "Score: " + scoreText, black, Layer::FRONT, 0.5f);
+	font->Spacing("Resources/font.dat");
 
 }
 

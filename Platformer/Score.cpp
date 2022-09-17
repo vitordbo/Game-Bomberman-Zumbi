@@ -15,7 +15,7 @@
 
 Score::Score(Player* player)
 {
-    font = new Font("Resources/consolas12.png");
+    font = new Font("Resources/font.png");
     this->player = player;
 }
 
