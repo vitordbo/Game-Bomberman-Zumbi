@@ -45,9 +45,14 @@ private:
 	bool immune;							//boolean para controlar o hp quando sofrer dano 
 	bool blinkEffect = false;				//boolena para controlar efeito visual durante imunidade
 
+	bool leftLimit;
+	bool rightLimit;
+	bool topLimit;
+	bool downLimit;
+
+	bool top;
 	bool left;
 	bool right;
-	bool top;
 	bool down;
   
 public:
@@ -67,7 +72,7 @@ public:
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
-	void Immune();						//método que deixa o player imune
+	void Immune();						//método que controla o tempo de imunidade
 };
 
 // ---------------------------------------------------------------------------------
@@ -90,12 +95,11 @@ inline void Player::Draw()
 }
 //TODO
 inline void Player::Immune() {
-	immune = true;
 	
-	t.Start();
-	if (t.Elapsed() > 1.0f)
+	if (t.Elapsed() > 3.0f) {
 		immune = false;
-	t.Stop();
+		t.Reset();
+	}
 }
 
 // ---------------------------------------------------------------------------------

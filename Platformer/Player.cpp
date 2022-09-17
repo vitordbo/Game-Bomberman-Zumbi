@@ -20,7 +20,7 @@ Player::Player(GridSet** gridSet)
 	anim = new Animation(tileset, 0.15f, true);
 	gridI = 0;
 	gridJ = 0;
-	gridIndex = 0;
+	gridIndex = 1;
 
 	uint DownMove[2] = { 0, 2 };
 	uint DownIdle[1] = { 1 };
@@ -59,15 +59,18 @@ Player::Player(GridSet** gridSet)
 	type = PLAYER;
 	bombPlanted = false;
 	this->gridSet = gridSet;
-	top = false;
-	down = true;
-	left = false;
-	right = true;
+	
 	immune = false;
+	score = 0;
 
 	hp = 3;
 	bombSize = 7;
 	bombsLeft = 2;
+
+	top = true;
+	left = true;
+	right = true;
+	down = true;
 
 	MoveTo(30.0f, 130.0f, Layer::MIDDLE);
 }
@@ -84,67 +87,82 @@ Player::~Player()
 
 void Player::OnCollision(Object* obj)
 {
+	
+	float plyLft  = x - 20.0f;
+	float plyRgt = x + 20.0f;
+	float plyTop  = y - 20.0f;
+	float plyBot  = y + 20.0f;
+
+	
+	float objLft = obj->X() - 20.0f;
+	float objRgt = obj->X() + 20.0f;
+	float objTop = obj->Y() - 20.0f;
+	float objBot = obj->Y() + 20.0f;
+
+	float topDiff = plyTop - objTop;
+	float botDiff = plyBot - objBot;
+	float rgtDiff = plyRgt - objRgt;
+	float lftDiff = plyLft - objLft;
+
+	if (topDiff < 0)
+		topDiff = -topDiff;
+	if (botDiff < 0)
+		botDiff = -botDiff;
+	if (lftDiff < 0)
+		lftDiff = -lftDiff;
+	if (rgtDiff < 0)
+		rgtDiff = -rgtDiff;
+
 	if (obj->Type() == BOMB)
 		bombPlanted = true;
 	else
 		bombPlanted = false;
 
 	if (obj->Type() == GRID) {
-		float objLft = obj->X() - 20.0f;
-		float objRgt = obj->X() + 20.0f;
-		float objTop = obj->Y() - 20.0f;
-		float objBot = obj->Y() + 20.0f;
-
-		if (x >= objLft && x <= objRgt && y >= objTop && y <= objBot) {
+		
+		if (topDiff < 5.0f && botDiff < 5.0f && lftDiff < 5.0f && rgtDiff < 5.0f) {
 
 			GridSet* grid = (GridSet*)obj;
+
+			if ((window->KeyUp(VK_DOWN) && window->KeyUp('S')) &&
+				(window->KeyUp(VK_UP) && window->KeyUp('W')) &&
+				(window->KeyUp(VK_LEFT) && window->KeyUp('A')) &&
+				(window->KeyUp(VK_RIGHT) && window->KeyUp('D'))) {
+
+				MoveTo(obj->X(), obj->Y());
+			}
+
 			gridI = grid->i;
 			gridJ = grid->j;
 			gridIndex = grid->index;
-		}
-	}
-	else if(obj->Type() == EXPLOSION && !immune){
-		hp--;
-		MoveTo(30.0f, 130.0f);
-		Immune();
-	}
-	else {
 
-		float yDiff = y - obj->Y();
-		float xDiff = x - obj->X();
+			//testade posição novamente após ter ajustado o personagem
+			if (topDiff < 5.0f && botDiff < 5.0f && lftDiff < 5.0f && rgtDiff < 5.0f) {
+				top = true;
+				left = true;
+				right = true;
+				down = true;
+			}
+			else {
+				if (top || down) {
+					left = false;
+					right = false;
+				}
+				else if (left || right) {
+					top = false;
+					right = false;
+				}
 
-		//left
-		if (xDiff >= 40.0f && yDiff > -40.0f && yDiff < 40.0f) {
-			if((window->KeyDown(VK_LEFT) || window->KeyDown('A')))
-				state = LEFT_MOVE;
-			left = false;
+			}
 		}
-		else
-			left = true;
-		//right
-		if (xDiff <= 40.0f && yDiff > -40.0f && yDiff < 40.0f) {
-			if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
-				state = RIGHT_MOVE;
-			right = false;
+		
+	}
+	if(obj->Type() == EXPLOSION && !immune){
+		if (lftDiff < 38.0f && topDiff < 38.0f) {
+			hp--;
+			MoveTo(30.0f, 130.0f);
+			immune = true;
 		}
-		else
-			right = true;
-		//top
-		if (y - 40.0f <= obj->Y() && xDiff <= 20.0f) {
-			if ((window->KeyDown(VK_UP) || window->KeyDown('W')))
-				state = TOP_MOVE;
-			top = false;
-		}
-		else
-			top = true;
-		//down
-		if (y + 40.0f >= obj->Y() && xDiff <= 20.0f) {
-			if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')))
-				state = DOWN_MOVE;
-			down = false;
-		}
-		else
-			down = true;
 	}
 }
 
@@ -152,55 +170,76 @@ void Player::OnCollision(Object* obj)
 
 void Player::Update()
 {
+	Immune();
+
+	//limites do mapa
 	if (x <= 30.0f) {
 		if ((window->KeyDown(VK_LEFT) || window->KeyDown('A')))
 			state = LEFT_MOVE;
-		left = false;
+		leftLimit = false;
 	}
 	else
-		left = true;
+		leftLimit = true;
 
 	if (y <= 130) {
 		if ((window->KeyDown(VK_UP) || window->KeyDown('W')))
 			state = TOP_MOVE;
-		top = false;
+		topLimit = false;
 	}
 	else
-		top = true;
+		topLimit = true;
 
 	if (x + 20 >= 530) {
 		if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
 			state = RIGHT_MOVE;
-		right = false;
+		rightLimit = false;
 	}
 	else
-		right = true;
+		rightLimit = true;
 
 	if (y + 20 >= 630) {
 		if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')))
 			state = DOWN_MOVE;
-		down = false;
+		downLimit = false;
 	}
 	else
-		down = true;
+		downLimit = true;
 
-	if ((window->KeyDown(VK_UP) || window->KeyDown('W')) && top) {
-		Translate(0, -160.0f * gameTime);
-		state = TOP_MOVE;
-	}
-	else if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')) && right) {
-		Translate(160.0f * gameTime, 0);
-		state = RIGHT_MOVE;
-	}
-	else if ((window->KeyDown(VK_LEFT) || window->KeyDown('A')) && left) {
-		Translate(-160.0f * gameTime, 0);
-		state = LEFT_MOVE;
-	}
-	else if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')) && down)  {
-		Translate(0, 160.0f * gameTime);
-		state = DOWN_MOVE;
+	//movimentação
+	
+	//top
+	if (gridIndex >= 13) {
+		if (top && topLimit && gridSet[gridIndex - 13]->Type() == GRID && (window->KeyDown(VK_UP) || window->KeyDown('W'))) {
+			MoveTo(x, y - 1.0f);
+			state = TOP_MOVE;
+		}
 	}
 
+	//right
+	if (gridIndex + 1 < 169) {
+		if (right && rightLimit && gridSet[gridIndex + 1]->Type() == GRID && (window->KeyDown(VK_RIGHT) || window->KeyDown('D'))) {
+			MoveTo(x + 1.0f, y);
+			state = RIGHT_MOVE;
+		}
+	}
+	
+	//left
+	if (gridIndex >= 1) {
+		if (left && leftLimit && gridSet[gridIndex - 1]->Type() == GRID && (window->KeyDown(VK_LEFT) || window->KeyDown('A'))) {
+			MoveTo(x - 1.0f, y);
+			state = LEFT_MOVE;
+		}
+	}
+	
+	//down
+	if (gridIndex + 13 < 169) {
+		if (down && downLimit && gridSet[gridIndex + 13]->Type() == GRID && (window->KeyDown(VK_DOWN) || window->KeyDown('S'))) {
+			MoveTo(x, y + 1.0f);
+			state = DOWN_MOVE;
+		}
+	}
+	
+	//espaço
 	if (spcCtrl && window->KeyDown(VK_SPACE)) {
 		score++;
 		spcCtrl = false;
@@ -239,22 +278,6 @@ void Player::Update()
 			break;
 		}
 	}
-
-	/*
-
-	 if (hp == 2)
-	 {
-		 BombZombie::scene->Delete(h3, STATIC);
-	 }
-	 else if (hp == 1)
-	 {
-		 BombZombie::scene->Delete(h2, STATIC);
-	 }
-	 else
-	 {
-		 BombZombie::scene->Delete(h1, STATIC);
-	 }
-	*/
 
 	anim->Select(state);
 	anim->NextFrame();

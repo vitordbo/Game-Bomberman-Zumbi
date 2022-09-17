@@ -93,6 +93,7 @@ void BombZombie::Init()
 
 void BombZombie::Update()
 {
+   
     // Entra na tela menu do jogo
     if (window->KeyDown(VK_ESCAPE))
     {

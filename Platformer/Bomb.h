@@ -50,6 +50,7 @@ public:
 
 inline void Bomb::Draw()
 {
+    
     if (this->timer.Elapsed() < 1.0f) {
         sprite1->Draw(x, y, z);
     }
@@ -57,8 +58,9 @@ inline void Bomb::Draw()
         sprite2->Draw(x, y, z);
     }
     else if (this->timer.Elapsed() < 3.0f) {
-        sprite3->Draw(x, y, z);
+        sprite3->Draw(x, y, z); 
     }
+    
 }
 
 // ---------------------------------------------------------------------------------
