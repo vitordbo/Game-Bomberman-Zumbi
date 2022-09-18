@@ -12,6 +12,8 @@
 #include "Zombie.h"
 #include "Player.h"
 #include "GridSet.h"
+#include "Scene.h"
+#include "BombZombie.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -122,13 +124,13 @@ void Zombie::OnCollision(Object* obj)
 		float topDif = plyBot - pivTop;
 		float botDif = pivBot - plyTop;
 
-		
+
 		//left
 		if (leftDif > 0 && topDif >= 5) {
 			left = true;
 			MoveTo(pivLft - 16, y);
 		}
-			
+
 		//right
 		else if (rightDif > 0 && topDif >= 5) {
 			right = true;
@@ -148,6 +150,11 @@ void Zombie::OnCollision(Object* obj)
 
 		}
 
+	}
+
+	if (obj->Type() == EXPLOSION) {
+		player->score++;
+		BombZombie::scene->Delete(this, MOVING);
 	}
 }
 
