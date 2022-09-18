@@ -16,21 +16,16 @@
 
 #include "Types.h"                      // tipos específicos da engine
 #include "Object.h"                     // interface de Object
-#include "TileSet.h"                     // background é composto por sprites
-#include "Animation.h" 
+#include "Sprite.h"                     // background é composto por sprites
 
 class GridSet : public Object
 {
 private:
-    TileSet* tileSet = nullptr;            
-    Animation* anim = nullptr;             
+    Sprite* sprite = nullptr;
 public:
     uint i;
     uint j;
     uint index;
-
-    bool destroyed;
-    
     GridSet(float posX, float posY, uint i, uint j, uint index, uint type);
     ~GridSet();
 
@@ -44,8 +39,9 @@ public:
 
 inline void GridSet::Draw(){
     if (type == OBSTACLE)
-        anim->Draw(x, y, z);
+        sprite->Draw(x, y, z);
 }
+inline void GridSet::Update(){}
 
 // ---------------------------------------------------------------------------------
 
