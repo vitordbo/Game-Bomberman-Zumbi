@@ -67,10 +67,16 @@ Player::Player(GridSet** gridSet)
 	bombSize = 7;
 	bombsLeft = 2;
 
-	top = true;
-	left = true;
+	top = false;
+	left = false;
 	right = true;
 	down = true;
+
+	topLimit = false;
+	leftLimit = false;
+	rightLimit = true;
+	downLimit = true;
+
 
 	MoveTo(30.0f, 130.0f, Layer::MIDDLE);
 }
@@ -118,14 +124,9 @@ void Player::OnCollision(Object* obj)
 	else
 		bombPlanted = false;
 
-	top = true;
-	left = true;
-	right = true;
-	down = true;
-
 	if (obj->Type() == GRID) {
 		
-		if (topDiff < 2.0f && botDiff < 2.0f && lftDiff < 2.0f && rgtDiff < 2.0f) {
+		if (topDiff < 5.0f && botDiff < 5.0f && lftDiff < 5.0f && rgtDiff < 5.0f) {
 
 			GridSet* grid = (GridSet*)obj;
 
@@ -141,18 +142,6 @@ void Player::OnCollision(Object* obj)
 			gridJ = grid->j;
 			gridIndex = grid->index;
 
-			
-
-		}	
-		else if( (plyLft < objRgt && plyRgt > objLft) || (plyTop < objBot && plyBot > objTop) ) {
-			if (top || down) {
-				left = false;
-				right = false;
-			}
-			else if (left || right) {
-				top = false;
-				right = false;
-			}
 		}
 	}
 
@@ -171,41 +160,30 @@ void Player::Update()
 {
 	Immune();
 
-	////limites do mapa
-	//if (x <= 30.0f) {
-	//	if ((window->KeyDown(VK_LEFT) || window->KeyDown('A')))
-	//		state = LEFT_MOVE;
-	//	leftLimit = false;
-	//}
-	//else
-	//	leftLimit = true;
+	if (x < 30)
+		leftLimit = false;
+	else
+		leftLimit = true;
 
-	//if (y <= 130) {
-	//	if ((window->KeyDown(VK_UP) || window->KeyDown('W')))
-	//		state = TOP_MOVE;
-	//	topLimit = false;
-	//}
-	//else
-	//	topLimit = true;
+	if (y < 130)
+		topLimit = false;
+	else
+		topLimit = true;
 
-	//if (x + 20 >= 530) {
-	//	if ((window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
-	//		state = RIGHT_MOVE;
-	//	rightLimit = false;
-	//}
-	//else
-	//	rightLimit = true;
+	if (x + 20 > 530)
+		rightLimit = false;
+	else
+		rightLimit = true;
 
-	//if (y + 20 >= 630) {
-	//	if ((window->KeyDown(VK_DOWN) || window->KeyDown('S')))
-	//		state = DOWN_MOVE;
-	//	downLimit = false;
-	//}
-	//else
-	//	downLimit = true;
+	if (y + 20 > 630)
+		downLimit = false;
+	else
+		downLimit = true;
 
 	//movimentação
 
+	// ---------------------------------------------------------------------------------
+	//animação
 	if (window->KeyDown(VK_UP) || window->KeyDown('W')) {
 		state = TOP_MOVE;
 	}
@@ -218,38 +196,68 @@ void Player::Update()
 	else if (window->KeyDown(VK_DOWN) || window->KeyDown('S')) {
 		state = DOWN_MOVE;
 	}
+	// ---------------------------------------------------------------------------------
+	//verificações
 	
 	//top
 	if (gridIndex >= 13) {
-		if (top && gridSet[gridIndex - 13]->Type() == GRID && (window->KeyDown(VK_UP) || window->KeyDown('W'))) {
-			Translate(0, -160.0f * gameTime);
+		if (gridSet[gridIndex - 13]->Type() == GRID) {
 			top = true;
+		}
+		else {
+			top = false;
 		}
 	}
 
 	//right
 	if (gridIndex + 1 < 169) {
-		if (right && gridSet[gridIndex + 1]->Type() == GRID && (window->KeyDown(VK_RIGHT) || window->KeyDown('D'))) {
-			Translate(160.0f * gameTime, 0);
+		if (gridSet[gridIndex + 1]->Type() == GRID) {
 			right = true;
 		}
+		else {
+			right = false;
+		}
 	}
-	
+
 	//left
 	if (gridIndex >= 1) {
-		if (left && gridSet[gridIndex - 1]->Type() == GRID && (window->KeyDown(VK_LEFT) || window->KeyDown('A'))) {
-			Translate(-160.0f * gameTime, 0);
+		if (gridSet[gridIndex - 1]->Type() == GRID) {
 			left = true;
+		}
+		else {
+			left = false;
+		}
+	}
+
+	//down
+	if (gridIndex + 13 < 169) {
+		if (gridSet[gridIndex + 13]->Type() == GRID) {
+			down = true;
+		}
+		else {
+			down = false;
 		}
 	}
 	
+	// ---------------------------------------------------------------------------------
+	//detecção de teclas
+	
+	//top
+	if (topLimit && top && (window->KeyDown(VK_UP) || window->KeyDown('W'))) 
+		Translate(0, -160.0f * gameTime);
+			
+	//right
+	else if (rightLimit && right && (window->KeyDown(VK_RIGHT) || window->KeyDown('D'))) 
+		Translate(160.0f * gameTime, 0);
+			
+	//left
+	else if (leftLimit && left && (window->KeyDown(VK_LEFT) || window->KeyDown('A'))) 
+		Translate(-160.0f * gameTime, 0);
+
 	//down
-	if (gridIndex + 13 < 169) {
-		if (down && gridSet[gridIndex + 13]->Type() == GRID && (window->KeyDown(VK_DOWN) || window->KeyDown('S'))) {
-			Translate(0, 160.0f * gameTime);
-			down = true;
-		}
-	}
+	else if (downLimit && down && (window->KeyDown(VK_DOWN) || window->KeyDown('S'))) 
+		Translate(0, 160.0f * gameTime);
+	
 	
 	//espaço
 	if (spcCtrl && window->KeyDown(VK_SPACE)) {
