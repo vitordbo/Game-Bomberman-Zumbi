@@ -52,7 +52,7 @@ public:
 
 	int hp;										//pontos de vida
 	uint state;
-	Zombie(Player* player, GridSet** gridSet);  // construtor
+	Zombie(Player* player, GridSet** gridSet, uint i, uint j);  // construtor
 	~Zombie();									// destrutor
 
 	void OnCollision(Object* obj);				// resolução da colisão

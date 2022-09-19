@@ -24,6 +24,10 @@
 #include "Zombie.h"
 #include "Fence.h"
 #include "Score.h"
+#include <random>
+using std::random_device;
+using std::mt19937;
+using std::uniform_real_distribution;
 // ------------------------------------------------------------------------------
 
 class BombZombie : public Game
@@ -37,6 +41,17 @@ private:
     Fence* fence = nullptr;
     Zombie* zombie = nullptr;
 
+    random_device rd;               
+    mt19937 mt{ rd() };   
+
+    uniform_real_distribution<float> itemResult{ 0.0f, 10.0f };     // item que surgirá após explosão (itens vão de 2 a 4)
+
+    uniform_real_distribution<float> pseudoBoolean{ 0.0f, 1.0f };   // "roda o dado" para verificar se algo vai OU não acontecer
+    bool doorCreated;                                               //boolean para indicar se já foi criada uma porta no mapa
+    
+    uniform_real_distribution<float> qntItens{ 5.0f, 10.0f };       // quantidade de itens permitidos no mapa
+    uint itensLeft;                                                 //controla a quantidade restante de itens permitidos
+
 public:
     static Scene * scene;           // gerenciador de cena
 	static Player* player;
@@ -44,6 +59,11 @@ public:
     Heart* h2;
     Heart* h3;
     Score* score;
+
+    uint zombiesXPos[3]; //vetor que contém as posições no eixo X dos zumbis
+    uint zombiesYPos[3]; //vetor que contém as posições no eixo Y dos zumbis
+
+    uint zombiesLeft = 3;
 
     void Init();                    // inicialização
     void Update();                  // atualização

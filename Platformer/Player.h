@@ -54,26 +54,29 @@ private:
 	bool left;
 	bool right;
 	bool down;
+
+	bool stopped;							//boolean para impedir movimento
   
 public:
-    uint gridI; //valor do label i do grid em que player está
-    uint gridJ; //valor do label j do grid em que player está
+    uint gridI;								//valor do label i do grid em que player está
+    uint gridJ;								//valor do label j do grid em que player está
     uint gridIndex;
+	uint initialIndex;
 
-	uint bombsMax;					 //qnt maxima de bomba permitida
-	uint bombsLeft;				     //bombas restantes para soltar
-    uint hp;                         //pontos de vida
+	uint bombsMax;							//qnt maxima de bomba permitida
+	uint bombsLeft;							//bombas restantes para soltar
+    uint hp;								//pontos de vida
     uint score;
     uint bombSize;
     uint state;
 
-    Player(GridSet ** gridSet);         // construtor
-    ~Player();                          // destrutor
+    Player(GridSet ** gridSet);				// construtor
+    ~Player();								// destrutor
 
-    void OnCollision(Object * obj);     // resolução da colisão
-    void Update();                      // atualização do objeto
-    void Draw();                        // desenho do objeto
-	void Immune();						//método que controla o tempo de imunidade
+    void OnCollision(Object * obj);			// resolução da colisão
+    void Update();							// atualização do objeto
+    void Draw();							// desenho do objeto
+	void Immune();							//método que controla o tempo de imunidade
 };
 
 // ---------------------------------------------------------------------------------
@@ -97,6 +100,9 @@ inline void Player::Draw()
 //TODO
 inline void Player::Immune() {
 	
+	if (t.Elapsed() > 2.0f) {
+		stopped = false;
+	}
 	if (t.Elapsed() > 3.0f) {
 		immune = false;
 		t.Reset();

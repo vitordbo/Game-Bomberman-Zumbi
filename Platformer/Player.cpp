@@ -21,6 +21,8 @@ Player::Player(GridSet** gridSet)
 	gridI = 0;
 	gridJ = 0;
 	gridIndex = 1;
+	initialIndex = 0;
+	stopped = false;
 
 	uint DownMove[2] = { 0, 2 };
 	uint DownIdle[1] = { 1 };
@@ -64,9 +66,9 @@ Player::Player(GridSet** gridSet)
 	score = 0;
 
 	hp = 3;
-	bombSize = 7;
-	bombsMax = 2;
-	bombsLeft = 2;
+	bombSize = 2;
+	bombsMax = 1;
+	bombsLeft = 1;
 
 	top = false;
 	left = false;
@@ -121,35 +123,45 @@ void Player::OnCollision(Object* obj)
 		rgtDiff = -rgtDiff;
 
 	if (obj->Type() == EXPLOSION && !immune) {
-		if (lftDiff <= 39.0f && topDiff <= 39.0f) {
+		if ((lftDiff <= 35.0f && rgtDiff <= 35.0f) && (topDiff <= 35.0f && botDiff <= 35.0f)) {
 			hp--;
 			MoveTo(30.0f, 130.0f);
 			immune = true;
+			stopped = true;
+		}
+	}
+
+	if ( obj->Type() == ZOMBIE && !immune) {
+		if (lftDiff <= 30.0f && topDiff <= 30.0f) {
+			hp--;
+			MoveTo(30.0f, 130.0f);
+			immune = true;
+			stopped = true;
 		}
 	}
 
 	if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
 		
 		//right
-		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
 			MoveTo(obj->X() - 40.0f, y);
 			right = false;
 		}
 		
 		//left
-		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
 			MoveTo(obj->X() + 40.0f, y);
 			left = false;
 		}
 
 		//top
-		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
 			MoveTo(x, obj->Y() + 40.0f);
 			top = false;
 		}
 		
 		//down
-		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
 			MoveTo(x,obj->Y() - 40.0f);
 			down = false;
 		}
@@ -193,6 +205,28 @@ void Player::OnCollision(Object* obj)
 			gridJ = grid->j;
 			gridIndex = grid->index;
 
+			if (initialIndex != gridIndex) {
+				initialIndex = gridIndex;
+
+				if (grid->objPosExp == 2) {
+					if (hp < 3)
+						hp++;
+
+					grid->objPosExp = 0;
+				}
+				else if (grid->objPosExp == 3) {
+					bombsMax++;
+					bombsLeft++;
+
+					grid->objPosExp = 0;
+				}
+				else if (grid->objPosExp == 4) {
+					bombSize++;
+
+					grid->objPosExp = 0;
+				}
+			}
+			
 		}
 	}	
 }
@@ -225,14 +259,14 @@ void Player::Update()
 		topLimit = true;
 
 	if (x + 20 > 530.0f) {
-		MoveTo(530.0f, y);
+		MoveTo(510.0f, y);
 		rightLimit = false;
 	}
 	else
 		rightLimit = true;
 
 	if (y + 20 > 630.0f) {
-		MoveTo(x, 630.0f);
+		MoveTo(x, 610.0f);
 		downLimit = false;
 	}
 	else
@@ -256,21 +290,23 @@ void Player::Update()
 	// ---------------------------------------------------------------------------------
 	//detecção de teclas
 	
-	//top
-	if (topLimit && top && (window->KeyDown(VK_UP) || window->KeyDown('W'))) 
+	if (!stopped) {
+		//top
+		if (topLimit && top && (window->KeyDown(VK_UP) || window->KeyDown('W')))
 			Translate(0, -160.0f * gameTime);
-			
-	//right
-	if (rightLimit && right && (window->KeyDown(VK_RIGHT) || window->KeyDown('D'))) 
+
+		//right
+		if (rightLimit && right && (window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
 			Translate(160.0f * gameTime, 0);
-			
-	//left
-	if (leftLimit && left && (window->KeyDown(VK_LEFT) || window->KeyDown('A'))) 
+
+		//left
+		if (leftLimit && left && (window->KeyDown(VK_LEFT) || window->KeyDown('A')))
 			Translate(-160.0f * gameTime, 0);
 
-	//down
-	if (downLimit && down && (window->KeyDown(VK_DOWN) || window->KeyDown('S'))) 
+		//down
+		if (downLimit && down && (window->KeyDown(VK_DOWN) || window->KeyDown('S')))
 			Translate(0, 160.0f * gameTime);
+	}
 	
 	
 	//espaço
@@ -282,7 +318,7 @@ void Player::Update()
 		spcCtrl = true;
 
 	//soltar bomba
-	if (!bombPlanted && bombsLeft > 0 && shootCtrl && window->KeyDown('Z') || window->KeyDown('K')) {
+	if (!bombPlanted && bombsLeft > 0 && shootCtrl && (window->KeyDown('Z') || window->KeyDown('K')) ) {
 
 		Bomb * bomb = new Bomb(bombSize, 30.0f + (40.0f * gridI), 130.0f + (40.0f * gridJ));
 		BombZombie::scene->Add(bomb, MOVING);

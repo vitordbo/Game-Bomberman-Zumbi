@@ -100,6 +100,9 @@ void Explosion::Update()
 	if (y + 20.0f > 630.0f)
 		BombZombie::scene->Delete(this, MOVING);
 
+	if (anim->Frame() >= 4)//a partir do frame 4 já não causa mais dano
+		type = 0;
+
 	if (anim->Frame() == 6)
 		BombZombie::scene->Delete(this, MOVING);
 	

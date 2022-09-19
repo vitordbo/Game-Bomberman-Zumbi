@@ -23,7 +23,7 @@ Bomb::Bomb(uint size, float posX, float posY)//construtor da dinamite
 	BombZombie::player->bombsLeft--;
 
     BBox(new Rect(-20, -20, 20, 20));
-    MoveTo(posX, posY);
+    MoveTo(posX, posY,Layer::MIDDLE);
     type = BOMB;
     this->size = size;
     this->posX = posX;
