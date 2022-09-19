@@ -36,6 +36,7 @@ private:
     float posY;
 public:
 	bool exploded;
+    uint instance;
 
     Bomb(uint size, float posX, float posY);                // construtor
     ~Bomb();                                                // destrutor
@@ -53,12 +54,15 @@ inline void Bomb::Draw()
     
     if (this->timer.Elapsed() < 1.0f) {
         sprite1->Draw(x, y, z);
+        instance = 1;
     }
     else if (this->timer.Elapsed() < 2.0f) {
         sprite2->Draw(x, y, z);
+        instance = 2;
     }
     else if (this->timer.Elapsed() < 3.0f) {
-        sprite3->Draw(x, y, z); 
+        sprite3->Draw(x, y, z);
+        instance = 3;
     }
     
 }

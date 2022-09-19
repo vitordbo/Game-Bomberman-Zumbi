@@ -60,8 +60,9 @@ public:
     uint gridJ; //valor do label j do grid em que player está
     uint gridIndex;
 
+	uint bombsMax;					 //qnt maxima de bomba permitida
 	uint bombsLeft;				     //bombas restantes para soltar
-    uint hp;                                 //pontos de vida
+    uint hp;                         //pontos de vida
     uint score;
     uint bombSize;
     uint state;

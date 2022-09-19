@@ -65,6 +65,7 @@ Player::Player(GridSet** gridSet)
 
 	hp = 3;
 	bombSize = 7;
+	bombsMax = 2;
 	bombsLeft = 2;
 
 	top = false;
@@ -119,68 +120,123 @@ void Player::OnCollision(Object* obj)
 	if (rgtDiff < 0)
 		rgtDiff = -rgtDiff;
 
-	if (obj->Type() == BOMB)
-		bombPlanted = true;
-	else
-		bombPlanted = false;
+	if (obj->Type() == EXPLOSION && !immune) {
+		if (lftDiff <= 39.0f && topDiff <= 39.0f) {
+			hp--;
+			MoveTo(30.0f, 130.0f);
+			immune = true;
+		}
+	}
 
+	if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
+		
+		//right
+		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+			MoveTo(obj->X() - 40.0f, y);
+			right = false;
+		}
+		
+		//left
+		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+			MoveTo(obj->X() + 40.0f, y);
+			left = false;
+		}
+
+		//top
+		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			MoveTo(x, obj->Y() + 40.0f);
+			top = false;
+		}
+		
+		//down
+		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			MoveTo(x,obj->Y() - 40.0f);
+			down = false;
+		}
+	}
+
+	if (obj->Type() == BOMB) {
+		Bomb* b = (Bomb*)obj;
+
+		bombPlanted = true;
+
+		if (b->instance >= 2) {
+			//right
+			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+				right = false;
+			}
+
+			//left
+			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+				left = false;
+			}
+
+			//top
+			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+				top = false;
+			}
+
+			//down
+			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+				down = false;
+			}
+		}
+	}
+		
 	if (obj->Type() == GRID) {
 		
-		if (topDiff < 5.0f && botDiff < 5.0f && lftDiff < 5.0f && rgtDiff < 5.0f) {
+		if (topDiff <= 10.0f && botDiff <= 10.0f && lftDiff <= 10.0f && rgtDiff <= 10.0f) {
 
 			GridSet* grid = (GridSet*)obj;
-
-			if ((window->KeyUp(VK_DOWN) && window->KeyUp('S')) &&
-				(window->KeyUp(VK_UP) && window->KeyUp('W')) &&
-				(window->KeyUp(VK_LEFT) && window->KeyUp('A')) &&
-				(window->KeyUp(VK_RIGHT) && window->KeyUp('D'))) {
-
-				MoveTo(obj->X(), obj->Y());
-			}
 
 			gridI = grid->i;
 			gridJ = grid->j;
 			gridIndex = grid->index;
 
 		}
-	}
-
-	if(obj->Type() == EXPLOSION && !immune){
-		if (lftDiff < 38.0f && topDiff < 38.0f) {
-			hp--;
-			MoveTo(30.0f, 130.0f);
-			immune = true;
-		}
-	}
+	}	
 }
 
 // ---------------------------------------------------------------------------------
 
 void Player::Update()
 {
+	if (bombsLeft > bombsMax)
+		bombsLeft = bombsMax;
+
 	Immune();
 
-	if (x < 30)
+	//movimentação
+
+	// ---------------------------------------------------------------------------------
+	//verificação dos limites do mapa
+	if (x < 30.0f) {
+		MoveTo(30.0f, y);
 		leftLimit = false;
+	}
 	else
 		leftLimit = true;
 
-	if (y < 130)
+	if (y < 130.0f){
+		MoveTo(x, 130.0f);
 		topLimit = false;
+	}
 	else
 		topLimit = true;
 
-	if (x + 20 > 530)
+	if (x + 20 > 530.0f) {
+		MoveTo(530.0f, y);
 		rightLimit = false;
+	}
 	else
 		rightLimit = true;
 
-	if (y + 20 > 630)
+	if (y + 20 > 630.0f) {
+		MoveTo(x, 630.0f);
 		downLimit = false;
+	}
 	else
 		downLimit = true;
-
-	//movimentação
 
 	// ---------------------------------------------------------------------------------
 	//animação
@@ -196,67 +252,25 @@ void Player::Update()
 	else if (window->KeyDown(VK_DOWN) || window->KeyDown('S')) {
 		state = DOWN_MOVE;
 	}
-	// ---------------------------------------------------------------------------------
-	//verificações
-	
-	//top
-	if (gridIndex >= 13) {
-		if (gridSet[gridIndex - 13]->Type() == GRID) {
-			top = true;
-		}
-		else {
-			top = false;
-		}
-	}
-
-	//right
-	if (gridIndex + 1 < 169) {
-		if (gridSet[gridIndex + 1]->Type() == GRID) {
-			right = true;
-		}
-		else {
-			right = false;
-		}
-	}
-
-	//left
-	if (gridIndex >= 1) {
-		if (gridSet[gridIndex - 1]->Type() == GRID) {
-			left = true;
-		}
-		else {
-			left = false;
-		}
-	}
-
-	//down
-	if (gridIndex + 13 < 169) {
-		if (gridSet[gridIndex + 13]->Type() == GRID) {
-			down = true;
-		}
-		else {
-			down = false;
-		}
-	}
 	
 	// ---------------------------------------------------------------------------------
 	//detecção de teclas
 	
 	//top
 	if (topLimit && top && (window->KeyDown(VK_UP) || window->KeyDown('W'))) 
-		Translate(0, -160.0f * gameTime);
+			Translate(0, -160.0f * gameTime);
 			
 	//right
-	else if (rightLimit && right && (window->KeyDown(VK_RIGHT) || window->KeyDown('D'))) 
-		Translate(160.0f * gameTime, 0);
+	if (rightLimit && right && (window->KeyDown(VK_RIGHT) || window->KeyDown('D'))) 
+			Translate(160.0f * gameTime, 0);
 			
 	//left
-	else if (leftLimit && left && (window->KeyDown(VK_LEFT) || window->KeyDown('A'))) 
-		Translate(-160.0f * gameTime, 0);
+	if (leftLimit && left && (window->KeyDown(VK_LEFT) || window->KeyDown('A'))) 
+			Translate(-160.0f * gameTime, 0);
 
 	//down
-	else if (downLimit && down && (window->KeyDown(VK_DOWN) || window->KeyDown('S'))) 
-		Translate(0, 160.0f * gameTime);
+	if (downLimit && down && (window->KeyDown(VK_DOWN) || window->KeyDown('S'))) 
+			Translate(0, 160.0f * gameTime);
 	
 	
 	//espaço
@@ -298,6 +312,12 @@ void Player::Update()
 			break;
 		}
 	}
+
+	top = true;
+	down = true;
+	left = true;
+	right = true;
+	bombPlanted = false;
 
 	anim->Select(state);
 	anim->NextFrame();

@@ -49,7 +49,8 @@ Bomb::~Bomb()
 void Bomb::OnCollision(Object* obj) {
     
     if (obj->Type() == EXPLOSION) {
-        Explosion* exp = new Explosion(posX + 2.0f, posY, size);
+        Explosion* exp = new Explosion(posX, posY, size);
+        exploded = true;
         BombZombie::scene->Add(exp, MOVING);
         BombZombie::player->bombsLeft++;
         BombZombie::scene->Delete(this, MOVING);
@@ -61,7 +62,7 @@ void Bomb::Update() {
 
 	if (this->timer.Elapsed(3.0f) && !exploded) {
 		//OBS.:ajusta a posição X, pois a explosão tem 36px de largura, enquanto que a bomba tem 40px
-		Explosion* exp = new Explosion(posX + 2.0f, posY, size);
+		Explosion* exp = new Explosion(posX, posY, size);
 		BombZombie::scene->Add(exp, MOVING);
 		exploded = true;
 	}

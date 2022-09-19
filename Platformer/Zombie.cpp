@@ -85,76 +85,102 @@ Zombie::~Zombie()
 
 void Zombie::OnCollision(Object* obj)
 {
-	float plyRgt = x + 15;
-	float plyLft = x - 15;
-	float plyTop = y - 16;
-	float plyBot = y + 16;
+	float plyLft = x - 20.0f;
+	float plyRgt = x + 20.0f;
+	float plyTop = y - 20.0f;
+	float plyBot = y + 20.0f;
 
-	float pivRgt;
-	float pivLft;
-	float pivTop;
-	float pivBot;
+
+	float objLft = obj->X() - 20.0f;
+	float objRgt = obj->X() + 20.0f;
+	float objTop = obj->Y() - 20.0f;
+	float objBot = obj->Y() + 20.0f;
+
+	float topDiff = plyTop - objTop;
+	float botDiff = plyBot - objBot;
+	float rgtDiff = plyRgt - objRgt;
+	float lftDiff = plyLft - objLft;
+
+	if (topDiff < 0)
+		topDiff = -topDiff;
+	if (botDiff < 0)
+		botDiff = -botDiff;
+	if (lftDiff < 0)
+		lftDiff = -lftDiff;
+	if (rgtDiff < 0)
+		rgtDiff = -rgtDiff;
+
+	if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
+
+		//right
+		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+			MoveTo(obj->X() - 40.0f, y);
+			right = false;
+		}
+
+		//left
+		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+			MoveTo(obj->X() + 40.0f, y);
+			left = false;
+		}
+
+		//top
+		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			MoveTo(x, obj->Y() + 40.0f);
+			top = false;
+		}
+
+		//down
+		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			MoveTo(x, obj->Y() - 40.0f);
+			down = false;
+		}
+	}
+
+	if (obj->Type() == BOMB) {
+		Bomb* b = (Bomb*)obj;
+
+		if (b->instance >= 2) {
+			//right
+			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+				right = false;
+			}
+
+			//left
+			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+				left = false;
+			}
+
+			//top
+			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+				top = false;
+			}
+
+			//down
+			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+				down = false;
+			}
+		}
+	}
 
 	if (obj->Type() == GRID) {
 
-		/* Calcula a diferença de distancia do centro do
-		player e do grid (é utilizado o módulo do valor!!!)*/
+		if (topDiff <= 10.0f && botDiff <= 10.0f && lftDiff <= 10.0f && rgtDiff <= 10.0f) {
 
-		float xDiff = x - obj->X() > 0 ? x - obj->X() : -(x - obj->X());
-		float yDiff = y - obj->Y() > 0 ? y - obj->Y() : -(y - obj->Y());
-
-		if (xDiff <= 10.0f && yDiff <= 10.0f) {
 			GridSet* grid = (GridSet*)obj;
+
 			gridI = grid->i;
 			gridJ = grid->j;
 			gridIndex = grid->index;
-		}
-	}
-
-	if (obj->Type() == PIVOT || obj->Type() == OBSTACLE) {
-		GridSet* pivot = (GridSet*)obj;
-
-		pivTop = pivot->Y() - 20;
-		pivBot = pivot->Y() + 20;
-		pivLft = pivot->X() - 20;
-		pivRgt = pivot->X() + 20;
-
-		float leftDif = pivLft - plyLft;
-		float rightDif = plyRgt - pivRgt;
-		float topDif = plyBot - pivTop;
-		float botDif = pivBot - plyTop;
-
-
-		//left
-		if (leftDif > 0 && topDif >= 5) {
-			left = true;
-			MoveTo(pivLft - 16, y);
-		}
-
-		//right
-		else if (rightDif > 0 && topDif >= 5) {
-			right = true;
-			MoveTo(pivRgt + 16, y);
 
 		}
-		//top
-		else if (leftDif < 0 && topDif < 5) {
-			top = true;
-			MoveTo(x, pivTop - 16);
-
-		}
-		//bot
-		else if (leftDif < 0 && botDif < 5) {
-			down = true;
-			MoveTo(x, pivBot + 16);
-
-		}
-
 	}
 
 	if (obj->Type() == EXPLOSION) {
-		player->score++;
-		BombZombie::scene->Delete(this, MOVING);
+		if (lftDiff <= 39.0f && topDiff <= 39.0f) {
+			player->score++;
+			BombZombie::scene->Delete(this, MOVING);
+		}
 	}
 }
 
@@ -162,14 +188,19 @@ void Zombie::OnCollision(Object* obj)
 
 void Zombie::Update()
 {
-	if (x < 25)
-		MoveTo(25.0f, y);
-	if (y < 126)
-		MoveTo(x, 126.0f);
-	if (x + 15 > 370)
-		MoveTo(355.0f, y);
-	if (y + 16 > 470)
-		MoveTo(x, 454.0f);
+	// ---------------------------------------------------------------------------------
+	//verificação dos limites do mapa
+	if (x < 30.0f) 
+		MoveTo(30.0f, y);
+
+	if (y < 130.0f) 
+		MoveTo(x, 130.0f);
+
+	if (x + 20 > 530.0f) 
+		MoveTo(530.0f, y);
+
+	if (y + 20 > 630.0f) 
+		MoveTo(x, 630.0f);
 
 
 	if (gridI > player->gridI)
@@ -301,9 +332,6 @@ void Zombie::Update()
 			state = DWN_MOVE;
 		}
 	}
-
-
-
 
 	top = false;
 	right = false;

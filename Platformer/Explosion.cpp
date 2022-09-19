@@ -16,14 +16,14 @@
 
 Explosion::Explosion(float posX, float posY, uint direction, uint size)//construtor das explosões "filhas"
 {
-    tileSet = new TileSet("Resources/explosion.png", 36, 40, 7, 7);
+    tileSet = new TileSet("Resources/explosion.png", 40, 40, 7, 7);
     anim = new Animation(tileSet, 0.05f, false);
 
     uint boom[7] = { 0,1,2,3,4,5,6 };
 
     anim->Add(0, boom, 7);
     
-    BBox(new Rect(18, -20, 18, 20));
+    BBox(new Rect(20, -20, 20, 20));
     
     type = EXPLOSION;
 	this->direction = direction;
@@ -39,14 +39,14 @@ Explosion::Explosion(float posX, float posY, uint direction, uint size)//constru
 
 Explosion::Explosion(float posX, float posY, uint size)//construtor da explosão "pai"
 {
-	tileSet = new TileSet("Resources/explosion.png", 36, 40, 7, 7);
+	tileSet = new TileSet("Resources/explosion.png", 40, 40, 7, 7);
 	anim = new Animation(tileSet, 0.05f, false);
 
 	uint boom[7] = { 0,1,2,3,4,5,6 };
 
 	anim->Add(0, boom, 7);
 
-	BBox(new Rect(18, -20, 18, 20));
+	BBox(new Rect(20, -20, 20, 20));
 
 	type = EXPLOSION;
 	this->direction = TOP; //inicializa apenas para evitar warning
@@ -73,7 +73,7 @@ Explosion::~Explosion()
 void Explosion::OnCollision(Object* obj) {
 	if (obj->Type() == PIVOT || obj->Type() == OBSTACLE) {
 		
-		if (x == (obj->X() - 2.0f) || x == (obj->X() + 2.0f) && y == obj->Y()) {
+		if (x == obj->X() && y == obj->Y()) {
 			
 			BombZombie::scene->Delete(this, MOVING);
 		}
@@ -91,19 +91,18 @@ void Explosion::OnCollision(Object* obj) {
 
 void Explosion::Update()
 {
-	if (x < 28.0f)
+	if (x < 30.0f)
 		BombZombie::scene->Delete(this, MOVING);
-	if (y < 120)
+	if (y < 130.0f)
 		BombZombie::scene->Delete(this, MOVING);
-	if (x + 18 > 530)
+	if (x + 20.0f > 530.0f)
 		BombZombie::scene->Delete(this, MOVING);
-	if (y + 20 > 630)
+	if (y + 20.0f > 630.0f)
 		BombZombie::scene->Delete(this, MOVING);
 
 	if (anim->Frame() == 6)
 		BombZombie::scene->Delete(this, MOVING);
-	anim->NextFrame();
-
+	
 	if (extend && started && size > 0) {
 		if (isOrigin) {
 			eT = new Explosion(posX, posY - 40.0f, TOP, size - 1);
@@ -138,6 +137,8 @@ void Explosion::Update()
 		}
 		started = false;
 	}
+
+	anim->NextFrame();
 }
 
 // -------------------------------------------------------------------------------
