@@ -1,17 +1,16 @@
 #include "GameOver.h"
 #include "Engine.h"
 #include "BombZombie.h"
+#include "Score.h"
 
 void GameOver::Init()
 {
 	// tela de GAME OVER
 	telaGameOver = new Sprite("Resources/GameOver.png");
+	/*score = new Score(BombZombie::player, 60, 300);
+	BombZombie::scene->Add(score, STATIC);*/
 }
 
-void GameOver::Finalize()
-{
-	delete telaGameOver;
-}
 
 void GameOver::Update()
 {
@@ -31,4 +30,11 @@ void GameOver::Update()
 void GameOver::Draw()
 {
 	telaGameOver->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
+
+}
+
+void GameOver::Finalize()
+{
+	delete telaGameOver;
+	
 }

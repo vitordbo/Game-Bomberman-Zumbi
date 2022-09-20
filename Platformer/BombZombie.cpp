@@ -161,7 +161,7 @@ void BombZombie::Init()
 	createZombie();
 
     //criação do score
-    score = new Score(player);
+    score = new Score(player,350,60);
     scene->Add(score, STATIC);
 
 	createHeart();
@@ -178,12 +178,30 @@ void BombZombie::Update()
     {
         Engine::Next<Home>();
     }
-    else if (zombiesLeft == 0 && player->doorReached)
+    else if (/*zombiesLeft == 0 &&*/ player->doorReached || window->KeyDown('t'))
     {
+        // Quantidade vida;
+        Engine::values[0] = player->hp;
+        // Quantidade pontos;
+        Engine::values[1] = player->score;
+        // Quantidade bombas;
+        Engine::values[2] = player->bombsMax;
+        // Quantidade tamanho da bomba;
+        Engine::values[3] = player->bombSize;
+
         Engine::Next<NextLevel>();
     }
     else if (player->hp <= 0) // Vida menor que zero, player morre
     {
+        // Quantidade vida;
+        Engine::values[0] = player->hp;
+        // Quantidade pontos;
+        Engine::values[1] = player->score;
+        // Quantidade bombas;
+        Engine::values[2] = player->bombsMax;
+        // Quantidade tamanho da bomba;
+        Engine::values[3] = player->bombSize;
+
         Engine::Next<GameOver>();
     }
     // atualiza cena do jogo

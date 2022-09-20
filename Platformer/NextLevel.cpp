@@ -1,11 +1,14 @@
 #include "NextLevel.h"
 #include "Engine.h"
 #include "BombZombie.h"
+#include "Player.h"
+#include "Font.h"
 
 void NextLevel::Init()
 {
 	// Tela Continue
 	continuar = new Sprite("Resources/StageClear.png");
+	
 }
 
 void NextLevel::Finalize()
@@ -34,5 +37,11 @@ void NextLevel::Draw()
 {
 	// desenha tela menu no jogo
 	continuar->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
+
+	
+	
+	
+	
+	
 
 }

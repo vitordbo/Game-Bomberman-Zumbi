@@ -1,12 +1,5 @@
-﻿  Bomb.cpp
-  BombZombie.cpp
+﻿  BombZombie.cpp
 C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\BombZombie.cpp(28,20): warning C4018: '<': incompatibilidade de signed/unsigned
-  Explosion.cpp
   GameOver.cpp
-  GridSet.cpp
-  Home.cpp
-  NextLevel.cpp
-  Player.cpp
-  Zombie.cpp
   Gerando Código...
   Platformer.vcxproj -> C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe

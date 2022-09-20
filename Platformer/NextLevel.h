@@ -9,11 +9,14 @@ class NextLevel : public Game
 private:
 	Sprite* continuar = nullptr;
 	bool ctrlKeyESC = false;
+
 public:
+
 	void Init();
 	void Update();
 	void Draw();
 	void Finalize();
 };
+
 
 #endif

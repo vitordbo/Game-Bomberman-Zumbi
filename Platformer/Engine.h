@@ -52,6 +52,7 @@ public:
     
     static void Pause();                 // pausa o jogo
     static void Resume();                // reinicia o jogo
+    static uint values[4];
 
     template<class T>
     static void Next()                   // muda para próximo nível do jogo
