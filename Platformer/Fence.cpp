@@ -13,11 +13,16 @@
 
 // ---------------------------------------------------------------------------------
 
-Fence::Fence()
+Fence::Fence(uint mapa)
 {
-    // carrega imagens
-    sprite = new Sprite("Resources/fence-mapa-02.png");
-    MoveTo(window->CenterX(), window->CenterY(), Layer::UPPER);
+	if(mapa == CAMPO)
+		sprite = new Sprite("Resources/cerca-campo.png");
+	else if(mapa == CEMITERIO)
+		sprite = new Sprite("Resources/cerca-cemiterio.png");
+	else
+		sprite = new Sprite("Resources/cerca-fabrica.png");
+
+	MoveTo(window->CenterX(), window->CenterY(), Layer::UPPER);
 }
 
 // ---------------------------------------------------------------------------------

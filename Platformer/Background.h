@@ -19,13 +19,15 @@
 #include "Sprite.h"                     // background é composto por sprites
 
 // ---------------------------------------------------------------------------------
+enum MapaBG { CAMPO_DIA, CEMITERIO_NOITE, FABRICA_DIA };
+// ---------------------------------------------------------------------------------
 
 class Background : public Object
 {
 private: 
     Sprite * sprite;                       // fundo estático   
 public:
-    Background();                       // construtor
+    Background(uint mapa);                       // construtor
     ~Background();                      // destrutor
 
     void Update();                      // atualização do objeto

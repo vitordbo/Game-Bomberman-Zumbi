@@ -13,10 +13,15 @@
 
 // ---------------------------------------------------------------------------------
 
-Background::Background()
+Background::Background(uint mapa)
 {
-    // carrega imagens
-    sprite = new Sprite("Resources/mapa-02.png");
+	if (mapa == CAMPO_DIA)
+		sprite = new Sprite("Resources/mapa-campo.png");
+	else if (mapa == CEMITERIO_NOITE)
+		sprite = new Sprite("Resources/mapa-cemiterio-noite.png");
+	else
+		sprite = new Sprite("Resources/mapa-fabrica.png");
+
     MoveTo(window->CenterX(), window->CenterY(), Layer::BACK);
 }
 

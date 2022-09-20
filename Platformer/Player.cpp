@@ -79,7 +79,7 @@ Player::Player(GridSet** gridSet)
 	leftLimit = false;
 	rightLimit = true;
 	downLimit = true;
-
+	doorReached = false;
 
 	MoveTo(30.0f, 130.0f, Layer::MIDDLE);
 }
@@ -132,7 +132,7 @@ void Player::OnCollision(Object* obj)
 	}
 
 	if ( obj->Type() == ZOMBIE && !immune) {
-		if (lftDiff <= 30.0f && topDiff <= 30.0f) {
+		if ((lftDiff <= 10.0f && rgtDiff <= 10.0f) && (topDiff <= 10.0f && botDiff <= 10.0f)) {
 			hp--;
 			MoveTo(30.0f, 130.0f);
 			immune = true;
@@ -235,6 +235,12 @@ void Player::OnCollision(Object* obj)
 
 void Player::Update()
 {
+	//verifica se o jogador está posicionado em uma porta
+	if (gridSet[gridIndex]->objPosExp == 1)
+		doorReached = true;
+	else
+		doorReached = false;
+
 	if (bombsLeft > bombsMax)
 		bombsLeft = bombsMax;
 

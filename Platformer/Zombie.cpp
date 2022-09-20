@@ -128,27 +128,56 @@ void Zombie::OnCollision(Object* obj)
 		//right
 		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
 			MoveTo(obj->X() - 40.0f, y);
-			right = false;
+			right = true;
 		}
 
 		//left
 		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
 			MoveTo(obj->X() + 40.0f, y);
-			left = false;
+			left = true;
 		}
 
 		//top
 		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
 			MoveTo(x, obj->Y() + 40.0f);
-			top = false;
+			top = true;
 		}
 
 		//down
 		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
 			MoveTo(x, obj->Y() - 40.0f);
-			down = false;
+			down = true;
 		}
 	}
+
+	if (obj->Type() == ZOMBIE) {
+
+		//right
+		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
+			MoveTo(obj->X() - 40.0f, y);
+			right = true;
+		}
+
+		//left
+		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
+			MoveTo(obj->X() + 40.0f, y);
+			left = true;
+		}
+
+		//top
+		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+			MoveTo(x, obj->Y() + 40.0f);
+			top = true;
+		}
+
+		//down
+		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+			MoveTo(x, obj->Y() - 40.0f);
+			down = true;
+		}
+	}
+
+
 
 	if (obj->Type() == BOMB) {
 		Bomb* b = (Bomb*)obj;
@@ -156,22 +185,22 @@ void Zombie::OnCollision(Object* obj)
 		if (b->instance >= 2) {
 			//right
 			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
-				right = false;
+				right = true;
 			}
 
 			//left
 			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
-				left = false;
+				left = true;
 			}
 
 			//top
 			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
-				top = false;
+				top = true;
 			}
 
 			//down
 			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
-				down = false;
+				down = true;
 			}
 		}
 	}
@@ -196,44 +225,39 @@ void Zombie::Update()
 {
 	// ---------------------------------------------------------------------------------
 	//verificação dos limites do mapa
-	if (x < 30.0f) 
+	if (x < 30.0f)
 		MoveTo(30.0f, y);
 
-	if (y < 130.0f) 
+	if (y < 130.0f)
 		MoveTo(x, 130.0f);
 
-	if (x + 20 > 530.0f) 
+	if (x + 20 > 530.0f)
 		MoveTo(510.0f, y);
 
-	if (y + 20 > 630.0f) 
+	if (y + 20 > 630.0f)
 		MoveTo(x, 610.0f);
 
 
-	if (gridI > player->gridI)
+	// ---------------------------------------------------------------------------------
+	//IA zombie
+
+
+	if (top && right && down && left) {
+		state = DOWN_MOVE;
+	}
+	else if (gridI > player->gridI)
 	{
 		if (left == true)
 		{
 			if (top == false)
 			{
-				while (gridJ > (gridJ + 1))
-				{
-					Translate(0, -40.0f * gameTime);
-					state = TP_MOVE;
-				}
-
-				Translate(-40.0f * gameTime, 0);
-				state = LFT_MOVE;
+				Translate(0, -40.0f * gameTime);
+				state = TP_MOVE;
 			}
+
 			else if (down == false) {
-
-				while (gridJ > (gridJ + 1))
-				{
-					Translate(0, 40.0f * gameTime);
-					state = DWN_MOVE;
-				}
-
-				Translate(-40.0f * gameTime, 0);
-				state = LFT_MOVE;
+				Translate(0, 40.0f * gameTime);
+				state = DWN_MOVE;
 
 			}
 		}
@@ -248,21 +272,13 @@ void Zombie::Update()
 		if (top == true)
 		{
 			if (right == false) {
-				while (gridI > (gridI + 1))
-				{
-					Translate(40.0f * gameTime, 0);
-					state = RGT_MOVE;
-				}
+
 				Translate(0, -40.0f * gameTime);
 				state = TP_MOVE;
 
 			}
 			else if (left == false) {
-				while (gridI > (gridI + 1))
-				{
-					Translate(-40.0f * gameTime, 0);
-					state = LFT_MOVE;
-				}
+
 				Translate(0, -40.0f * gameTime);
 				state = TP_MOVE;
 			}
@@ -280,26 +296,13 @@ void Zombie::Update()
 		{
 			if (top == false)
 			{
-				while (gridJ > (gridJ + 1))
-				{
-					Translate(0, -40.0f * gameTime);
-					state = TP_MOVE;
-				}
-
-				Translate(40.0f * gameTime, 0);
-				state = RGT_MOVE;
+				Translate(0, -40.0f * gameTime);
+				state = TP_MOVE;
 			}
 			else if (down == false) {
 
-				while (gridJ > (gridJ + 1))
-				{
-					Translate(0, 40.0f * gameTime);
-					state = DWN_MOVE;
-				}
-
-				Translate(40.0f * gameTime, 0);
-				state = RGT_MOVE;
-
+				Translate(0, 40.0f * gameTime);
+				state = DWN_MOVE;
 			}
 		}
 		else {
@@ -313,23 +316,12 @@ void Zombie::Update()
 		if (down == true)
 		{
 			if (right == false) {
-				while (gridI > (gridI + 1))
-				{
-					Translate(40.0f * gameTime, 0);
-					state = RGT_MOVE;
-				}
-				Translate(0, 40.0f * gameTime);
-				state = DWN_MOVE;
-
+				Translate(40.0f * gameTime, 0);
+				state = RGT_MOVE;
 			}
 			else if (left == false) {
-				while (gridI > (gridI + 1))
-				{
-					Translate(-40.0f * gameTime, 0);
-					state = LFT_MOVE;
-				}
-				Translate(0, 40.0f * gameTime);
-				state = DWN_MOVE;
+				Translate(-40.0f * gameTime, 0);
+				state = LFT_MOVE;
 			}
 		}
 		else

@@ -20,13 +20,15 @@
 #include "Player.h"
 
 // ---------------------------------------------------------------------------------
+enum MapaAtual { CAMPO, CEMITERIO, FABRICA };
+// ---------------------------------------------------------------------------------
 
 class Fence : public Object
 {
 private:
     Sprite* sprite;                         // fundo estático
 public:
-    Fence();                                // construtor
+    Fence(uint mapa);                       // construtor
     ~Fence();                               // destrutor
 
     void Update();                          // atualização do objeto

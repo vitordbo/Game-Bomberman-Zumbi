@@ -1,2 +1,12 @@
-﻿  Zombie.cpp
-  Platformer.vcxproj -> C:\Users\pedro\OneDrive\Documents\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe
+﻿  Background.cpp
+  Bomb.cpp
+  BombZombie.cpp
+  Explosion.cpp
+  Fence.cpp
+  GameOver.cpp
+  GridSet.cpp
+  Home.cpp
+  Player.cpp
+  Zombie.cpp
+  Gerando Código...
+  Platformer.vcxproj -> C:\Users\Aluno\Downloads\Game-Bomberman-Zumbi-main\Game-Bomberman-Zumbi-main\BombZombie\Debug\BombZombie.exe

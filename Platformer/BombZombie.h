@@ -55,6 +55,7 @@ private:
 public:
     static Scene * scene;           // gerenciador de cena
 	static Player* player;
+    static uint* mapa;
     Heart* h1;
     Heart* h2;
     Heart* h3;

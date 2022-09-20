@@ -49,13 +49,22 @@ Bomb::~Bomb()
 void Bomb::OnCollision(Object* obj) {
     
     if (obj->Type() == EXPLOSION) {
-        Explosion* exp = new Explosion(posX, posY, size);
-        exploded = true;
-        BombZombie::scene->Add(exp, MOVING);
-        BombZombie::player->bombsLeft++;
-        BombZombie::scene->Delete(this, MOVING);
-    }
+		float xDiff = x - obj->X();
+		float yDiff = y - obj->Y();
 
+		if (xDiff < 0)
+			xDiff = -xDiff;
+		if (yDiff < 0)
+			yDiff = -yDiff;
+
+		if ((xDiff < 20.0f && yDiff < 40.0f) || (xDiff < 40.0f && yDiff < 20.0f)) {
+			Explosion* exp = new Explosion(posX, posY, size);
+			exploded = true;
+			BombZombie::scene->Add(exp, MOVING);
+			BombZombie::player->bombsLeft++;
+			BombZombie::scene->Delete(this, MOVING);
+		}
+    }
 }
 
 void Bomb::Update() {

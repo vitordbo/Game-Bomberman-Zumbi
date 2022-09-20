@@ -14,11 +14,12 @@
 #include "Resources.h"
 #include "Home.h"
 #include "GameOver.h"
-
+#include "NextLevel.h"
 // -----------------------------------------------------------------------------
 
 Scene * BombZombie::scene = nullptr;
 Player* BombZombie::player = nullptr;
+uint* BombZombie::mapa;
 
 // -----------------------------------------------------------------------------
 
@@ -26,6 +27,8 @@ void BombZombie::Init()
 {
     itensLeft = (uint)qntItens(mt);
     doorCreated = false;
+
+    mapa = new uint{ 1 };
 
     // cria cena do jogo
     scene = new Scene();
@@ -126,7 +129,7 @@ void BombZombie::Init()
     scene->Add(score, STATIC);
 
     // pano de fundo do jogo
-    backg = new Background();
+    backg = new Background(BombZombie::mapa);
     scene->Add(backg, STATIC);
 
     //adiciona png de cerca na layer frontal
@@ -143,6 +146,12 @@ void BombZombie::Update()
     if (window->KeyDown(VK_ESCAPE))
     {
         Engine::Next<Home>();
+    }
+    //else if ((zombiesLeft == 0 && (player->gridIndex == DOOR)) || window->KeyDown('P'))
+    else if (window->KeyDown('P'))
+    {
+        mapa++;
+        Engine::Next<NextLevel>();
     }
     else if (player->hp <= 0) // Vida menor que zero, player morre
     {
@@ -169,32 +178,4 @@ void BombZombie::Finalize()
 {
     delete scene;
 }
-
-
-// ------------------------------------------------------------------------------
-//                                  WinMain                                      
-// ------------------------------------------------------------------------------
-
-int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
-                    _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
-{
-    Engine * engine = new Engine();
-
-    // configura o motor do jogo
-    engine->window->Mode(WINDOWED);
-    engine->window->Size(540, 640);
-    engine->window->Color(150, 200, 230);
-    engine->window->Title("BombZombie");
-    engine->window->Icon(IDI_ICON);
-    //engine->window->Cursor(IDC_CURSOR);
-    //engine->graphics->VSync(true);
-    
-    // inicia o jogo
-    int status = engine->Start(new Home());
-
-    delete engine;
-    return status;
-}
-
-// ----------------------------------------------------------------------------
 

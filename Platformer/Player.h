@@ -56,8 +56,10 @@ private:
 	bool down;
 
 	bool stopped;							//boolean para impedir movimento
-  
+	
 public:
+	bool doorReached;						//verifica se está posicionado em uma porta
+
     uint gridI;								//valor do label i do grid em que player está
     uint gridJ;								//valor do label j do grid em que player está
     uint gridIndex;
