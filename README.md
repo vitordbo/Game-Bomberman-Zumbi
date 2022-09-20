@@ -1,5 +1,6 @@
 # Game-Bomberman-Zumbi
-First game of the game programming discipline
+* First game of the game programming discipline
+  Use the .sln file to open the game in Visual Studio 2022 or 2019 
 Bomberman with zumbi theme
 
 * Main menu
