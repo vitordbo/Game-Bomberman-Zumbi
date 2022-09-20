@@ -7,8 +7,8 @@ void GameOver::Init()
 {
 	// tela de GAME OVER
 	telaGameOver = new Sprite("Resources/GameOver.png");
-	/*score = new Score(BombZombie::player, 60, 300);
-	BombZombie::scene->Add(score, STATIC);*/
+	font = new Font("Resources/font.png");
+
 }
 
 
@@ -29,8 +29,10 @@ void GameOver::Update()
 
 void GameOver::Draw()
 {
+	Color black(1.0f, 1.0f, 1.0f, 1.0f);
+	string scoreText(std::to_string(Engine::values[0]));
 	telaGameOver->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
-
+	font->Draw(170, 300, "Score: " + scoreText, black, Layer::FRONT, 0.5f);
 }
 
 void GameOver::Finalize()

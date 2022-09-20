@@ -3,12 +3,16 @@
 
 #include "Game.h"
 #include "Sprite.h"
+#include "Font.h"
+
 
 class NextLevel : public Game
 {
 private:
 	Sprite* continuar = nullptr;
 	bool ctrlKeyESC = false;
+	Font* font = nullptr;
+
 
 public:
 

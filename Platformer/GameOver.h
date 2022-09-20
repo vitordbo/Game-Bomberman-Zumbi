@@ -9,7 +9,7 @@ class GameOver : public Game
 {
 private:
 	Sprite* telaGameOver = nullptr;
-	//Font* font = nullptr;
+	Font* font = nullptr;
 	//Score* score = nullptr;
 public:
 
