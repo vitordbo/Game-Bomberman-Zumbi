@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe</FullPath>
+      <FullPath>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\Platformer\Shaders\Pixel.cso</FullPath>
+      <FullPath>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\Shaders\Pixel.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\Platformer\Shaders\Vertex.cso</FullPath>
+      <FullPath>C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\Platformer\Shaders\Vertex.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

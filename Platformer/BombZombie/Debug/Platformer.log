@@ -1,36 +1,4 @@
-﻿  compilation object save succeeded; see C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\Platformer\Shaders\Pixel.cso
-  compilation object save succeeded; see C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\Platformer\Shaders\Vertex.cso
-  Animation.cpp
-  Background.cpp
-  Bomb.cpp
-  BombZombie.cpp
-C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\Platformer\BombZombie.cpp(28,20): warning C4018: '<': incompatibilidade de signed/unsigned
-  Engine.cpp
-  Explosion.cpp
-  Fence.cpp
-  Font.cpp
-  Game.cpp
-  GameOver.cpp
-  Geometry.cpp
-  Graphics.cpp
-  GridSet.cpp
-  Heart.cpp
-  Home.cpp
-  Image.cpp
+﻿  GameOver.cpp
   NextLevel.cpp
-  Object.cpp
-  Player.cpp
-  Renderer.cpp
   Gerando Código...
-  Compilando...
-  Scene.cpp
-  Score.cpp
-  Sprite.cpp
-  Texture.cpp
-  TileSet.cpp
-  Timer.cpp
-  Window.cpp
-  Zombie.cpp
-  Gerando Código...
-  LINK : C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe não encontrado ou não compilado pelo o último link incremental; executando link completo
-  Platformer.vcxproj -> C:\Users\ffili\OneDrive\Área de Trabalho\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe
+  Platformer.vcxproj -> C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\BombZombie\Debug\BombZombie.exe

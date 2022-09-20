@@ -84,7 +84,7 @@ void BombZombie::Init()
     itensLeft = (uint)qntItens(mt);
     doorCreated = false;
 
-	zombiesQnt = 3 + Engine::currentLvl;
+	zombiesQnt = 7 + Engine::currentLvl;
 	zombiesLeft = zombiesQnt;
 
     zombiesXPos = new uint[zombiesQnt];

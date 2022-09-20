@@ -49,7 +49,7 @@ void GameOver::Update()
 void GameOver::Draw()
 {
 	Color black(1.0f, 1.0f, 1.0f, 1.0f);
-	string scoreText(std::to_string(Engine::values[0]));
+	string scoreText(std::to_string(Engine::values[1]));
 	telaGameOver->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
 	font->Draw(170, 300, "Score: " + scoreText, black, Layer::FRONT, 0.5f);
 	hand->Draw(handX, handY);
