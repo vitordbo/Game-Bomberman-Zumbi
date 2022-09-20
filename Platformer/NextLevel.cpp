@@ -5,7 +5,7 @@
 void NextLevel::Init()
 {
 	// Tela Continue
-	continuar = new Sprite("Resources/continue.png");
+	continuar = new Sprite("Resources/StageClear.png");
 }
 
 void NextLevel::Finalize()
@@ -25,6 +25,7 @@ void NextLevel::Update()
 	if (window->KeyDown(VK_RETURN))
 	{
 		// Player sai da tela menu e volta para o nível que estava
+		Engine::currentLvl++;
 		Engine::Next<BombZombie>();
 	}
 }

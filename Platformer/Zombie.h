@@ -49,6 +49,12 @@ public:
 	bool top;
 	bool down;
 
+	bool rightTemp;
+	bool leftTemp;
+	bool topTemp;
+	bool downTemp;
+
+	int temp;
 
 	int hp;										//pontos de vida
 	uint state;

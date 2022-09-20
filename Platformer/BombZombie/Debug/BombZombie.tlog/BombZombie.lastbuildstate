@@ -1,2 +1,2 @@
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v142:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0
-Debug|x64|C:\Users\Aluno\Downloads\Game-Bomberman-Zumbi-main\Game-Bomberman-Zumbi-main\|
+PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.32.31326:TargetPlatformVersion=10.0.19041.0:
+Debug|x64|C:\Users\ffili\OneDrive\Área de Trabalho\jogo\Game-Bomberman-Zumbi\|

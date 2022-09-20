@@ -19,7 +19,7 @@
 
 Zombie::Zombie(Player* player, GridSet** gridSet, uint i, uint j)
 {
-	tileset = new TileSet("Resources/player.png", 40, 40, 3, 12);
+	tileset = new TileSet("Resources/zombie.png", 40, 40, 3, 12);
 	anim = new Animation(tileset, 0.15f, true);
 	this->player = player;
 
@@ -119,6 +119,7 @@ void Zombie::OnCollision(Object* obj)
 
 		if ((xDiff < 20.0f && yDiff < 40.0f) || (xDiff < 40.0f && yDiff < 20.0f)) {
 			player->score++;
+			BombZombie::zombiesLeft--;
 			BombZombie::scene->Delete(this, MOVING);
 		}
 	}
@@ -245,28 +246,66 @@ void Zombie::Update()
 	if (top && right && down && left) {
 		state = DOWN_MOVE;
 	}
-	else if (gridI > player->gridI)
-	{
-		if (left == true)
+
+	// ---------------------------------------------------------------------------------
+	//Down / Top
+	else if ((gridI >= player->gridI) && (gridJ > player->gridJ) && (leftTemp)) {
+
+		Translate(40.0f * gameTime, 0);
+		state = RGT_MOVE;
+
+		if (!top)
 		{
-			if (top == false)
-			{
-				Translate(0, -40.0f * gameTime);
-				state = TP_MOVE;
-			}
-
-			else if (down == false) {
-				Translate(0, 40.0f * gameTime);
-				state = DWN_MOVE;
-
-			}
-		}
-		else {
-			Translate(-40.0f * gameTime, 0);
-			state = LFT_MOVE;
+			leftTemp = false;
 		}
 
 	}
+	else if ((gridI <= player->gridI) && (gridJ > player->gridJ) && (rightTemp)) {
+		Translate(-40.0f * gameTime, 0);
+		state = LFT_MOVE;
+
+		if (!top)
+		{
+			rightTemp = false;
+		}
+
+	}
+
+	else if ((gridI <= player->gridI) && (gridJ < player->gridJ) && (rightTemp)) {
+
+		Translate(-40.0f * gameTime, 0);
+		state = LFT_MOVE;
+
+		if (!down)
+		{
+			rightTemp = false;
+		}
+
+	}
+
+	else if ((gridI >= player->gridI) && (gridJ < player->gridJ) && (leftTemp)) {
+
+		Translate(40.0f * gameTime, 0);
+		state = RGT_MOVE;
+
+		if (!down)
+		{
+			leftTemp = false;
+		}
+
+	}
+
+	// ---------------------------------------------------------------------------------
+	//Right / Left
+
+
+
+
+	// ---------------------------------------------------------------------------------
+
+
+
+
 	else if (gridJ > player->gridJ) {
 
 		if (top == true)
@@ -275,21 +314,82 @@ void Zombie::Update()
 
 				Translate(0, -40.0f * gameTime);
 				state = TP_MOVE;
+				rightTemp = true;
 
 			}
 			else if (left == false) {
 
 				Translate(0, -40.0f * gameTime);
 				state = TP_MOVE;
+				leftTemp = true;
 			}
 		}
 		else
 		{
 			Translate(0, -40.0f * gameTime);
 			state = TP_MOVE;
+			leftTemp = false;
+			rightTemp = false;
+
+
 		}
 
 	}
+
+	else if (gridJ < player->gridJ) {
+
+		if (down == true)
+		{
+			if (right == false) {
+				Translate(40.0f * gameTime, 0);
+				state = RGT_MOVE;
+				rightTemp = true;
+			}
+			else if (left == false) {
+				Translate(-40.0f * gameTime, 0);
+				state = LFT_MOVE;
+				leftTemp = true;
+
+			}
+		}
+		else
+		{
+			Translate(0, 40.0f * gameTime);
+			state = DWN_MOVE;
+			leftTemp = false;
+			rightTemp = false;
+		}
+	}
+
+	else if (gridI > player->gridI)
+	{
+		if (left == true)
+		{
+			if (top == false)
+			{
+				Translate(0, -40.0f * gameTime);
+				state = TP_MOVE;
+				topTemp = true;
+			}
+
+			else if (down == false) {
+				Translate(0, 40.0f * gameTime);
+				state = DWN_MOVE;
+				downTemp = true;
+
+
+			}
+		}
+		else {
+			Translate(-40.0f * gameTime, 0);
+			state = LFT_MOVE;
+			topTemp = false;
+			downTemp = false;
+
+		}
+
+	}
+
 	else if (gridI < player->gridI)
 	{
 		if (right == true)
@@ -298,37 +398,24 @@ void Zombie::Update()
 			{
 				Translate(0, -40.0f * gameTime);
 				state = TP_MOVE;
+				topTemp = true;
+
 			}
 			else if (down == false) {
 
 				Translate(0, 40.0f * gameTime);
 				state = DWN_MOVE;
+				downTemp = true;
+
 			}
 		}
 		else {
 			Translate(40.0f * gameTime, 0);
 			state = RGT_MOVE;
+			topTemp = false;
+			downTemp = false;
 		}
 
-	}
-	else if (gridJ < player->gridJ) {
-
-		if (down == true)
-		{
-			if (right == false) {
-				Translate(40.0f * gameTime, 0);
-				state = RGT_MOVE;
-			}
-			else if (left == false) {
-				Translate(-40.0f * gameTime, 0);
-				state = LFT_MOVE;
-			}
-		}
-		else
-		{
-			Translate(0, 40.0f * gameTime);
-			state = DWN_MOVE;
-		}
 	}
 
 	top = false;

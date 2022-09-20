@@ -55,16 +55,17 @@ private:
 public:
     static Scene * scene;           // gerenciador de cena
 	static Player* player;
-    static uint* mapa;
     Heart* h1;
     Heart* h2;
     Heart* h3;
     Score* score;
 
-    uint zombiesXPos[3]; //vetor que contém as posições no eixo X dos zumbis
-    uint zombiesYPos[3]; //vetor que contém as posições no eixo Y dos zumbis
+    uint * zombiesXPos; //vetor que contém as posições no eixo X dos zumbis
+    uint * zombiesYPos; //vetor que contém as posições no eixo Y dos zumbis
 
-    uint zombiesLeft = 3;
+    uint zombiesQnt = 3;
+	static uint zombiesLeft;
+	
 
     void Init();                    // inicialização
     void Update();                  // atualização
@@ -72,6 +73,10 @@ public:
     void Finalize();                // finalização
 	void BombPlanted();				//método para reduzir a quantidade de bombas restantes
 	void BombExploded();			//método para liberar uma bomba que explodiu
+
+	void createZombie();
+	void createHeart();
+	void createMap();
 };
 
 // ---------------------------------------------------------------------------------

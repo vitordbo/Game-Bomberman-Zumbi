@@ -23,6 +23,7 @@ void GameOver::Update()
 	else if (window->KeyDown(VK_RETURN))
 	{
 		// Player sai da tela game over e volta para o nível UM
+		Engine::currentLvl = 0;
 		Engine::Next<BombZombie>();
 	}
 }

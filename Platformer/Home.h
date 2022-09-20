@@ -5,7 +5,11 @@ class Home : public Game
 {
 private:
 	Sprite* menu = nullptr;
-	bool ctrlKeyESC = false;
+	Sprite* hand = nullptr;
+	bool ctrlMove;
+
+	float handX;
+	float handY;
 public:
 	void Init();
 	void Update();

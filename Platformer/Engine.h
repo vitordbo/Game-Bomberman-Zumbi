@@ -43,6 +43,8 @@ public:
     static Renderer * renderer;          // renderizador de sprites
     static float      frameTime;         // tempo do quadro atual
 
+    static uint currentLvl;
+
     Engine();                            // construtor
     ~Engine();                           // destrutor
 

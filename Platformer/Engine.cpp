@@ -28,6 +28,7 @@ Graphics * Engine::graphics  = nullptr;     // dispositivo gráfico
 Renderer * Engine::renderer  = nullptr;     // renderizador de sprites 
 float      Engine::frameTime = 0.0f;        // tempo do quadro atual
 bool       Engine::paused    = false;       // estado do game loop
+uint       Engine::currentLvl = 0;
 Timer      Engine::timer;                   // medidor de tempo
 
 // -------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Engine::Engine()
     window     = new Window();
     graphics   = new Graphics();
     renderer   = new Renderer();
+
 }
 
 // -------------------------------------------------------------------------------

@@ -19,8 +19,58 @@
 
 Scene * BombZombie::scene = nullptr;
 Player* BombZombie::player = nullptr;
-uint* BombZombie::mapa;
+uint BombZombie::zombiesLeft = 0;
 
+// ------------------------------------------------------------------------------
+//Métodos de criação
+
+void BombZombie::createZombie() {	
+	for (int i = 0; i < zombiesQnt; i++) {
+		zombie = new Zombie(player, gridSet, zombiesXPos[i], zombiesYPos[i]);
+		scene->Add(zombie, MOVING);
+	}
+}
+
+void BombZombie::createHeart() {
+	//criação dos corações
+	h1 = new Heart(player, 1, 50.0f);
+	scene->Add(h1, STATIC);
+
+	h2 = new Heart(player, 2, 110.0f);
+	scene->Add(h2, STATIC);
+
+	h3 = new Heart(player, 3, 170.0f);
+	scene->Add(h3, STATIC);
+}
+void BombZombie::createMap() {
+	if (pseudoBoolean(mt) <= 0.2f) {
+		// pano de fundo do jogo
+		backg = new Background(CAMPO_DIA);
+		scene->Add(backg, STATIC);
+
+		//adiciona png de cerca na layer frontal
+		fence = new Fence(CAMPO);
+		scene->Add(fence, STATIC);
+	}
+	else if(pseudoBoolean(mt) > 0.2f && pseudoBoolean(mt) <= 0.5f) {
+		// pano de fundo do jogo
+		backg = new Background(CEMITERIO_NOITE);
+		scene->Add(backg, STATIC);
+
+		//adiciona png de cerca na layer frontal
+		fence = new Fence(CEMITERIO);
+		scene->Add(fence, STATIC);
+	}
+	else if (pseudoBoolean(mt) > 0.5f) {
+		// pano de fundo do jogo
+		backg = new Background(FABRICA_DIA);
+		scene->Add(backg, STATIC);
+
+		//adiciona png de cerca na layer frontal
+		fence = new Fence(FABRICA);
+		scene->Add(fence, STATIC);
+	}
+}
 // -----------------------------------------------------------------------------
 
 void BombZombie::Init()
@@ -28,7 +78,11 @@ void BombZombie::Init()
     itensLeft = (uint)qntItens(mt);
     doorCreated = false;
 
-    mapa = new uint{ 1 };
+	zombiesQnt = zombiesQnt + Engine::currentLvl;
+	zombiesLeft = zombiesQnt;
+
+    zombiesXPos = new uint[zombiesQnt];
+    zombiesYPos = new uint[zombiesQnt];
 
     // cria cena do jogo
     scene = new Scene();
@@ -104,37 +158,14 @@ void BombZombie::Init()
     player = new Player(gridSet);
     scene->Add(player, MOVING);
 
-    //criação dos zumbis
-    zombie = new Zombie(player,gridSet, zombiesXPos[0], zombiesYPos[0]);
-    scene->Add(zombie, MOVING);
-
-    zombie = new Zombie(player, gridSet, zombiesXPos[1], zombiesYPos[1]);
-    scene->Add(zombie, MOVING);
-
-    zombie = new Zombie(player, gridSet, zombiesXPos[2], zombiesYPos[2]);
-    scene->Add(zombie, MOVING);
-
-    //criação dos corações
-    h1 = new Heart(player, 1, 50.0f);
-    scene->Add(h1, STATIC);
-
-    h2 = new Heart(player, 2, 110.0f);
-    scene->Add(h2, STATIC);
-
-    h3 = new Heart(player, 3, 170.0f);
-    scene->Add(h3, STATIC);
+	createZombie();
 
     //criação do score
     score = new Score(player);
     scene->Add(score, STATIC);
 
-    // pano de fundo do jogo
-    backg = new Background(BombZombie::mapa);
-    scene->Add(backg, STATIC);
-
-    //adiciona png de cerca na layer frontal
-    fence = new Fence();
-    scene->Add(fence, STATIC);
+	createHeart();
+	createMap();
 }
 
 // ------------------------------------------------------------------------------
@@ -147,10 +178,8 @@ void BombZombie::Update()
     {
         Engine::Next<Home>();
     }
-    //else if ((zombiesLeft == 0 && (player->gridIndex == DOOR)) || window->KeyDown('P'))
-    else if (window->KeyDown('P'))
+    else if (zombiesLeft == 0 && player->doorReached)
     {
-        mapa++;
         Engine::Next<NextLevel>();
     }
     else if (player->hp <= 0) // Vida menor que zero, player morre
@@ -177,5 +206,35 @@ void BombZombie::Draw()
 void BombZombie::Finalize()
 {
     delete scene;
+	delete zombiesXPos;
+	delete zombiesYPos;
 }
+
+// ------------------------------------------------------------------------------
+//                                  WinMain                                      
+// ------------------------------------------------------------------------------
+
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+{
+    Engine* engine = new Engine();
+
+    // configura o motor do jogo
+    engine->window->Mode(WINDOWED);
+    engine->window->Size(540, 640);
+    engine->window->Color(150, 200, 230);
+    engine->window->Title("BombZombie");
+    engine->window->Icon(IDI_ICON);
+    //engine->window->Cursor(IDC_CURSOR);
+    //engine->graphics->VSync(true);
+
+    // inicia o jogo
+    int status = engine->Start(new Home());
+
+    delete engine;
+    return status;
+}
+
+// ----------------------------------------------------------------------------
+
 
