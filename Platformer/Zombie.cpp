@@ -109,16 +109,8 @@ void Zombie::OnCollision(Object* obj)
 		rgtDiff = -rgtDiff;
 
 	if (obj->Type() == EXPLOSION) {
-		float xDiff = x - obj->X();
-		float yDiff = y - obj->Y();
-
-		if (xDiff < 0)
-			xDiff = -xDiff;
-		if (yDiff < 0)
-			yDiff = -yDiff;
-
-		if ((xDiff < 20.0f && yDiff < 40.0f) || (xDiff < 40.0f && yDiff < 20.0f)) {
-			player->score++;
+		if ((lftDiff <= 35.0f && rgtDiff <= 35.0f) && (topDiff <= 35.0f && botDiff <= 35.0f)) {
+			player->score += 100;
 			BombZombie::zombiesLeft--;
 			BombZombie::scene->Delete(this, MOVING);
 		}

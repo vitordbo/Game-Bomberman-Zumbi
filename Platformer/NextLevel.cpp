@@ -10,18 +10,10 @@ void NextLevel::Init()
 	continuar = new Sprite("Resources/StageClear.png");
 	font = new Font("Resources/font.png");
 
-	
 }
 
 void NextLevel::Update()
 {
-	if (ctrlKeyESC && window->KeyDown(VK_ESCAPE))
-	{
-		// Jogo fecha
-		ctrlKeyESC = false;
-		window->Close();
-	}
-
 	if (window->KeyDown(VK_RETURN))
 	{
 		// Player sai da tela menu e volta para o nível que estava

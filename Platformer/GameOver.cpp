@@ -9,21 +9,40 @@ void GameOver::Init()
 	telaGameOver = new Sprite("Resources/GameOver.png");
 	font = new Font("Resources/font.png");
 
+	//mão de select
+	hand = new Sprite("Resources/hand.png");
+
+	ctrlMove = true;
+
+	handX = 250.0f;
+	handY = 450.0f;
+
 }
 
 
 void GameOver::Update()
 {
-	if (window->KeyDown(VK_ESCAPE))
+	if (ctrlMove && (window->KeyDown(VK_LEFT) || window->KeyDown(VK_RIGHT)))
 	{
-		// Jogo fecha
-		window->Close();
+		if (handX == 250.0f)
+			handX = 50.0f;
+		else
+			handX = 250.0f;
+
+		ctrlMove = false;
 	}
-	else if (window->KeyDown(VK_RETURN))
+	else if (window->KeyUp(VK_LEFT) && window->KeyUp(VK_RIGHT))
 	{
-		// Player sai da tela game over e volta para o nível UM
-		Engine::currentLvl = 0;
-		Engine::Next<BombZombie>();
+		ctrlMove = true;
+	}
+	if (window->KeyDown(VK_RETURN))
+	{
+		if (handX == 250.0f) {
+			Engine::currentLvl = 0;
+			Engine::Next<BombZombie>();
+		}
+		else
+			window->Close();
 	}
 }
 
@@ -33,10 +52,12 @@ void GameOver::Draw()
 	string scoreText(std::to_string(Engine::values[0]));
 	telaGameOver->Draw(float(window->CenterX()), float(window->CenterY()), Layer::BACK);
 	font->Draw(170, 300, "Score: " + scoreText, black, Layer::FRONT, 0.5f);
+	hand->Draw(handX, handY);
 }
 
 void GameOver::Finalize()
 {
 	delete telaGameOver;
+	delete hand;
 	
 }

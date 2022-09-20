@@ -10,7 +10,13 @@ class GameOver : public Game
 private:
 	Sprite* telaGameOver = nullptr;
 	Font* font = nullptr;
-	//Score* score = nullptr;
+	
+	Sprite* hand = nullptr;
+	bool ctrlMove;
+
+	float handX;
+	float handY;
+
 public:
 
 	void Init();

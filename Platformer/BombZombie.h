@@ -63,8 +63,10 @@ public:
     uint * zombiesXPos; //vetor que contém as posições no eixo X dos zumbis
     uint * zombiesYPos; //vetor que contém as posições no eixo Y dos zumbis
 
-    uint zombiesQnt = 3;
+    uint zombiesQnt;
 	static uint zombiesLeft;
+
+    uint mapa;
 	
 
     void Init();                    // inicialização

@@ -13,12 +13,13 @@
 
 // ---------------------------------------------------------------------------------
 
-Score::Score(Player* player, float posX, float posY)
+Score::Score(Player* player, float posX, float posY, uint mapa)
 {
     this->posX = posX;
     this->posY = posY;
     font = new Font("Resources/font.png");
     this->player = player;
+    this->mapa = mapa;
 }
 
 Score::~Score()

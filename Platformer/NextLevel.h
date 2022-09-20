@@ -13,7 +13,6 @@ private:
 	bool ctrlKeyESC = false;
 	Font* font = nullptr;
 
-
 public:
 
 	void Init();

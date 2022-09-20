@@ -51,6 +51,8 @@ void BombZombie::createMap() {
 		//adiciona png de cerca na layer frontal
 		fence = new Fence(CAMPO);
 		scene->Add(fence, STATIC);
+
+        mapa = 0;
 	}
 	else if(pseudoBoolean(mt) > 0.2f && pseudoBoolean(mt) <= 0.5f) {
 		// pano de fundo do jogo
@@ -60,8 +62,10 @@ void BombZombie::createMap() {
 		//adiciona png de cerca na layer frontal
 		fence = new Fence(CEMITERIO);
 		scene->Add(fence, STATIC);
+
+        mapa = 1;
 	}
-	else if (pseudoBoolean(mt) > 0.5f) {
+	else{
 		// pano de fundo do jogo
 		backg = new Background(FABRICA_DIA);
 		scene->Add(backg, STATIC);
@@ -69,6 +73,8 @@ void BombZombie::createMap() {
 		//adiciona png de cerca na layer frontal
 		fence = new Fence(FABRICA);
 		scene->Add(fence, STATIC);
+
+        mapa = 2;
 	}
 }
 // -----------------------------------------------------------------------------
@@ -78,7 +84,7 @@ void BombZombie::Init()
     itensLeft = (uint)qntItens(mt);
     doorCreated = false;
 
-	zombiesQnt = zombiesQnt + Engine::currentLvl;
+	zombiesQnt = 3 + Engine::currentLvl;
 	zombiesLeft = zombiesQnt;
 
     zombiesXPos = new uint[zombiesQnt];
@@ -117,7 +123,7 @@ void BombZombie::Init()
                 
                 /* Se chegou em um certo ponto do vetor, e não 
                 tem uma porta ainda, este obstáculo receberá a porta*/
-                if (( (uint)pseudoBoolean(mt) == 1 && !doorCreated) || (!doorCreated && index >= 80)) {
+                if ((pseudoBoolean(mt) >= 0.6f && !doorCreated) || (!doorCreated && index >= 80)) {
                     
                     gridSet[index]->objPosExp = 1;              //esse obstáculo vai ter uma porta quando destruir
                     doorCreated = true;
@@ -154,18 +160,21 @@ void BombZombie::Init()
             index++;
         }
     }
+    
+    zombiesLeft = zombiesQnt;
 
     player = new Player(gridSet);
     scene->Add(player, MOVING);
 
 	createZombie();
 
+    createHeart();
+    createMap();
+
     //criação do score
-    score = new Score(player,350,60);
+    score = new Score(player, 350, 60, mapa);
     scene->Add(score, STATIC);
 
-	createHeart();
-	createMap();
 }
 
 // ------------------------------------------------------------------------------
@@ -178,12 +187,12 @@ void BombZombie::Update()
     {
         Engine::Next<Home>();
     }
-    else if (/*zombiesLeft == 0 &&*/ player->doorReached || window->KeyDown('t'))
+    else if (zombiesLeft == 0 && player->doorReached)
     {
         // Quantidade vida;
         Engine::values[0] = player->hp;
         // Quantidade pontos;
-        Engine::values[1] = player->score;
+        Engine::values[1] += player->score;
         // Quantidade bombas;
         Engine::values[2] = player->bombsMax;
         // Quantidade tamanho da bomba;
@@ -196,7 +205,7 @@ void BombZombie::Update()
         // Quantidade vida;
         Engine::values[0] = player->hp;
         // Quantidade pontos;
-        Engine::values[1] = player->score;
+        Engine::values[1] += player->score;
         // Quantidade bombas;
         Engine::values[2] = player->bombsMax;
         // Quantidade tamanho da bomba;
@@ -216,7 +225,7 @@ void BombZombie::Update()
 void BombZombie::Draw()
 {
     scene->Draw();
-    scene->DrawBBox();
+    //scene->DrawBBox();
 } 
 
 // ------------------------------------------------------------------------------

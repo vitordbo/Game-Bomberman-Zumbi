@@ -32,11 +32,12 @@ private:
 	Player* player;
 	
 public:
-	Score(Player* player, float posX, float posY);					// construtor
+	Score(Player* player, float posX, float posY, uint mapa);					// construtor
 	~Score();								// destrutor
 
 	float posX;
 	float posY;
+	uint mapa;
 
 	void Update();                          // atualização do objeto
 	void Draw();                            // desenho do objeto
@@ -50,8 +51,15 @@ inline void Score::Draw()
 {
 
 	Color black(0.0f, 0.0f, 0.0f, 1.0f);
+	Color white(1.0f, 1.0f, 1.0f, 1.0f);
+
 	string scoreText(std::to_string(player->score));
-	font->Draw(posX, posY, "Score: " + scoreText, black, Layer::FRONT, 0.5f);
+	
+	if(mapa == 1)
+		font->Draw(posX, posY, "Score: " + scoreText, white, Layer::FRONT, 0.5f);
+	else 
+		font->Draw(posX, posY, "Score: " + scoreText, black, Layer::FRONT, 0.5f);
+	
 	font->Spacing("Resources/font.dat");
 
 }
