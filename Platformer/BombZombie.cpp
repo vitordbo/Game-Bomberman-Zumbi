@@ -84,7 +84,7 @@ void BombZombie::Init()
     itensLeft = (uint)qntItens(mt);
     doorCreated = false;
 
-	zombiesQnt = 7 + Engine::currentLvl;
+	zombiesQnt = 3 + Engine::currentLvl;
 	zombiesLeft = zombiesQnt;
 
     zombiesXPos = new uint[zombiesQnt];
@@ -95,6 +95,7 @@ void BombZombie::Init()
 
     gridSet = new GridSet * [13 * 13];
 
+    zombiesQnt = 0; //reinicia qnt de zombies devido a possibilidade de não alcançar o valor inicial
     uint index = 0;
     //matriz de grades 13x13 (cada grade com 40 x 40px)
     for (int j = 0; j < 13; j++) {
@@ -123,7 +124,7 @@ void BombZombie::Init()
                 
                 /* Se chegou em um certo ponto do vetor, e não 
                 tem uma porta ainda, este obstáculo receberá a porta*/
-                if ((pseudoBoolean(mt) >= 0.6f && !doorCreated) || (!doorCreated && index >= 80)) {
+                if ((pseudoBoolean(mt) > 0.7f && !doorCreated) || (!doorCreated && index >= 80)) {
                     
                     gridSet[index]->objPosExp = 1;              //esse obstáculo vai ter uma porta quando destruir
                     doorCreated = true;
@@ -145,6 +146,8 @@ void BombZombie::Init()
                 }
             }
 
+            
+
             //estabelece uma coordenada para criar um zumbi 
             if ((gridSet[index]->Type() == GRID) && index > 70) {
                 if (pseudoBoolean(mt) > 0.2f && zombiesLeft > 0) {
@@ -153,6 +156,7 @@ void BombZombie::Init()
                     zombiesYPos[zombiesLeft - 1] = j;
                     
                     zombiesLeft--;
+                    zombiesQnt++;
                 }
             }
 
@@ -161,10 +165,16 @@ void BombZombie::Init()
         }
     }
     
-    zombiesLeft = zombiesQnt;
-
     player = new Player(gridSet);
     scene->Add(player, MOVING);
+    
+    if (Engine::currentLvl > 0) {
+        player->score = Engine::values[1];
+        player->hp = Engine::values[0];
+        player->bombsMax = Engine::values[2];
+        player->bombSize = Engine::values[3];
+        player->bombsLeft = Engine::values[3];
+    }
 
 	createZombie();
 
@@ -172,8 +182,10 @@ void BombZombie::Init()
     createMap();
 
     //criação do score
-    score = new Score(player, 350, 60, mapa);
+    score = new Score(player, 330, 50, mapa);
     scene->Add(score, STATIC);
+
+    zombiesLeft = zombiesQnt;
 
 }
 

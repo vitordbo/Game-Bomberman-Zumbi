@@ -24,28 +24,28 @@ Player::Player(GridSet** gridSet)
 	initialIndex = 0;
 	stopped = false;
 
-	uint DownMove[2] = { 0, 2 };
+	uint DownMove[3] = { 0, 1, 2 };
 	uint DownIdle[1] = { 1 };
 
-	uint LeftMove[2] = { 3, 5 };
+	uint LeftMove[3] = { 3, 4, 5 };
 	uint LeftIdle[1] = { 4 };
 
-	uint RightMove[2] = { 6, 8 };
+	uint RightMove[3] = { 6, 7, 8 };
 	uint RightIdle[1] = { 7 };
 
-	uint TopMove[2] = { 9, 11 };
+	uint TopMove[3] = { 9, 10, 11 };
 	uint TopIdle[1] = { 10 };
 
-	anim->Add(DOWN_MOVE, DownMove, 2);
+	anim->Add(DOWN_MOVE, DownMove, 3);
 	anim->Add(DOWN_IDLE, DownIdle, 1);
 
-	anim->Add(LEFT_MOVE, LeftMove, 2);
+	anim->Add(LEFT_MOVE, LeftMove, 3);
 	anim->Add(LEFT_IDLE, LeftIdle, 1);
 
-	anim->Add(RIGHT_MOVE, RightMove, 2);
+	anim->Add(RIGHT_MOVE, RightMove, 3);
 	anim->Add(RIGHT_IDLE, RightIdle, 1);
 
-	anim->Add(TOP_MOVE, TopMove, 2);
+	anim->Add(TOP_MOVE, TopMove, 3);
 	anim->Add(TOP_IDLE, TopIdle, 1);
 
 	float x1 = -20.0f;
@@ -69,6 +69,7 @@ Player::Player(GridSet** gridSet)
 	bombSize = 2;
 	bombsMax = 1;
 	bombsLeft = 1;
+	velocity = 100.0f;
 
 	top = false;
 	left = false;
@@ -299,19 +300,19 @@ void Player::Update()
 	if (!stopped) {
 		//top
 		if (topLimit && top && (window->KeyDown(VK_UP) || window->KeyDown('W')))
-			Translate(0, -160.0f * gameTime);
+			Translate(0, -(velocity) * gameTime);
 
 		//right
 		if (rightLimit && right && (window->KeyDown(VK_RIGHT) || window->KeyDown('D')))
-			Translate(160.0f * gameTime, 0);
+			Translate(velocity * gameTime, 0);
 
 		//left
 		if (leftLimit && left && (window->KeyDown(VK_LEFT) || window->KeyDown('A')))
-			Translate(-160.0f * gameTime, 0);
+			Translate( -(velocity) * gameTime, 0);
 
 		//down
 		if (downLimit && down && (window->KeyDown(VK_DOWN) || window->KeyDown('S')))
-			Translate(0, 160.0f * gameTime);
+			Translate(0, velocity * gameTime);
 	}
 	
 	

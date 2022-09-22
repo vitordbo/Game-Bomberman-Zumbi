@@ -72,6 +72,8 @@ public:
     uint bombSize;
     uint state;
 
+	float velocity;
+
     Player(GridSet ** gridSet);				// construtor
     ~Player();								// destrutor
 
