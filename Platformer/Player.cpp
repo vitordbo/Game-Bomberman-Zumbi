@@ -131,103 +131,104 @@ void Player::OnCollision(Object* obj)
 			stopped = true;
 		}
 	}
-
-	if ( obj->Type() == ZOMBIE && !immune) {
-		if ((lftDiff <= 10.0f && rgtDiff <= 10.0f) && (topDiff <= 10.0f && botDiff <= 10.0f)) {
-			hp--;
-			MoveTo(30.0f, 130.0f);
-			immune = true;
-			stopped = true;
-		}
-	}
-
-	if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
-		
-		//right
-		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
-			MoveTo(obj->X() - 40.0f, y);
-			right = false;
-		}
-		
-		//left
-		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
-			MoveTo(obj->X() + 40.0f, y);
-			left = false;
+	else {
+		if (obj->Type() == ZOMBIE && !immune) {
+			if ((lftDiff <= 10.0f && rgtDiff <= 10.0f) && (topDiff <= 10.0f && botDiff <= 10.0f)) {
+				hp--;
+				MoveTo(30.0f, 130.0f);
+				immune = true;
+				stopped = true;
+			}
 		}
 
-		//top
-		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
-			MoveTo(x, obj->Y() + 40.0f);
-			top = false;
-		}
-		
-		//down
-		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
-			MoveTo(x,obj->Y() - 40.0f);
-			down = false;
-		}
-	}
+		if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
 
-	if (obj->Type() == BOMB) {
-		Bomb* b = (Bomb*)obj;
-
-		bombPlanted = true;
-
-		if (b->instance >= 2) {
 			//right
-			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
+				MoveTo(obj->X() - 40.0f, y);
 				right = false;
 			}
 
 			//left
-			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
+				MoveTo(obj->X() + 40.0f, y);
 				left = false;
 			}
 
 			//top
-			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+				MoveTo(x, obj->Y() + 40.0f);
 				top = false;
 			}
 
 			//down
-			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+				MoveTo(x, obj->Y() - 40.0f);
 				down = false;
 			}
 		}
-	}
-		
-	if (obj->Type() == GRID) {
-		
-		if (topDiff <= 10.0f && botDiff <= 10.0f && lftDiff <= 10.0f && rgtDiff <= 10.0f) {
 
-			GridSet* grid = (GridSet*)obj;
+		if (obj->Type() == BOMB) {
+			Bomb* b = (Bomb*)obj;
 
-			gridI = grid->i;
-			gridJ = grid->j;
-			gridIndex = grid->index;
+			bombPlanted = true;
 
-			if (initialIndex != gridIndex) {
-				initialIndex = gridIndex;
-
-				if (grid->objPosExp == 2) {
-					if (hp < 3)
-						hp++;
-
-					grid->objPosExp = 0;
+			if (b->instance >= 2) {
+				//right
+				if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+					right = false;
 				}
-				else if (grid->objPosExp == 3) {
-					bombsMax++;
-					bombsLeft++;
 
-					grid->objPosExp = 0;
+				//left
+				if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+					left = false;
 				}
-				else if (grid->objPosExp == 4) {
-					bombSize++;
 
-					grid->objPosExp = 0;
+				//top
+				if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+					top = false;
+				}
+
+				//down
+				if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+					down = false;
 				}
 			}
-			
+		}
+
+		if (obj->Type() == GRID) {
+
+			if (topDiff <= 10.0f && botDiff <= 10.0f && lftDiff <= 10.0f && rgtDiff <= 10.0f) {
+
+				GridSet* grid = (GridSet*)obj;
+
+				gridI = grid->i;
+				gridJ = grid->j;
+				gridIndex = grid->index;
+
+				if (initialIndex != gridIndex) {
+					initialIndex = gridIndex;
+
+					if (grid->objPosExp == 2) {
+						if (hp < 3)
+							hp++;
+
+						grid->objPosExp = 0;
+					}
+					else if (grid->objPosExp == 3) {
+						bombsMax++;
+						bombsLeft++;
+
+						grid->objPosExp = 0;
+					}
+					else if (grid->objPosExp == 4) {
+						bombSize++;
+
+						grid->objPosExp = 0;
+					}
+				}
+
+			}
 		}
 	}	
 }
@@ -315,7 +316,7 @@ void Player::Update()
 			Translate(0, velocity * gameTime);
 	}
 	
-	
+	/*
 	//espaço
 	if (spcCtrl && window->KeyDown(VK_SPACE)) {
 		score++;
@@ -323,6 +324,7 @@ void Player::Update()
 	}
 	else if (window->KeyUp(VK_SPACE))
 		spcCtrl = true;
+	*/
 
 	//soltar bomba
 	if (!bombPlanted && bombsLeft > 0 && shootCtrl && (window->KeyDown('Z') || window->KeyDown('K')) ) {

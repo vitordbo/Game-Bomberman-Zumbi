@@ -16,7 +16,7 @@
 Heart::Heart(Player* player, uint hpRelative, float posX)
 {
     sprite = new Sprite("Resources/heart.png");
-    MoveTo(posX, 50.0f);
+    MoveTo(posX, 50.0f, Layer::FRONT);
     this->player = player;
     this->hpRelative = hpRelative;
 }

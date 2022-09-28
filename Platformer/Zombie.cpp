@@ -109,105 +109,106 @@ void Zombie::OnCollision(Object* obj)
 		rgtDiff = -rgtDiff;
 
 	if (obj->Type() == EXPLOSION) {
-		if ((lftDiff <= 35.0f && rgtDiff <= 35.0f) && (topDiff <= 35.0f && botDiff <= 35.0f)) {
+		if ((lftDiff <= 39.0f && rgtDiff <= 39.0f) && (topDiff <= 39.0f && botDiff <= 39.0f)) {
 			player->score += 100;
 			BombZombie::zombiesLeft--;
 			BombZombie::scene->Delete(this, MOVING);
 		}
 	}
+	else {
+		if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
 
-	if (obj->Type() == OBSTACLE || obj->Type() == PIVOT) {
-
-		//right
-		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
-			MoveTo(obj->X() - 40.0f, y);
-			right = true;
-		}
-
-		//left
-		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
-			MoveTo(obj->X() + 40.0f, y);
-			left = true;
-		}
-
-		//top
-		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
-			MoveTo(x, obj->Y() + 40.0f);
-			top = true;
-		}
-
-		//down
-		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
-			MoveTo(x, obj->Y() - 40.0f);
-			down = true;
-		}
-	}
-
-	if (obj->Type() == ZOMBIE) {
-
-		//right
-		if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
-			MoveTo(obj->X() - 40.0f, y);
-			right = true;
-		}
-
-		//left
-		if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
-			MoveTo(obj->X() + 40.0f, y);
-			left = true;
-		}
-
-		//top
-		if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
-			MoveTo(x, obj->Y() + 40.0f);
-			top = true;
-		}
-
-		//down
-		if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
-			MoveTo(x, obj->Y() - 40.0f);
-			down = true;
-		}
-	}
-
-
-
-	if (obj->Type() == BOMB) {
-		Bomb* b = (Bomb*)obj;
-
-		if (b->instance >= 2) {
 			//right
-			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
+				MoveTo(obj->X() - 40.0f, y);
+				right = false;
+			}
+
+			//left
+			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
+				MoveTo(obj->X() + 40.0f, y);
+				left = false;
+			}
+
+			//top
+			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+				MoveTo(x, obj->Y() + 40.0f);
+				top = false;
+			}
+
+			//down
+			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+				MoveTo(x, obj->Y() - 40.0f);
+				down = false;
+			}
+		}
+
+		if (obj->Type() == ZOMBIE) {
+
+			//right
+			if (plyRgt >= objLft && plyLft < objLft && topDiff <= 30.0f && botDiff <= 30.0f) {
+				MoveTo(obj->X() - 40.0f, y);
 				right = true;
 			}
 
 			//left
-			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+			if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 30.0f && botDiff <= 30.0f) {
+				MoveTo(obj->X() + 40.0f, y);
 				left = true;
 			}
 
 			//top
-			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			if (plyTop <= objBot && plyBot > objBot && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+				MoveTo(x, obj->Y() + 40.0f);
 				top = true;
 			}
 
 			//down
-			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+			if (plyBot >= objTop && plyTop < objTop && lftDiff <= 30.0f && rgtDiff <= 30.0f) {
+				MoveTo(x, obj->Y() - 40.0f);
 				down = true;
 			}
 		}
-	}
 
-	if (obj->Type() == GRID) {
 
-		if (topDiff <= 10.0f && botDiff <= 10.0f && lftDiff <= 10.0f && rgtDiff <= 10.0f) {
 
-			GridSet* grid = (GridSet*)obj;
+		if (obj->Type() == BOMB) {
+			Bomb* b = (Bomb*)obj;
 
-			gridI = grid->i;
-			gridJ = grid->j;
-			gridIndex = grid->index;
+			if (b->instance >= 2) {
+				//right
+				if (plyRgt >= objLft && plyLft < objLft && topDiff <= 35.0f && botDiff <= 35.0f) {
+					right = true;
+				}
 
+				//left
+				if (plyLft <= objRgt && plyRgt > objRgt && topDiff <= 35.0f && botDiff <= 35.0f) {
+					left = true;
+				}
+
+				//top
+				if (plyTop <= objBot && plyBot > objBot && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+					top = true;
+				}
+
+				//down
+				if (plyBot >= objTop && plyTop < objTop && lftDiff <= 35.0f && rgtDiff <= 35.0f) {
+					down = true;
+				}
+			}
+		}
+
+		if (obj->Type() == GRID) {
+
+			if (topDiff <= 10.0f && botDiff <= 10.0f && lftDiff <= 10.0f && rgtDiff <= 10.0f) {
+
+				GridSet* grid = (GridSet*)obj;
+
+				gridI = grid->i;
+				gridJ = grid->j;
+				gridIndex = grid->index;
+
+			}
 		}
 	}
 }

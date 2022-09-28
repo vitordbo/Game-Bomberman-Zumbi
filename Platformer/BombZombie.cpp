@@ -84,7 +84,7 @@ void BombZombie::Init()
     itensLeft = (uint)qntItens(mt);
     doorCreated = false;
 
-	zombiesQnt = 3 + Engine::currentLvl;
+	zombiesQnt = 5 + Engine::currentLvl;
 	zombiesLeft = zombiesQnt;
 
     zombiesXPos = new uint[zombiesQnt];
@@ -124,7 +124,7 @@ void BombZombie::Init()
                 
                 /* Se chegou em um certo ponto do vetor, e não 
                 tem uma porta ainda, este obstáculo receberá a porta*/
-                if ((pseudoBoolean(mt) > 0.7f && !doorCreated) || (!doorCreated && index >= 80)) {
+                if ((pseudoBoolean(mt) > 0.8f && !doorCreated) || (!doorCreated && index >= 80)) {
                     
                     gridSet[index]->objPosExp = 1;              //esse obstáculo vai ter uma porta quando destruir
                     doorCreated = true;
@@ -150,7 +150,7 @@ void BombZombie::Init()
 
             //estabelece uma coordenada para criar um zumbi 
             if ((gridSet[index]->Type() == GRID) && index > 70) {
-                if (pseudoBoolean(mt) > 0.2f && zombiesLeft > 0) {
+                if (pseudoBoolean(mt) > 0.6f && zombiesLeft > 0) {
                    
                     zombiesXPos[zombiesLeft - 1] = i;
                     zombiesYPos[zombiesLeft - 1] = j;
